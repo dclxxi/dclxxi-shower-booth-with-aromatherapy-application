@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="home" />
+
+    <item android:title="remote">
+        <menu>
+            <item
+                android:id="@+id/menu1"
+                android:icon="@drawable/ic_menu_gallery"
+                android:title="menu1"/>
+            <item
+                android:id="@+id/menu2"
+                android:icon="@drawable/ic_menu_manage"
+                android:title="menu2"/>
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/menu3"
+        android:icon="@drawable/ic_menu_send"
+        android:title="menu3" />
+
+    <item
+        android:id="@+id/menu4"
+        android:icon="@drawable/ic_menu_share"
+        android:title="menu4" />
+</menu>
