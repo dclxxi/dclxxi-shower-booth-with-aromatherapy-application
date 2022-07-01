@@ -5,18 +5,15 @@
         android:icon="@drawable/ic_home_black_24dp"
         android:title="home" />
 
-    <item android:title="remote">
-        <menu>
-            <item
-                android:id="@+id/menu1"
-                android:icon="@drawable/ic_menu_gallery"
-                android:title="menu1"/>
-            <item
-                android:id="@+id/menu2"
-                android:icon="@drawable/ic_menu_manage"
-                android:title="menu2"/>
-        </menu>
-    </item>
+    <item
+        android:id="@+id/menu1"
+        android:icon="@drawable/ic_menu_gallery"
+        android:title="menu1" />
+    <item
+        android:id="@+id/menu2"
+        android:icon="@drawable/ic_menu_manage"
+        android:title="menu2" />
+
 
     <item
         android:id="@+id/menu3"
