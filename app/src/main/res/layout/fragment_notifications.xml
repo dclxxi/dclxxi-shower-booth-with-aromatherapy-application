@@ -6,17 +6,110 @@
     android:layout_height="match_parent"
     tools:context=".ui.notifications.NotificationsFragment">
 
-    <TextView
-        android:id="@+id/text_notifications"
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="1dp"
+        android:paddingTop="120dp"
+        android:paddingBottom="120dp"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="70dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_baseline_person_pin_24" />
+
+            <TextView
+                android:id="@+id/updateUserInfo"
+                android:layout_width="183dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="2"
+                android:text="    사용자 정보 수정"
+                android:textSize="26dp"
+                android:textColor="@color/black"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="70dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_baseline_notifications_active_24" />
+
+            <TextView
+                android:id="@+id/configNotify"
+                android:layout_width="183dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="2"
+                android:text="    앱 알림 설정"
+                android:textColor="@color/black"
+                android:textSize="26dp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="70dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_baseline_insert_chart_24" />
+
+            <TextView
+                android:id="@+id/selectUserScore"
+                android:layout_width="183dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="2"
+                android:text="    나의 만족도 통계"
+                android:textColor="@color/black"
+                android:textSize="26dp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="70dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_baseline_grass_24" />
+
+            <TextView
+                android:id="@+id/selectUserAroma"
+                android:layout_width="183dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="2"
+                android:text="    보유한 아로마오일"
+                android:textColor="@color/black"
+                android:textSize="26dp"/>
+        </LinearLayout>
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
