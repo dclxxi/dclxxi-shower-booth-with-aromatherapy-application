@@ -4,6 +4,134 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AromaInfoDetail">
+    tools:context=".AromaInfoDetail"
+    android:background="@color/white"
+    android:padding="30dp">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="1dp">
+
+
+        <TextView
+            android:id="@+id/aroma_detail_ko_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="30dp"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:text="라벤더" />
+
+        <TextView
+            android:id="@+id/aroma_detail_en_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#8C8C8C"
+            android:textSize="24dp"
+            android:gravity="center"
+            android:layout_marginBottom="10dp"
+            android:text="Lavender" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:textColor="@color/colorPrimaryText"
+                android:text="#" />
+
+            <TextView
+                android:id="@+id/aroma_detail_note"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:textColor="@color/colorPrimaryText"
+                android:text="미들노트" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:textColor="@color/colorPrimaryText"
+                android:text="  #" />
+
+            <TextView
+                android:id="@+id/aroma_detail_scent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:textColor="@color/colorPrimaryText"
+                android:text="우아함" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/aroma_detail_img"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_gravity="center"
+            android:layout_margin="15dp"
+            app:srcCompat="@drawable/lavender" />
+
+        <TextView
+            android:id="@+id/aroma_detail_mood"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimaryText"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:layout_marginBottom="25dp"
+            android:text="기분이 기쁠 때 추천해요!" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="18dp"
+            android:layout_marginBottom="5dp"
+            android:text="향의 특징" />
+
+        <TextView
+            android:id="@+id/aroma_detail_summary"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:textSize="18dp"
+            android:text="아로마 테라피 에서 가장 폭넓게 쓰이는 오일, 피부에 직접 바를 수 있음. " />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="20dp"
+            android:text="주의할 점"
+            android:textColor="@color/black"
+            android:textSize="18dp"
+            android:layout_marginBottom="5dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/aroma_detail_caution"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:textSize="18dp"
+            android:text="광과민성 반응(강한 햇빛에 노출될시 피부 자극이 유발) 에 주의" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
