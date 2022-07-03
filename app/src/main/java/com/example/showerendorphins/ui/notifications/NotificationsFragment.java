@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.showerendorphins.AromaInfoList;
 import com.example.showerendorphins.R;
+import com.example.showerendorphins.UserPieChart;
 import com.example.showerendorphins.databinding.FragmentNotificationsBinding;
 
 public class NotificationsFragment extends Fragment {
@@ -29,7 +30,20 @@ public class NotificationsFragment extends Fragment {
         View root = binding.getRoot();
 
 
+//        updateUserInfo = root.findViewById(R.id.selectUserAroma);
+//        configNotify = root.findViewById(R.id.selectUserAroma);
+        selectUserScore = root.findViewById(R.id.selectUserScore);
         selectUserAroma = root.findViewById(R.id.selectUserAroma);
+
+
+        selectUserScore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), UserPieChart.class); //fragment라서 activity intent와는 다른 방식
+                startActivity(intent);
+            }
+        });
+
         selectUserAroma.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
