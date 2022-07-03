@@ -44,7 +44,7 @@ public class ShowerInfoItemAdapter extends ArrayAdapter implements AdapterView.O
 
         if (convertView == null){
             LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-            convertView = layoutInflater.inflate(R.layout.listview_item, parent, false);
+            convertView = layoutInflater.inflate(R.layout.listview_shower_info_item, parent, false);
         }
 
         viewHolder = new ViewHolder();

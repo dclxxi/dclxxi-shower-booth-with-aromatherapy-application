@@ -1,5 +1,6 @@
 package com.example.showerendorphins.ui.dashboard;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,12 +8,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.showerendorphins.R;
+import com.example.showerendorphins.ShowerInfoDetail;
 import com.example.showerendorphins.adapter.ShowerInfoItemAdapter;
 import com.example.showerendorphins.databinding.FragmentDashboardBinding;
 
@@ -44,16 +45,15 @@ public class DashboardFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String selectedItem = (String) view.findViewById(R.id.item_date).getTag().toString();
-                Toast.makeText(getContext(), selectedItem, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), selectedItem, Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(getActivity(), ShowerInfoDetail.class); //fragment라서 activity intent와는 다른 방식
+                startActivity(intent);
+
             }
         });
 
         return rootView;
-    }
-
-    public void onListItemClick(ListView l, View v, int position, long id){
-        String strText = (String) l.getItemAtPosition(position);
-        Toast.makeText(this.getContext(), "클릭: " + position +" " + strText, Toast.LENGTH_SHORT).show();
     }
 
     @Override
