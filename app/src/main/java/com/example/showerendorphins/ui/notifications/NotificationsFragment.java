@@ -19,7 +19,6 @@ public class NotificationsFragment extends Fragment {
 
     private FragmentNotificationsBinding binding;
     TextView updateUserInfo;
-    TextView configNotify;
     TextView selectUserScore;
     View selectUserAroma;
 
@@ -31,7 +30,6 @@ public class NotificationsFragment extends Fragment {
 
 
 //        updateUserInfo = root.findViewById(R.id.selectUserAroma);
-//        configNotify = root.findViewById(R.id.selectUserAroma);
         selectUserScore = root.findViewById(R.id.selectUserScore);
         selectUserAroma = root.findViewById(R.id.selectUserAroma);
 

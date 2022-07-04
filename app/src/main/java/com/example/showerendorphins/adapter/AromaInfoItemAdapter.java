@@ -1,87 +1,78 @@
 package com.example.showerendorphins.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.example.showerendorphins.AromaInfoDetail;
 import com.example.showerendorphins.R;
 import com.example.showerendorphins.item.AromaItem;
 
 import java.util.ArrayList;
 
-public class AromaInfoItemAdapter extends BaseAdapter {
+public class AromaInfoItemAdapter extends ArrayAdapter implements AdapterView.OnItemClickListener  {
+    private Context context;
+    private ArrayList<AromaItem> list = new ArrayList<AromaItem>();
 
-    private ArrayList<AromaItem> items = new ArrayList<>();
+    class ViewHolder {
+        public TextView aroma_ko_name;
+        public TextView aroma_en_name;
+        public TextView aroma_note;
+        public TextView aroma_scent;
+        public ImageView aroma_img;
+    }
 
-    @Override
-    public int getCount() {
-        return items.size();
+    public AromaInfoItemAdapter(@NonNull Context context, ArrayList list) {
+        super(context, 0, list);
+        this.context = context;
+        this.list = list;
     }
 
     @Override
-    public AromaItem getItem(int position) {
-        return items.get(position);
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        Toast.makeText(context, "clicked", Toast.LENGTH_SHORT).show();
     }
 
+    @NonNull
     @Override
-    public long getItemId(int i) {
-        return 0;
-    }
+    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        final AromaInfoItemAdapter.ViewHolder viewHolder;
 
-    @Override
-    public View getView(int position, View convertView, ViewGroup viewGroup) {
-        final Context context = viewGroup.getContext();
-        final  AromaItem item = items.get(position);
-
-        if(convertView == null){
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.listview_aroma_info_item, viewGroup, false);
-        }else {
-            View view = new View(context);
-            view = (View) convertView;
+        if (convertView == null){
+            LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
+            convertView = layoutInflater.inflate(R.layout.listview_aroma_info_item, parent, false);
         }
 
-        TextView aroma_ko_name = convertView.findViewById(R.id.aroma_ko_name);
-        TextView aroma_en_name = convertView.findViewById(R.id.aroma_en_name);
-        TextView aroma_note =convertView.findViewById(R.id.aroma_note);
-        TextView aroma_scent =convertView.findViewById(R.id.aroma_scent);
-        ImageView aroma_img = convertView.findViewById(R.id.aroma_img);
+        viewHolder = new AromaInfoItemAdapter.ViewHolder();
+        viewHolder.aroma_ko_name = (TextView) convertView.findViewById(R.id.aroma_ko_name);
+        viewHolder.aroma_en_name = (TextView) convertView.findViewById(R.id.aroma_en_name);
+        viewHolder.aroma_note = (TextView) convertView.findViewById(R.id.aroma_note);
+        viewHolder.aroma_scent = (TextView) convertView.findViewById(R.id.aroma_scent);
+        viewHolder.aroma_img = (ImageView) convertView.findViewById(R.id.aroma_img);
 
-        aroma_ko_name.setText(item.getAromaKoName());
-        aroma_en_name.setText(item.getAromaEnName());
-        aroma_note.setText(item.getNote());
-        aroma_scent.setText(item.getScent());
-
+        final AromaItem aromaInfo = list.get(position);
+        viewHolder.aroma_ko_name.setText(aromaInfo.getAromaKoName());
+        viewHolder.aroma_en_name.setText(aromaInfo.getAromaEnName());
+        viewHolder.aroma_note.setText(aromaInfo.getNote());
+        viewHolder.aroma_scent.setText(aromaInfo.getScent());
         Glide
                 .with(context)
-                .load(item.getImgUrl())
+                .load(aromaInfo.getImgUrl())
                 .centerCrop()
-                .apply(new RequestOptions().override(130, 200))
-                .into(aroma_img);
-        aroma_ko_name.setTag(item.getAromaId());
-
-        //각 아이템 선택 event
-        convertView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                context.startActivity(new Intent(context, AromaInfoDetail.class)
-                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-            }
-        });
-
+                .apply(new RequestOptions().override(250, 350))
+                .into(viewHolder.aroma_img);
+        viewHolder.aroma_img.setTag(aromaInfo.getAromaKoName());
         return convertView;
     }
 
-
-    public void addItem(AromaItem aroma){
-        items.add(aroma);
-    }
 }
