@@ -12,10 +12,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="10dp"
-        android:gravity="center_horizontal"
+        android:gravity="center|center_horizontal"
         android:orientation="vertical"
         tools:layout_editor_absoluteX="30dp"
         tools:layout_editor_absoluteY="30dp">
+
+
 
         <TextView
             android:id="@+id/tv_shower"
@@ -37,8 +39,8 @@
 
             <ImageView
                 android:id="@+id/img_shower"
-                android:layout_width="161dp"
-                android:layout_height="225dp"
+                android:layout_width="178dp"
+                android:layout_height="189dp"
                 android:layout_weight="1"
                 app:srcCompat="@drawable/shower" />
 
@@ -48,7 +50,7 @@
                 android:layout_weight="1">
 
                 <com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBar
-                    android:id="@+id/mySeekBar"
+                    android:id="@+id/seekBar"
                     android:layout_width="wrap_content"
                     android:layout_height="250dp"
                     android:max="100"
@@ -58,6 +60,38 @@
                     app:seekBarRotation="CW90" /> <!-- Rotation: CW90 or CW270 -->
             </com.h6ah4i.android.widget.verticalseekbar.VerticalSeekBarWrapper>
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center|center_horizontal"
+                    android:text="100%"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    android:gravity="center|center_horizontal"
+                    android:text="50%"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center|center_horizontal"
+                    android:text="20%"
+                    android:textColor="#000000" />
+            </LinearLayout>
         </LinearLayout>
 
         <Button

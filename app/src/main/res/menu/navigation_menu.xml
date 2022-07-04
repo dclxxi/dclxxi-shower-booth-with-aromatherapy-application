@@ -1,27 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
     <item
-        android:id="@+id/nav_home"
+        android:id="@+id/logout"
         android:icon="@drawable/ic_home_black_24dp"
-        android:title="home" />
+        android:title="로그아웃" />
 
     <item
-        android:id="@+id/menu1"
-        android:icon="@drawable/ic_menu_gallery"
-        android:title="menu1" />
+        android:id="@+id/all_aroma_info"
+        android:icon="@drawable/ic_baseline_book_48"
+        android:title="아로마오일 사전" />
     <item
-        android:id="@+id/menu2"
-        android:icon="@drawable/ic_menu_manage"
-        android:title="menu2" />
+        android:id="@+id/all_user_chart"
+        android:icon="@drawable/ic_baseline_bar_chart_48"
+        android:title="전체 사용자 만족도 통계" />
 
 
     <item
-        android:id="@+id/menu3"
-        android:icon="@drawable/ic_menu_send"
-        android:title="menu3" />
+        android:id="@+id/service_feedback"
+        android:icon="@drawable/ic_baseline_email_48"
+        android:title="서비스 피드백" />
 
-    <item
-        android:id="@+id/menu4"
-        android:icon="@drawable/ic_menu_share"
-        android:title="menu4" />
+    </group>
 </menu>

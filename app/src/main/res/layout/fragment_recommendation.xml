@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="10dp"
-        android:gravity="center_horizontal"
+        android:gravity="center|center_horizontal"
         android:orientation="vertical"
         tools:layout_editor_absoluteX="30dp"
         tools:layout_editor_absoluteY="30dp">
@@ -21,7 +21,6 @@
             android:id="@+id/img_recommendation"
             android:layout_width="288dp"
             android:layout_height="206dp"
-            android:layout_margin="30dp"
             app:srcCompat="@drawable/lavender" />
 
 
@@ -29,6 +28,7 @@
             android:id="@+id/tv_recommendation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
             android:gravity="center"
             android:text="사용자 기분에 적합한\n아로마 향은"
             android:textColor="#000000"

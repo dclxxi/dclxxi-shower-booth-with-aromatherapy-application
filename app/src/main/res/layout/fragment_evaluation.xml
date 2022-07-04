@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="10dp"
-        android:gravity="center_horizontal"
+        android:gravity="center|center_horizontal"
         android:orientation="vertical"
         tools:layout_editor_absoluteX="30dp"
         tools:layout_editor_absoluteY="30dp">
@@ -21,7 +21,6 @@
             android:id="@+id/img_logo2"
             android:layout_width="173dp"
             android:layout_height="177dp"
-            android:layout_marginTop="50dp"
             android:layout_marginBottom="50dp"
             app:srcCompat="@drawable/logo" />
 
@@ -44,6 +43,7 @@
             android:isIndicator="false"
             android:max="5"
             android:numStars="5"
+            android:progressBackgroundTint="#E0E0E0"
             android:progressTint="#F1C40F"
             android:rating="4"
             android:stepSize="0.5"

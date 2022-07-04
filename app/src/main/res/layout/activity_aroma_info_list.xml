@@ -4,21 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.dashboard.DashboardFragment">
+    android:orientation="vertical"
+    tools:context=".AromaInfoList"
+    android:padding="5dp">
 
 
-    <LinearLayout
+    <ListView
+        android:id="@+id/aromaInfoListView_custom"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingTop="60dp"
-        android:paddingBottom="60dp">
+        android:layout_height="match_parent"></ListView>
 
-
-        <ListView
-            android:id="@+id/showerInfoListView_custom"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"></ListView>
-    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
