@@ -2,6 +2,7 @@ package com.example.showerendorphins;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
@@ -29,8 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
         /*SIDE menu*/
         final DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
-        /*BOTTOM TAB*/
-        NavigationView navigationView = findViewById(R.id.navigationView);
+        final NavigationView navigationView = findViewById(R.id.navigationView);
 
 
         findViewById(R.id.imageMenu).setOnClickListener(new View.OnClickListener() {
@@ -41,12 +41,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         navigationView.setItemIconTintList(null);
+        NavigationViewHelper.enableNavigation(MainActivity.this,navigationView);
 
 
 
         /*main tab menu*/
 
-
+        /*BOTTOM TAB*/
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -58,7 +59,10 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(binding.navView, navController);
 
 
-    }
 
+    }
+    private void displayMessage(String message){
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
 
 }

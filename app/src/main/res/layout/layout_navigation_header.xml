@@ -8,11 +8,12 @@
 
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/fan"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/ic_launcher_foreground"
-        android:layout_marginTop="35dp"
+        android:src="@drawable/logo1"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:riv_oval="false"/>
@@ -29,7 +30,7 @@
     <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="15dp"
         android:layout_marginTop="45dp"
         android:text="샤워엔돌핀"
         android:textColor="@color/white"
@@ -42,7 +43,7 @@
     <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="15dp"
         android:layout_marginTop="16dp"
         android:text="아로마테라피를 지원하는\n지능형 샤워기 서비스"
         android:textColor="@color/white"
