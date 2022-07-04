@@ -62,4 +62,8 @@ dependencies {
 
     //mpandroid graph
     implementation 'com.github.PhilJay:MPAndroidChart:v2.2.4'
+
+    implementation 'com.h6ah4i.android.widget.verticalseekbar:verticalseekbar:1.0.0' // seekbar
+
+    
 }

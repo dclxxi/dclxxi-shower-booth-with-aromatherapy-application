@@ -3,7 +3,6 @@ package com.example.showerendorphins;
 import android.content.Context;
 import android.content.Intent;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -15,7 +14,10 @@ public class NavigationViewHelper {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if (item.getItemId() == R.id.logout) {
-                    Toast.makeText(context, "logout", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(context, "logout", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(context, SignupActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    context.startActivity(intent);
                 } else if (item.getItemId() == R.id.all_aroma_info) {
                     Intent intent = new Intent(context, AllAromaInfoList.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
