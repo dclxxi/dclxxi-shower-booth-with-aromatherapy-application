@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="numberPickerCustomSize">
+        <!--Display textSize-->
+        <item name="android:textSize">16sp</item>
+        <!--Display textColor-->
+        <item name="android:editTextColor">#616161</item>
+    </style>
+</resources>

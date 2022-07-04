@@ -3,25 +3,54 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/sun990520/AndroidStudioProjects/ShowerEndorphins/app/src/main/res/drawable/ic_baseline_menu_48.xml" value="0.168" />
-        <entry key="..\:/Users/sun990520/AndroidStudioProjects/ShowerEndorphins/app/src/main/res/layout/activity_main.xml" value="0.25" />
-        <entry key="..\:/Users/sun990520/AndroidStudioProjects/ShowerEndorphins/app/src/main/res/layout/activity_shower_info_list.xml" value="0.33" />
-        <entry key="..\:/Users/sun990520/AndroidStudioProjects/ShowerEndorphins/app/src/main/res/layout/activity_sidemenu.xml" value="0.1" />
-        <entry key="..\:/Users/sun990520/AndroidStudioProjects/ShowerEndorphins/app/src/main/res/layout/activity_sidemenu2.xml" value="0.11875" />
-        <entry key="..\:/Users/sun990520/AndroidStudioProjects/ShowerEndorphins/app/src/main/res/layout/app_bar_sidemenu.xml" value="0.33177083333333335" />
-        <entry key="..\:/Users/sun990520/AndroidStudioProjects/ShowerEndorphins/app/src/main/res/layout/appbar.xml" value="0.17" />
-        <entry key="..\:/Users/sun990520/AndroidStudioProjects/ShowerEndorphins/app/src/main/res/layout/content_sidemenu.xml" value="0.33177083333333335" />
-        <entry key="..\:/Users/sun990520/AndroidStudioProjects/ShowerEndorphins/app/src/main/res/layout/fragment_dashboard.xml" value="0.1546875" />
-        <entry key="..\:/Users/sun990520/AndroidStudioProjects/ShowerEndorphins/app/src/main/res/layout/fragment_gallery.xml" value="0.33177083333333335" />
-        <entry key="..\:/Users/sun990520/AndroidStudioProjects/ShowerEndorphins/app/src/main/res/layout/fragment_home.xml" value="0.1546875" />
-        <entry key="..\:/Users/sun990520/AndroidStudioProjects/ShowerEndorphins/app/src/main/res/layout/fragment_notifications.xml" value="0.1546875" />
-        <entry key="..\:/Users/sun990520/AndroidStudioProjects/ShowerEndorphins/app/src/main/res/layout/header.xml" value="0.14351851851851852" />
-        <entry key="..\:/Users/sun990520/AndroidStudioProjects/ShowerEndorphins/app/src/main/res/layout/layout_navigation_header.xml" value="0.5" />
-        <entry key="..\:/Users/sun990520/AndroidStudioProjects/ShowerEndorphins/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1546875" />
-        <entry key="..\:/Users/sun990520/AndroidStudioProjects/ShowerEndorphins/app/src/main/res/menu/drawerlayout.xml" value="0.14351851851851852" />
-        <entry key="..\:/Users/sun990520/AndroidStudioProjects/ShowerEndorphins/app/src/main/res/menu/menu.xml" value="0.33125" />
-        <entry key="..\:/Users/sun990520/AndroidStudioProjects/ShowerEndorphins/app/src/main/res/menu/navigation_menu.xml" value="0.309375" />
-        <entry key="..\:/Users/sun990520/AndroidStudioProjects/ShowerEndorphins/app/src/main/res/menu/sidemenu_button.xml" value="0.11354166666666667" />
+        <entry key="..\:/Users/sun990520/AndroidStudioProjects/ShowerEndorphins/app/src/main/res/layout/activity_main.xml" value="0.13148148148148148" />
+        <entry key="..\:/hanium/22_hf004/app/src/main/res/drawable-v21/ic_menu_camera.xml" value="0.1775" />
+        <entry key="..\:/hanium/22_hf004/app/src/main/res/drawable-v21/ic_menu_gallery.xml" value="0.1775" />
+        <entry key="..\:/hanium/22_hf004/app/src/main/res/drawable-v21/ic_menu_slideshow.xml" value="0.1775" />
+        <entry key="..\:/hanium/22_hf004/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1775" />
+        <entry key="..\:/hanium/22_hf004/app/src/main/res/drawable/button_custom.xml" value="0.1835" />
+        <entry key="..\:/hanium/22_hf004/app/src/main/res/drawable/drawable_left_image_id.xml" value="0.1835" />
+        <entry key="..\:/hanium/22_hf004/app/src/main/res/drawable/drawable_left_image_pw.xml" value="0.1835" />
+        <entry key="..\:/hanium/22_hf004/app/src/main/res/drawable/editText_background.xml" value="0.1835" />
+        <entry key="..\:/hanium/22_hf004/app/src/main/res/drawable/edittext_background.xml" value="0.1835" />
+        <entry key="..\:/hanium/22_hf004/app/src/main/res/drawable/ic_baseline_menu_48.xml" value="0.1775" />
+        <entry key="..\:/hanium/22_hf004/app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.1775" />
+        <entry key="..\:/hanium/22_hf004/app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.1775" />
+        <entry key="..\:/hanium/22_hf004/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1815" />
+        <entry key="..\:/hanium/22_hf004/app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.1775" />
+        <entry key="..\:/hanium/22_hf004/app/src/main/res/drawable/progressBar_custom.xml" value="0.1835" />
+        <entry key="..\:/hanium/22_hf004/app/src/main/res/drawable/progressbar_custom.xml" value="0.1835" />
+        <entry key="..\:/hanium/22_hf004/app/src/main/res/drawable/side_nav_bar.xml" value="0.1775" />
+        <entry key="..\:/hanium/22_hf004/app/src/main/res/layout-v21/activity_signup.xml" value="0.1" />
+        <entry key="..\:/hanium/22_hf004/app/src/main/res/layout/acitivity_measurement" value="0.175" />
+        <entry key="..\:/hanium/22_hf004/app/src/main/res/layout/acitivity_measurement.xml" value="0.175" />
+        <entry key="..\:/hanium/22_hf004/app/src/main/res/layout/activitty_signin.xml" value="0.22" />
+        <entry key="..\:/hanium/22_hf004/app/src/main/res/layout/activity_age_dialog.xml" value="0.16666666666666666" />
+        <entry key="..\:/hanium/22_hf004/app/src/main/res/layout/activity_login" value="0.22" />
+        <entry key="..\:/hanium/22_hf004/app/src/main/res/layout/activity_login2.xml" value="0.17395833333333333" />
+        <entry key="..\:/hanium/22_hf004/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/hanium/22_hf004/app/src/main/res/layout/activity_new" value="0.175" />
+        <entry key="..\:/hanium/22_hf004/app/src/main/res/layout/activity_shower_start.xml" value="0.175" />
+        <entry key="..\:/hanium/22_hf004/app/src/main/res/layout/activity_signin" value="0.22" />
+        <entry key="..\:/hanium/22_hf004/app/src/main/res/layout/activity_signin.xml" value="0.14666666666666667" />
+        <entry key="..\:/hanium/22_hf004/app/src/main/res/layout/activity_signup" value="0.1" />
+        <entry key="..\:/hanium/22_hf004/app/src/main/res/layout/activity_signup.xml" value="0.1" />
+        <entry key="..\:/hanium/22_hf004/app/src/main/res/layout/activity_slogin.xml" value="0.175" />
+        <entry key="..\:/hanium/22_hf004/app/src/main/res/layout/d" value="0.175" />
+        <entry key="..\:/hanium/22_hf004/app/src/main/res/layout/fragment_age_dialog.xml" value="0.175" />
+        <entry key="..\:/hanium/22_hf004/app/src/main/res/layout/fragment_dashboard.xml" value="0.175" />
+        <entry key="..\:/hanium/22_hf004/app/src/main/res/layout/fragment_evaluation.xml" value="0.175" />
+        <entry key="..\:/hanium/22_hf004/app/src/main/res/layout/fragment_home.xml" value="0.14666666666666667" />
+        <entry key="..\:/hanium/22_hf004/app/src/main/res/layout/fragment_measurement.xml" value="0.16666666666666666" />
+        <entry key="..\:/hanium/22_hf004/app/src/main/res/layout/fragment_notifications.xml" value="0.175" />
+        <entry key="..\:/hanium/22_hf004/app/src/main/res/layout/fragment_progressBar.xml" value="0.1" />
+        <entry key="..\:/hanium/22_hf004/app/src/main/res/layout/fragment_progressbar.xml" value="0.22" />
+        <entry key="..\:/hanium/22_hf004/app/src/main/res/layout/fragment_recommendation.xml" value="0.175" />
+        <entry key="..\:/hanium/22_hf004/app/src/main/res/layout/fragment_selection.xml" value="0.175" />
+        <entry key="..\:/hanium/22_hf004/app/src/main/res/layout/fragment_shower.xml" value="0.16666666666666666" />
+        <entry key="..\:/hanium/22_hf004/app/src/main/res/layout/fragment_start.xml" value="0.175" />
+        <entry key="..\:/hanium/22_hf004/app/src/main/res/layout/fragment_water.xml" value="0.175" />
+        <entry key="..\:/hanium/22_hf004/app/src/main/res/layout/layout_navigation_header.xml" value="0.175" />
       </map>
     </option>
   </component>
