@@ -4,24 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:layout_marginTop="70dp"
     android:orientation="horizontal"
-    tools:ignore="MissingClass">
+    tools:context=".EvaluationFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="10dp"
-        android:gravity="center|center_horizontal"
+        android:background="#FFFFFF"
+        android:gravity="center_horizontal"
         android:orientation="vertical"
+        android:paddingTop="50dp"
         tools:layout_editor_absoluteX="30dp"
         tools:layout_editor_absoluteY="30dp">
 
         <ImageView
             android:id="@+id/img_logo2"
-            android:layout_width="173dp"
-            android:layout_height="177dp"
-            android:layout_marginBottom="50dp"
+            android:layout_width="155dp"
+            android:layout_height="143dp"
+            android:layout_margin="10dp"
             app:srcCompat="@drawable/logo" />
 
         <TextView
@@ -45,7 +46,6 @@
             android:numStars="5"
             android:progressBackgroundTint="#E0E0E0"
             android:progressTint="#F1C40F"
-            android:rating="4"
             android:stepSize="0.5"
             tools:ignore="SpeakableTextPresentCheck" />
 
@@ -57,7 +57,7 @@
             android:gravity="center"
             android:text="만족도 데이터를 기반으로\n더 좋은 추천 기능을 만들 수 있습니다."
             android:textColor="#000000"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
