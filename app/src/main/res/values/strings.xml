@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">Shower Endorphins</string>
+    <string name="title_activity_sidemenu">SidemenuActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_home">아로마샤워</string>
+    <string name="title_dashboard">기록조회</string>
+    <string name="title_notifications">마이페이지</string>
 </resources>
