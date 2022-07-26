@@ -15,14 +15,16 @@ public class ShowerDto {
     private FeelingStatus feeling;
     private double bodyTemperature;
     private Aroma aroma;
+    private double rating;
 
     @Builder
-    public ShowerDto(User user, double height, FeelingStatus feeling, double bodyTemperature, Aroma aroma) {
+    public ShowerDto(User user, double height, FeelingStatus feeling, double bodyTemperature, Aroma aroma,double rating) {
         this.user = user;
         this.height = height;
         this.feeling = feeling;
         this.bodyTemperature = bodyTemperature;
         this.aroma = aroma;
+        this.rating = rating;
     }
 
     public Shower toEntity() {
@@ -32,6 +34,7 @@ public class ShowerDto {
                 .feeling(feeling)
                 .bodyTemperature(bodyTemperature)
                 .aroma(aroma)
+                .rating(rating)
                 .build();
     }
 }

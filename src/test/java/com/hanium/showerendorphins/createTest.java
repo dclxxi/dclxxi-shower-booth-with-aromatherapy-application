@@ -95,6 +95,7 @@ public class createTest {
                 .bodyTemperature(35.6)
                 .feeling(FeelingStatus.HAPPY)
                 .aroma(aroma)
+                .rating(4.0)
                 .build();
 
         //when

@@ -41,8 +41,11 @@ public class Shower {
     @JoinColumn(name = "aroma_id")
     private Aroma aroma;
 
+    @Column(name = "rating")
+    private double rating;
+
     @Builder
-    public Shower(Integer id, User user, LocalDateTime createDate, double height, FeelingStatus feeling, double bodyTemperature, Aroma aroma) {
+    public Shower(Integer id, User user, LocalDateTime createDate, double height, FeelingStatus feeling, double bodyTemperature, Aroma aroma, double rating) {
         this.id = id;
         this.user = user;
         this.createDate = createDate;
@@ -50,6 +53,7 @@ public class Shower {
         this.feeling = feeling;
         this.bodyTemperature = bodyTemperature;
         this.aroma = aroma;
+        this.rating = rating;
     }
 
     public Shower() {
