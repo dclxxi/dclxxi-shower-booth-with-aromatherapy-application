@@ -37,7 +37,7 @@ public class Shower {
     @Column(name = "body_temperature")
     private double bodyTemperature;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "aroma_id")
     private Aroma aroma;
 
