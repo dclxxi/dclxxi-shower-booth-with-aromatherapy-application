@@ -6,7 +6,6 @@ import com.hanium.showerendorphins.domain.User;
 import com.hanium.showerendorphins.dto.AromaDto;
 import com.hanium.showerendorphins.dto.ShowerDto;
 import com.hanium.showerendorphins.enums.FeelingStatus;
-import com.hanium.showerendorphins.enums.Note;
 import com.hanium.showerendorphins.repository.AromaRepository;
 import com.hanium.showerendorphins.repository.ShowerRepository;
 import com.hanium.showerendorphins.repository.UserRepository;
