@@ -11,4 +11,5 @@ public interface AromaRepository extends JpaRepository<Aroma, Integer> {
     Optional<Aroma> findByKoName(String koName);
 
 
+
 }

@@ -19,7 +19,6 @@ public class AromaService {
     @Autowired
     private AromaRepository aromaRepository;
 
-    /*/Aroma/All_Aroma_List*/
     public List<Aroma> findAllAromaList() {
         return aromaRepository.findAll();
     }

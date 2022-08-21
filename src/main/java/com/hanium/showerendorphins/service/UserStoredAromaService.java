@@ -1,9 +1,9 @@
 package com.hanium.showerendorphins.service;
 
-import com.hanium.showerendorphins.domain.User;
 import com.hanium.showerendorphins.domain.UserStoredAroma;
-import com.hanium.showerendorphins.dto.UserDto;
 import com.hanium.showerendorphins.dto.UserStoredAromaDto;
+import com.hanium.showerendorphins.repository.AromaRepository;
+import com.hanium.showerendorphins.repository.UserRepository;
 import com.hanium.showerendorphins.repository.UserStoredAromaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +20,31 @@ public class UserStoredAromaService {
 
     @Autowired
     UserStoredAromaRepository userStoredAromaRepository;
+    @Autowired
+    UserRepository userRepository;
+    @Autowired
+    AromaRepository aromaRepository;
+
+/*    @Transactional
+    public Integer registerUserStoredAroma(String userId, Integer aromaId) {
+        Optional<User> user = userRepository.findByUserId(userId);
+        Optional<Aroma> aroma = aromaRepository.findById(aromaId);
+
+        if (user.isPresent()) {
+            throw new IllegalStateException("존재하지 않는 사용자입니다.");
+        }
+
+        if (aroma.isPresent()) {
+            throw new IllegalStateException("존재하지 않는 아로마 오일입니다.");
+        }
+
+        UserStoredAromaDto userStoredAromaDto = UserStoredAromaDto.builder()
+                .user(user.get())
+                .aroma(aroma.get())
+                .build();
+
+        return saveUserStoredAroma(userStoredAromaDto);
+    }*/
 
     @Transactional
     public Integer registerUserStoredAroma(UserStoredAromaDto userStoredAromaDto) {
