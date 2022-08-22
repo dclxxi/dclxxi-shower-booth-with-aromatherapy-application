@@ -8,5 +8,4 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
     //회원가입 및 로그인 관련
 
-
 }
