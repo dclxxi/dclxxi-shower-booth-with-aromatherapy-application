@@ -1,8 +1,7 @@
 stages:
     - build
     - test
-    - package
-    - deploy
+    # - package
 
 build:
     image: adoptopenjdk/openjdk11
