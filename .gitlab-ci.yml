@@ -1,7 +1,6 @@
 stages:
     - build
     - test
-    # - package
 
 build:
     image: adoptopenjdk/openjdk11
@@ -19,21 +18,5 @@ test:
     scripts:
         - ./gradlew test
 
-# package:
-#   # Use the official docker image.
-#   image: docker:latest
-#   stage: package
-#   variables:
-#       IMAGE_NAME: hanium2022/showerEndorphins
-#   services:
-#     - docker:dind
-#   before_script:
-#     - docker login -u "$DOCKER_HUB_USER" --password-stdin < "$DOCKER_HUB_PW"
-#   # Default branch leaves tag empty (= latest tag)
-#   # All other branches are tagged with the escaped branch name (commit ref slug)
-#   script:
-#     - docker build --pull -t "$IMAGE_NAME" .
-#     - docker push "$IMAGE_NAME"
-#   only:
-#       - master
+
  
