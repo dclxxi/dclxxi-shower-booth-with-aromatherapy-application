@@ -1,29 +1,36 @@
-
 image: gradle:alpine
-
 variables:
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
-
 before_script:
-  - GRADLE_USER_HOME="$(pwd)/.gradle"
-  - export GRADLE_USER_HOME
+   - chmod +x gradlew
+   - export GRADLE_USER_HOME=`pwd`/.gradle
 
-build:
+cache:
+ paths:
+   - .gradle/wrapper
+   - .gradle/caches
+   - build/
+
+
+stages:
+  - build
+  - develop
+
+
+job-build:
   stage: build
-  script: gradle --build-cache assemble
-  cache:
-    key: "$CI_COMMIT_REF_NAME"
-    policy: push
-    paths:
-      - build
-      - .gradle
+  only:
+  - master
+  script:
+  - ./gradlew clean
+  - ./gradlew build
 
-test:
-  stage: test
-  script: gradle check
-  cache:
-    key: "$CI_COMMIT_REF_NAME"
-    policy: pull
-    paths:
-      - build
-      - .gradle
+job-develop:
+  stage: develop
+  only:
+  - spring-api-dev
+  script:
+  - ./gradlew clean
+  - ./gradlew build
+
+
