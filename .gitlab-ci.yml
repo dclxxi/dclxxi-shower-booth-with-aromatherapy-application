@@ -1,6 +1,6 @@
 stages:
     - build
-    - test
+    # - test
     - package
 
 build:
@@ -14,11 +14,11 @@ build:
         paths:
             - build/libs/*.jar
 
-test:
-    image: adoptopenjdk/openjdk11
-    stage: test
-    script:
-        - ./gradlew test
+# test:
+#     image: adoptopenjdk/openjdk11
+#     stage: test
+#     script:
+#         - ./gradlew test
 
 package:
   # Use the official docker image.
