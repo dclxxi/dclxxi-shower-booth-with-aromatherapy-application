@@ -2,12 +2,11 @@ package com.hanium.showerendorphins.controller;
 
 import com.hanium.showerendorphins.domain.Aroma;
 import com.hanium.showerendorphins.domain.UserStoredAroma;
+import com.hanium.showerendorphins.dto.UserStoredAromaDto;
 import com.hanium.showerendorphins.service.AromaService;
 import com.hanium.showerendorphins.service.UserStoredAromaService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,7 +24,12 @@ public class AromaController {
     }
 
     @GetMapping(value = "/All_User_Stored_Aroma_List")
-    public List<UserStoredAroma> allUserStoredAromaListToJSON() {
-        return userStoredAromaService.findAllUserStoredAromaList();
+    public List<Aroma> allUserStoredAromaListToJSON(@RequestParam String userId) {
+        return userStoredAromaService.findUserStoredAromaListByUserId(userId);
+    }
+
+    @GetMapping(value = "/Modify_User_Stored_AromaList")
+    public void modifyUserStoredAromaListToJSON(@RequestBody List<UserStoredAromaDto> userStoredAromaDtoList) {
+        userStoredAromaService.modifyUserStoredAroma(userStoredAromaDtoList);
     }
 }

@@ -1,5 +1,7 @@
 package com.hanium.showerendorphins.service;
 
+import com.hanium.showerendorphins.domain.Aroma;
+import com.hanium.showerendorphins.domain.User;
 import com.hanium.showerendorphins.domain.UserStoredAroma;
 import com.hanium.showerendorphins.dto.UserStoredAromaDto;
 import com.hanium.showerendorphins.repository.AromaRepository;
@@ -47,7 +49,14 @@ public class UserStoredAromaService {
     }*/
 
     @Transactional
-    public Integer registerUserStoredAroma(UserStoredAromaDto userStoredAromaDto) {
+    public void registerUserStoredAroma(List<UserStoredAromaDto> userStoredAromaDtoList) {
+        for (UserStoredAromaDto userStoredAromaDto : userStoredAromaDtoList) {
+            saveUserStoredAroma(userStoredAromaDto);
+        }
+    }
+
+    @Transactional
+    public Integer saveUserStoredAroma(UserStoredAromaDto userStoredAromaDto) {
         validateDuplicateUserStoredAroma(userStoredAromaDto);
 
         return userStoredAromaRepository.save(userStoredAromaDto.toEntity()).getId();
@@ -61,11 +70,26 @@ public class UserStoredAromaService {
         }
     }
 
+    @Transactional
+    public void modifyUserStoredAroma(List<UserStoredAromaDto> userStoredAromaDtoList) {
+        String userId = userStoredAromaDtoList.get(0).getUser().getUserId();
+
+        deleteByUserId(userId);
+        registerUserStoredAroma(userStoredAromaDtoList);
+    }
+
+    @Transactional
+    public void deleteByUserId(String userId) {
+        userStoredAromaRepository.deleteByUserId(userId);
+    }
+
+    @Transactional
     public void deleteById(Integer userStoredAromaId) {
         userStoredAromaRepository.deleteById(userStoredAromaId);
     }
 
-    public List<UserStoredAroma> findAllUserStoredAromaList() {
-        return userStoredAromaRepository.findAll();
+    public List<Aroma> findUserStoredAromaListByUserId(String userId) {
+        return userStoredAromaRepository.findByUserId(userId);
     }
+
 }
