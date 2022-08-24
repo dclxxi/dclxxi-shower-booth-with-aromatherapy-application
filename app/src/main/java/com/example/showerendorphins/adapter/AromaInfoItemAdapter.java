@@ -69,7 +69,7 @@ public class AromaInfoItemAdapter extends ArrayAdapter implements AdapterView.On
                 .with(context)
                 .load(aromaInfo.getImgUrl())
                 .centerCrop()
-                .apply(new RequestOptions().override(250, 350))
+                .apply(new RequestOptions().override(200, 200))
                 .into(viewHolder.aroma_img);
         viewHolder.aroma_img.setTag(aromaInfo.getAromaKoName());
         return convertView;

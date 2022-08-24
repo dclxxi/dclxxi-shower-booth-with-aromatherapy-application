@@ -19,7 +19,11 @@ public class AromaItem {
         this.aromaEnName = aromaEnName;
         this.note = note;
         this.scent = scent;
-        this.imgUrl = imgUrl;
+        if (imgUrl.equals("null")) {
+            this.imgUrl = "https://cdn-icons-png.flaticon.com/512/4200/4200467.png";
+        } else {
+            this.imgUrl = imgUrl;
+        }
     }
 
     public AromaItem(int aromaId, String aromaKoName, String aromaEnName, String note, String scent, String mood, String summary, String caution, String imgUrl) {

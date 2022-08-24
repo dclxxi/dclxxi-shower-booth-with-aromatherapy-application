@@ -7,7 +7,6 @@ import android.bluetooth.BluetoothSocket;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,7 +16,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -81,7 +79,6 @@ public class MainActivity_temp extends AppCompatActivity {
         // variables
         textStatus = (TextView) findViewById(R.id.text_status);
         btnParied = (Button) findViewById(R.id.btn_paired);
-        btnSearch = (Button) findViewById(R.id.btn_search);
         btnSend = (Button) findViewById(R.id.btn_send);
         listView = (ListView) findViewById(R.id.listview);
 
@@ -125,49 +122,6 @@ public class MainActivity_temp extends AppCompatActivity {
         }
     }
 
-    public void onClickButtonSearch(View view) {
-        System.out.println("2번째 누름");
-        btArrayAdapter.clear();
-        if (deviceAddressArray != null && !deviceAddressArray.isEmpty()) {
-            deviceAddressArray.clear();
-        }
-        // Check if the device is already discovering
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_SCAN) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        if (btAdapter.isDiscovering()) {
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_SCAN) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
-                return;
-            }
-            btAdapter.cancelDiscovery();
-        } else {
-            if (btAdapter.isEnabled()) {
-                btAdapter.startDiscovery();
-                btArrayAdapter.clear();
-                if (deviceAddressArray != null && !deviceAddressArray.isEmpty()) {
-                    deviceAddressArray.clear();
-                }
-                IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
-                registerReceiver(receiver, filter);
-            } else {
-                Toast.makeText(getApplicationContext(), "bluetooth not on", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
 
     // Create a BroadcastReceiver for ACTION_FOUND.
     private final BroadcastReceiver receiver = new BroadcastReceiver() {
@@ -278,4 +232,6 @@ public class MainActivity_temp extends AppCompatActivity {
     public void onClickButtonSend(View view){
         if(connectedThread!=null){ connectedThread.write("a"); }
     }
+
+
 }
