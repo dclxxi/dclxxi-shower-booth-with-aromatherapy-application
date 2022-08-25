@@ -3,6 +3,7 @@ package com.hanium.showerendorphins.service;
 import com.hanium.showerendorphins.domain.Aroma;
 import com.hanium.showerendorphins.domain.User;
 import com.hanium.showerendorphins.domain.UserStoredAroma;
+import com.hanium.showerendorphins.dto.AromaListDto;
 import com.hanium.showerendorphins.dto.UserStoredAromaDto;
 import com.hanium.showerendorphins.repository.AromaRepository;
 import com.hanium.showerendorphins.repository.UserRepository;
@@ -88,8 +89,8 @@ public class UserStoredAromaService {
         userStoredAromaRepository.deleteById(userStoredAromaId);
     }
 
-    public List<Aroma> findUserStoredAromaListByUserId(String userId) {
-        return userStoredAromaRepository.findByUserId(userId);
+    public List<AromaListDto> findUserStoredAromaListByUserId(String userId) {
+        return userStoredAromaRepository.findUserStoredAromaListByUserId(userId);
     }
 
 }

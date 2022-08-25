@@ -2,6 +2,7 @@ package com.hanium.showerendorphins.aromaTest;
 
 import com.hanium.showerendorphins.domain.Aroma;
 import com.hanium.showerendorphins.dto.AromaDto;
+import com.hanium.showerendorphins.dto.AromaListDto;
 import com.hanium.showerendorphins.enums.FeelingStatus;
 import com.hanium.showerendorphins.enums.Note;
 import com.hanium.showerendorphins.repository.AromaRepository;
@@ -101,7 +102,7 @@ public class AromaTest {
         });
 
         //when
-        List<Aroma> aromaList = aromaService.findAllAromaList();
+        List<AromaListDto> aromaList = aromaService.findAllAromaList();
 
         //then
         assertEquals(5, aromaList.size());

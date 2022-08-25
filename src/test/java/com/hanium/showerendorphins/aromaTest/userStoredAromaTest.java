@@ -4,6 +4,7 @@ import com.hanium.showerendorphins.domain.Aroma;
 import com.hanium.showerendorphins.domain.User;
 import com.hanium.showerendorphins.domain.UserStoredAroma;
 import com.hanium.showerendorphins.dto.AromaDto;
+import com.hanium.showerendorphins.dto.AromaListDto;
 import com.hanium.showerendorphins.dto.UserDto;
 import com.hanium.showerendorphins.dto.UserStoredAromaDto;
 import com.hanium.showerendorphins.enums.FeelingStatus;
@@ -213,7 +214,7 @@ public class userStoredAromaTest {
         userStoredAromaService.modifyUserStoredAroma(userStoredAromaList);
 
         //then
-        List<Aroma> aromaList = userStoredAromaService.findUserStoredAromaListByUserId(userId);
+        List<AromaListDto> aromaList = userStoredAromaService.findUserStoredAromaListByUserId(userId);
 
         assertEquals(2, aromaList.size());
         assertEquals(aromaList.get(0).getKoName(), modifyAroma.getKoName());
@@ -318,7 +319,7 @@ public class userStoredAromaTest {
         });
 
         //when
-        List<Aroma> allUserStoredAromaList = userStoredAromaService.findUserStoredAromaListByUserId(userId);
+        List<AromaListDto> allUserStoredAromaList = userStoredAromaService.findUserStoredAromaListByUserId(userId);
 
         //then
         assertEquals(5, allUserStoredAromaList.size());
