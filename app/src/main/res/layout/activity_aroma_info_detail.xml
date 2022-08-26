@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!--<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AromaInfoDetail"
     android:background="@color/white"
-    android:padding="30dp">
+    tools:context=".AromaInfoDetail">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_margin="30dp"
         android:orientation="vertical"
         tools:layout_editor_absoluteX="1dp"
         tools:layout_editor_absoluteY="1dp">
@@ -20,57 +21,57 @@
             android:id="@+id/aroma_detail_ko_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="라벤더"
             android:textColor="@color/black"
             android:textSize="30dp"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:text="라벤더" />
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/aroma_detail_en_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#8C8C8C"
-            android:textSize="24dp"
-            android:gravity="center"
             android:layout_marginBottom="10dp"
-            android:text="Lavender" />
+            android:gravity="center"
+            android:text="Lavender"
+            android:textColor="#8C8C8C"
+            android:textSize="24dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16dp"
+                android:text="#"
                 android:textColor="@color/colorPrimaryText"
-                android:text="#" />
+                android:textSize="16dp" />
 
             <TextView
                 android:id="@+id/aroma_detail_note"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16dp"
+                android:text="미들노트"
                 android:textColor="@color/colorPrimaryText"
-                android:text="미들노트" />
+                android:textSize="16dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16dp"
+                android:text="  #"
                 android:textColor="@color/colorPrimaryText"
-                android:text="  #" />
+                android:textSize="16dp" />
 
             <TextView
                 android:id="@+id/aroma_detail_scent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16dp"
+                android:text="우아함"
                 android:textColor="@color/colorPrimaryText"
-                android:text="우아함" />
+                android:textSize="16dp" />
 
         </LinearLayout>
 
@@ -82,56 +83,84 @@
             android:layout_margin="15dp"
             app:srcCompat="@drawable/lavender" />
 
-        <TextView
-            android:id="@+id/aroma_detail_mood"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorPrimaryText"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:textSize="20dp"
-            android:layout_marginBottom="25dp"
-            android:text="기분이 기쁠 때 추천해요!" />
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="25dp"
+                android:gravity="center"
+                android:text="기분이 "
+                android:textColor="@color/colorPrimaryText"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/aroma_detail_feeling"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="25dp"
+                android:gravity="center"
+                android:text="기쁠"
+                android:textColor="@color/colorPrimaryText"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="25dp"
+                android:gravity="center"
+                android:text=" 때 추천해요!"
+                android:textColor="@color/colorPrimaryText"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+        </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:textSize="18dp"
             android:layout_marginBottom="5dp"
-            android:text="향의 특징" />
+            android:gravity="center"
+            android:text="향의 특징"
+            android:textColor="@color/black"
+            android:textSize="18dp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/aroma_detail_summary"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:gravity="center"
             android:layout_gravity="center"
-            android:textSize="18dp"
-            android:text="아로마 테라피 에서 가장 폭넓게 쓰이는 오일, 피부에 직접 바를 수 있음. " />
+            android:gravity="center"
+            android:text="아로마 테라피 에서 가장 폭넓게 쓰이는 오일, 피부에 직접 바를 수 있음. "
+            android:textColor="@color/black"
+            android:textSize="18dp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:layout_marginTop="20dp"
+            android:layout_marginBottom="5dp"
+            android:gravity="center"
             android:text="주의할 점"
             android:textColor="@color/black"
             android:textSize="18dp"
-            android:layout_marginBottom="5dp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/aroma_detail_caution"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:gravity="center"
             android:layout_gravity="center"
-            android:textSize="18dp"
-            android:text="광과민성 반응(강한 햇빛에 노출될시 피부 자극이 유발) 에 주의" />
+            android:gravity="center"
+            android:text="광과민성 반응(강한 햇빛에 노출될시 피부 자극이 유발) 에 주의"
+            android:textColor="@color/black"
+            android:textSize="18dp" />
     </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
+<!--</androidx.constraintlayout.widget.ConstraintLayout>-->

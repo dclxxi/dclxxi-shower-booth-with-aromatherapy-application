@@ -20,7 +20,7 @@ import com.example.showerendorphins.item.AromaItem;
 
 import java.util.ArrayList;
 
-public class AromaInfoItemAdapter extends ArrayAdapter implements AdapterView.OnItemClickListener  {
+public class AromaInfoItemAdapter extends ArrayAdapter implements AdapterView.OnItemClickListener {
     private Context context;
     private ArrayList<AromaItem> list = new ArrayList<AromaItem>();
 
@@ -48,21 +48,21 @@ public class AromaInfoItemAdapter extends ArrayAdapter implements AdapterView.On
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         final AromaInfoItemAdapter.ViewHolder viewHolder;
 
-        if (convertView == null){
+        if (convertView == null) {
             LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
             convertView = layoutInflater.inflate(R.layout.listview_aroma_info_item, parent, false);
         }
 
         viewHolder = new AromaInfoItemAdapter.ViewHolder();
-        viewHolder.aroma_ko_name = (TextView) convertView.findViewById(R.id.aroma_ko_name);
-        viewHolder.aroma_en_name = (TextView) convertView.findViewById(R.id.aroma_en_name);
-        viewHolder.aroma_note = (TextView) convertView.findViewById(R.id.aroma_note);
-        viewHolder.aroma_scent = (TextView) convertView.findViewById(R.id.aroma_scent);
-        viewHolder.aroma_img = (ImageView) convertView.findViewById(R.id.aroma_img);
+        viewHolder.aroma_ko_name = convertView.findViewById(R.id.aroma_ko_name);
+        viewHolder.aroma_en_name = convertView.findViewById(R.id.aroma_en_name);
+        viewHolder.aroma_note = convertView.findViewById(R.id.aroma_note);
+        viewHolder.aroma_scent = convertView.findViewById(R.id.aroma_scent);
+        viewHolder.aroma_img = convertView.findViewById(R.id.aroma_img);
 
         final AromaItem aromaInfo = list.get(position);
-        viewHolder.aroma_ko_name.setText(aromaInfo.getAromaKoName());
-        viewHolder.aroma_en_name.setText(aromaInfo.getAromaEnName());
+        viewHolder.aroma_ko_name.setText(aromaInfo.getKoName());
+        viewHolder.aroma_en_name.setText(aromaInfo.getEnName());
         viewHolder.aroma_note.setText(aromaInfo.getNote());
         viewHolder.aroma_scent.setText(aromaInfo.getScent());
         Glide
@@ -71,7 +71,7 @@ public class AromaInfoItemAdapter extends ArrayAdapter implements AdapterView.On
                 .centerCrop()
                 .apply(new RequestOptions().override(200, 200))
                 .into(viewHolder.aroma_img);
-        viewHolder.aroma_img.setTag(aromaInfo.getAromaKoName());
+        viewHolder.aroma_img.setTag(aromaInfo.getKoName());
         return convertView;
     }
 
