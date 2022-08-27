@@ -18,6 +18,7 @@ public class ShowerItem {
     private double height;
     private String feeling;
     private double bodyTemperature;
+    private double waterTemperature;
     private String aromaKoname;
     private float rating;
     private Drawable img;
@@ -26,13 +27,15 @@ public class ShowerItem {
     public ShowerItem() {
     }
 
-    public ShowerItem(Integer showerId, Integer usercode, double height, String feeling, double bodyTemperature,
+    public ShowerItem(Integer showerId, Integer usercode, double height, String feeling,
+                      double bodyTemperature,double waterTemperature,
                       String aromaKoname, float rating,LocalDateTime date,Context context) {
         this.showerId = showerId;
         this.usercode = usercode;
         this.height = height;
         this.feeling = feeling;
         this.bodyTemperature = bodyTemperature;
+        this.waterTemperature = waterTemperature;
         this.aromaKoname = aromaKoname;
         this.rating = rating;
         this.date = date;
@@ -83,6 +86,14 @@ public class ShowerItem {
 
     public void setBodyTemperature(double bodyTemperature) {
         this.bodyTemperature = bodyTemperature;
+    }
+
+    public double getWaterTemperature() {
+        return waterTemperature;
+    }
+
+    public void setWaterTemperature(double waterTemperature) {
+        this.waterTemperature = waterTemperature;
     }
 
     public String getAromaKoname() {

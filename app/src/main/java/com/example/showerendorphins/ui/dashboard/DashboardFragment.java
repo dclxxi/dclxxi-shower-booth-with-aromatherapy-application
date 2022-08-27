@@ -40,6 +40,7 @@ public class DashboardFragment extends Fragment {
     String urlStr = "http://192.168.0.103:8080/ShowerHistory/shower_log_list?usercode=";  //IPv4 주소 변경해야 함
 
     private FragmentDashboardBinding binding;
+
     private ListView showerInfoListView;
     private ShowerInfoItemAdapter adapter;
     private ArrayList<ShowerItem> list;
@@ -53,8 +54,6 @@ public class DashboardFragment extends Fragment {
         View rootView = binding.getRoot();
         showerInfoListView = (ListView) rootView.findViewById(R.id.showerInfoListView_custom);
         list = new ArrayList<>();
-        adapter = new ShowerInfoItemAdapter(getContext(), list);
-        showerInfoListView.setAdapter(adapter);
 
 
         new Thread() {
@@ -87,29 +86,20 @@ public class DashboardFragment extends Fragment {
                         double height = Double.parseDouble(jsonObject.get("height").toString());
                         String feeling = jsonObject.get("feeling").toString();
                         double bodyTemperature = Double.parseDouble(jsonObject.get("bodyTemperature").toString());
+                        double waterTemperature = Double.parseDouble(jsonObject.get("waterTemperature").toString());
                         JSONObject aroma = new JSONObject(jsonObject.get("aroma").toString());
                         float rating = Float.parseFloat(jsonObject.get("rating").toString());
 
-                        list.add(new ShowerItem(showerid, usercode, height, feeling,bodyTemperature,
-                                aroma.get("koName").toString(),rating,createDate,getContext()));
+                        list.add(new ShowerItem(showerid, usercode, height, feeling, bodyTemperature,waterTemperature,
+                                aroma.get("koName").toString(), rating, createDate, getContext()));
                     }
+
                     getActivity().runOnUiThread(new Runnable() {
                         public void run() {
                             adapter.notifyDataSetChanged();
-
-                            showerInfoListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                @Override
-                                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                                    String selectedItem = (String) view.findViewById(R.id.item_date).getTag().toString();
-                                    //Toast.makeText(getContext(), selectedItem, Toast.LENGTH_SHORT).show();
-
-                                    Intent intent = new Intent(getActivity(), ShowerInfoDetail.class); //fragment라서 activity intent와는 다른 방식
-                                    startActivity(intent);
-
-                                }
-                            });
                         }
                     });
+
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
@@ -117,9 +107,32 @@ public class DashboardFragment extends Fragment {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+
             }
         }.start();
+        adapter = new ShowerInfoItemAdapter(getContext(), list);
+        showerInfoListView.setAdapter(adapter);
+        showerInfoListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(getActivity(), ShowerInfoDetail.class);
+                intent.putExtra("showerId",list.get(i).getShowerId());
+                String date = list.get(i).getDate().format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 E요일"));
+                String time = list.get(i).getDate().format(DateTimeFormatter.ofPattern("a h:mm"));
+                intent.putExtra("date",date);
+                intent.putExtra("time",time);
+                intent.putExtra("aromaKoname",list.get(i).getAromaKoname());
+                intent.putExtra("feeling",list.get(i).getFeeling());
+                intent.putExtra("bodyTemperature",list.get(i).getBodyTemperature()+"");
+                intent.putExtra("waterTemperature",list.get(i).getWaterTemperature()+"");
+                intent.putExtra("height",list.get(i).getHeight()+"");
+                intent.putExtra("rating",list.get(i).getRating()+"");
 
+                startActivity(intent);
+
+            }
+        });
         return rootView;
     }
 
@@ -128,4 +141,6 @@ public class DashboardFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+
 }
+

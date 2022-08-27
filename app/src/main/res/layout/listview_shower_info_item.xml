@@ -12,7 +12,7 @@
         android:gravity="center"
         android:background="@color/material_dynamic_neutral_variant95"
         android:orientation="vertical"
-        android:paddingLeft="60dp"
+        android:paddingLeft="50dp"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp">
 
@@ -40,7 +40,8 @@
                     style="@style/Widget.AppCompat.RatingBar.Small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:isIndicator="false"
+                    android:isIndicator="true"
+                    android:focusable ="false"
                     android:max="5"
                     android:numStars="5"
                     android:progressBackgroundTint="#E0E0E0"
@@ -60,7 +61,7 @@
                         android:layout_gravity="center"
                         android:text="date"
                         android:textColor="@color/colorPrimaryText"
-                        android:textSize="20dp" />
+                        android:textSize="18dp" />
 
                     <TextView
                         android:id="@+id/static_text"
@@ -69,7 +70,7 @@
                         android:layout_gravity="center"
                         android:text=" 의 샤워 기록"
                         android:textColor="@color/black"
-                        android:textSize="20dp" />
+                        android:textSize="18dp" />
 
 
                     <!--        <Button-->
