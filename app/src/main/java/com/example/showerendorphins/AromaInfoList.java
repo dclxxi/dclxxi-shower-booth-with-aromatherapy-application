@@ -1,19 +1,39 @@
 package com.example.showerendorphins;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.showerendorphins.adapter.AromaInfoItemAdapter;
 import com.example.showerendorphins.item.AromaItem;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class AromaInfoList extends AppCompatActivity {
+
+    String urlStr = "http://192.168.219.106:8080/Aroma/All_User_Stored_Aroma_List?userId=" + "test";  //IPv4 주소 변경해야 함
 
     private ListView customListView;
     private AromaInfoItemAdapter adapter;
@@ -24,35 +44,114 @@ public class AromaInfoList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aroma_info_list);
 
-
         customListView = findViewById(R.id.aromaInfoListView_custom);
         items = new ArrayList<>();
 
-        items.add(new AromaItem(1,"라벤더", "Lavender", "미들노트", "우아함", "https://res.cloudinary.com/the-open-garden/image/upload/c_scale,dpr_1.100000023841858,f_auto,w_768/v1/Botanical%20Glossary/Lavender/alpha_assets/200617_WELEDA_LAVANDE_ROUGH_01TSP"));
-        items.add(new AromaItem(2,"레몬", "Lemon", "탑노트", "상큼", "https://cdn.kormedi.com/wp-content/uploads/2020/11/marat-musabirov.jpg"));
-        items.add(new AromaItem(3,"로즈마리", "Rosemary", "미들노트", "상쾌", "https://t1.daumcdn.net/cfile/tistory/99407B495AEFF3B339"));
-        items.add(new AromaItem(4,"시나몬", "Cinnamon", "미들노트", "날카로움", "https://t1.daumcdn.net/cfile/tistory/998CE34D5C784E9511"));
-        items.add(new AromaItem(5,"로즈", "Rose", "미들노트", "우아함", "https://image.yes24.com/momo/TopCate3330/MidCate2/332912005.jpg"));
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    URL url = new URL(urlStr);
 
+                    InputStream is = url.openStream();
+                    InputStreamReader isr = new InputStreamReader(is, "UTF-8");
+                    BufferedReader reader = new BufferedReader(isr);
 
-        customListView.setAdapter(adapter);
+                    StringBuffer buffer = new StringBuffer();
+                    String line = reader.readLine();
+                    while (line != null) {
+                        buffer.append(line + "\n");
+                        line = reader.readLine();
+                    }
 
+                    String jsonData = buffer.toString();
+                    JSONArray jsonArray = new JSONArray(jsonData);
 
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        AromaItem aromaItem = new AromaItem();
 
-        adapter = new AromaInfoItemAdapter(this,items);
+                        aromaItem.setAromaId((Integer) jsonObject.get("id"));
+                        aromaItem.setKoName(jsonObject.get("koName").toString());
+                        aromaItem.setEnName(jsonObject.get("enName").toString());
+                        aromaItem.setNote(jsonObject.get("note").toString());
+                        aromaItem.setScent(jsonObject.get("scent").toString());
+                        aromaItem.setImgUrl(jsonObject.get("imgURL").toString());
+
+                        items.add(aromaItem);
+                    }
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            adapter.notifyDataSetChanged();
+                        }
+                    });
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+
+        adapter = new AromaInfoItemAdapter(this, items);
         customListView.setAdapter(adapter);
         customListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long l) {
                 //각 아이템을 분간 할 수 있는 position과 뷰
-                startActivity(new Intent(AromaInfoList.this, AromaInfoDetail.class)
-                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                Intent intent = new Intent(AromaInfoList.this, AromaInfoDetail.class);
+                AromaItem aromaItem = items.get(position);
+                intent.putExtra("aromaItem", aromaItem);
+                startActivity(intent);
             }
-
         });
-
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        /*
+        View dialogView = (View) View.inflate(AromaInfoList.this, R.layout.all_aroma_info_list_dialog, null);
+
+        int[] image = {R.drawable.lavender, R.drawable.lavender, R.drawable.lavender};
+        String[] text = {"라벤더", "레몬", "로즈마리"};
+
+        for (int i = 0; i < image.length; i++) {
+            Map<String, Object> itemMap = new HashMap<>();
+            itemMap.put(TAG_CHECKBOX, text[i]);
+            itemMap.put(TAG_IMAGEVIEW, image[i]);
+
+            dialogItems.add(itemMap);
+        }
+
+
+        SimpleAdapter simpleAdapter = new SimpleAdapter(AromaInfoList.this, dialogItems,
+                R.layout.dialog_aroma_info_item,
+                new String[]{TAG_CHECKBOX, TAG_IMAGEVIEW},
+                new int[]{R.id.dialogItemCheckBox, R.id.dialogItemImageView});
+
+        dialogListView.setAdapter(simpleAdapter);
+
+
+        dlg.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        dlg.setNegativeButton("취소", null);
+        dlg.show();
+        */
+
+        return super.onOptionsItemSelected(item);
+    }
 
 
 }
