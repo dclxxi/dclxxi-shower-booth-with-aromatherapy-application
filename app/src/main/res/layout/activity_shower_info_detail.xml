@@ -24,7 +24,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/shower_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -76,18 +76,19 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="사용자 체온"
+                    android:text="샤워 시각"
                     android:layout_gravity="center"
                     android:textColor="@color/black"
-                    android:textSize="16dp"
+                    android:textSize="18dp"
                     android:textStyle="bold"/>
                 <TextView
+                    android:id="@+id/shower_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="36.5"
                     android:layout_gravity="center"
                     android:textColor="@color/black"
-                    android:textSize="16dp" />
+                    android:textSize="18dp" />
             </TableRow>
 
             <TableRow
@@ -99,20 +100,43 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="화장실 내부 온도"
+                    android:text="사용자 체온"
                     android:layout_gravity="center"
                     android:textColor="@color/black"
-                    android:textSize="16dp"
+                    android:textSize="18dp"
                     android:textStyle="bold"/>
+                <TextView
+                    android:id="@+id/user_bodyTemperature"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="36.5"
+                    android:layout_gravity="center"
+                    android:textColor="@color/black"
+                    android:textSize="18dp" />
+            </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="24.3"
+                    android:text="사용자 키"
                     android:layout_gravity="center"
                     android:textColor="@color/black"
-                    android:textSize="16dp" />
+                    android:textSize="18dp"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:id="@+id/user_height"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="36.5"
+                    android:layout_gravity="center"
+                    android:textColor="@color/black"
+                    android:textSize="18dp" />
             </TableRow>
-
 
             <TableRow
                 android:layout_width="match_parent"
@@ -127,14 +151,15 @@
                     android:textStyle="bold"
                     android:layout_gravity="center"
                     android:textColor="@color/black"
-                    android:textSize="16dp" />
+                    android:textSize="18dp" />
                 <TextView
+                    android:id="@+id/shower_waterTemperature"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="37.0"
                     android:layout_gravity="center"
                     android:textColor="@color/black"
-                    android:textSize="16dp" />
+                    android:textSize="18dp" />
             </TableRow>
 
             <TableRow
@@ -149,15 +174,16 @@
                     android:text="사용자 기분"
                     android:layout_gravity="center"
                     android:textColor="@color/black"
-                    android:textSize="16dp"
+                    android:textSize="18dp"
                     android:textStyle="bold"/>
                 <TextView
+                    android:id="@+id/user_feeling"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="기쁨"
                     android:layout_gravity="center"
                     android:textColor="@color/black"
-                    android:textSize="16dp" />
+                    android:textSize="18dp" />
             </TableRow>
             <TableRow
                 android:layout_width="match_parent"
@@ -171,15 +197,16 @@
                     android:text="사용한 아로마 오일"
                     android:layout_gravity="center"
                     android:textColor="@color/black"
-                    android:textSize="16dp"
+                    android:textSize="18dp"
                     android:textStyle="bold"/>
                 <TextView
+                    android:id="@+id/shower_usedAroma"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="로즈마리"
                     android:layout_gravity="center"
                     android:textColor="@color/black"
-                    android:textSize="16dp" />
+                    android:textSize="18dp" />
             </TableRow>
 
             <View
@@ -191,7 +218,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="50dp"
                 android:src="@drawable/simple_line"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -203,41 +230,40 @@
                 android:gravity="center"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:text="평가한 서비스 만족도"
+                android:text="이 날의 샤워평은"
                 android:textColor="@color/black"
                 android:textStyle="bold"
-                android:textSize="16dp" />
+                android:textSize="21dp" />
 
 
             <TextView
+                android:id="@+id/shower_evaluation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="아주 만족한 샤워였어요!"
-                android:paddingTop="10dp"
+                android:paddingTop="12dp"
                 android:layout_gravity="center"
+                android:textStyle="bold"
                 android:textColor="#3F51B5"
-                android:textSize="15dp"
+                android:textSize="18dp"
                 android:gravity="center"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="★★★★★"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="10dp"
-                    android:layout_gravity="center"
-                    android:textColor="#FFC107"
-                    android:textSize="26dp"
-                    android:gravity="center"/>
-
         </TableLayout>
+            <RatingBar
+                android:id="@+id/shower_ratingBar_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:isIndicator="true"
+                android:layout_gravity="center"
+                android:max="5"
+                android:numStars="5"
+                android:progressBackgroundTint="#E0E0E0"
+                android:progressTint="#00BCD4"
+                android:stepSize="1"
+                tools:ignore="SpeakableTextPresentCheck" />
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="bottom"
-            app:srcCompat="@drawable/logo2" />
+
 
 
     </LinearLayout>
