@@ -1,5 +1,17 @@
 package com.example.showerendorphins.item;
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+import androidx.core.content.ContextCompat;
+
+import com.example.showerendorphins.R;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class ShowerItem {
     private Integer showerId;
     private Integer usercode;
@@ -7,12 +19,15 @@ public class ShowerItem {
     private String feeling;
     private double bodyTemperature;
     private String aromaKoname;
-    private double rating;
+    private float rating;
+    private Drawable img;
+    private LocalDateTime date;
 
     public ShowerItem() {
     }
 
-    public ShowerItem(Integer showerId, Integer usercode, double height, String feeling, double bodyTemperature, String aromaKoname, double rating) {
+    public ShowerItem(Integer showerId, Integer usercode, double height, String feeling, double bodyTemperature,
+                      String aromaKoname, float rating,LocalDateTime date,Context context) {
         this.showerId = showerId;
         this.usercode = usercode;
         this.height = height;
@@ -20,6 +35,14 @@ public class ShowerItem {
         this.bodyTemperature = bodyTemperature;
         this.aromaKoname = aromaKoname;
         this.rating = rating;
+        this.date = date;
+        if (feeling.equals("HAPPY")) {
+            setImg(context, R.drawable.lovely);
+        }else if (feeling.equals("SAD")) {
+            setImg(context, R.drawable.crying);
+        }else if (feeling.equals("ANGRY")) {
+            setImg(context, R.drawable.angry);
+        }
     }
 
     public Integer getShowerId() {
@@ -70,11 +93,34 @@ public class ShowerItem {
         this.aromaKoname = aromaKoname;
     }
 
-    public double getRating() {
+    public float getRating() {
         return rating;
     }
 
-    public void setRating(double rating) {
+    public void setRating(float rating) {
         this.rating = rating;
+    }
+
+    public LocalDateTime getDate() {
+        return date;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public String printDateStr() {
+        String formatDate = date.format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시"));
+        return formatDate;
+    }
+
+    public void setDate(LocalDateTime date) {
+        this.date = date;
+    }
+
+    public Drawable getImg() {
+
+        return img;
+    }
+
+    public void setImg(Context context, int imgId) {
+        this.img = ContextCompat.getDrawable(context, imgId);
     }
 }

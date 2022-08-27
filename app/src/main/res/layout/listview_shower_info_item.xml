@@ -36,7 +36,7 @@
                 android:orientation="vertical">
 
                 <RatingBar
-                    android:id="@+id/ratingBar"
+                    android:id="@+id/shower_ratingBar"
                     style="@style/Widget.AppCompat.RatingBar.Small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
