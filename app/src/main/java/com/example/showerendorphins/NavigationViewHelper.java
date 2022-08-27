@@ -13,7 +13,7 @@ public class NavigationViewHelper {
         view.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                if (item.getItemId() == R.id.logout) {
+                if (item.getItemId() == R.id.logout) {  //TODO 로그아웃
 //                    Toast.makeText(context, "logout", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(context, SignupActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
