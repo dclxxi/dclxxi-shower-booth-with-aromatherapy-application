@@ -14,15 +14,17 @@ public class ShowerDto {
     private double height;
     private FeelingStatus feeling;
     private double bodyTemperature;
+    private double waterTemperature;
     private Aroma aroma;
     private double rating;
 
     @Builder
-    public ShowerDto(User user, double height, FeelingStatus feeling, double bodyTemperature, Aroma aroma,double rating) {
+    public ShowerDto(User user, double height, FeelingStatus feeling, double bodyTemperature, double waterTemperature, Aroma aroma, double rating) {
         this.user = user;
         this.height = height;
         this.feeling = feeling;
         this.bodyTemperature = bodyTemperature;
+        this.waterTemperature = waterTemperature;
         this.aroma = aroma;
         this.rating = rating;
     }
@@ -33,6 +35,7 @@ public class ShowerDto {
                 .height(height)
                 .feeling(feeling)
                 .bodyTemperature(bodyTemperature)
+                .waterTemperature(waterTemperature)
                 .aroma(aroma)
                 .rating(rating)
                 .build();

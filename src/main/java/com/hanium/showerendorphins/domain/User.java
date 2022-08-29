@@ -8,14 +8,13 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name = "user")
 @Getter
 @EntityListeners(AuditingEntityListener.class)
-public class User {
+public class User{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,9 +23,6 @@ public class User {
 
     @Column(name = "user_id")
     private String userId;
-
-    @Column(name = "user_pw")
-    private String password;
 
     @Column(name = "user_name")
     private String username;
@@ -46,11 +42,10 @@ public class User {
     private int age;
 
     @Builder
-    public User(Integer code, String userId, String password, String username, Gender gender, int age) {
-        this.code = code;
+    public User(String userId,  String username, LocalDateTime user_joinDate, Gender gender, int age) {
         this.userId = userId;
-        this.password = password;
         this.username = username;
+        this.user_joinDate = user_joinDate;
         this.gender = gender;
         this.age = age;
     }
@@ -59,7 +54,4 @@ public class User {
 
     }
 
-//    public void updateUserShowerList(Shower newShower){
-//        userShowerList.add(newShower);
-//    }
 }

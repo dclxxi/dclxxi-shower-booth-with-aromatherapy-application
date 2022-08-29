@@ -41,7 +41,6 @@ public class RatingTest {
         //given
         UserDto user = UserDto.builder()
                 .userId("testuser")
-                .password("12345")
                 .username("테스트")
                 .gender(Gender.MALE)
                 .age(20)
@@ -49,7 +48,6 @@ public class RatingTest {
 
         UserDto user2 = UserDto.builder()
                 .userId("testuser2")
-                .password("12345")
                 .username("테스트2")
                 .gender(Gender.MALE)
                 .age(20)

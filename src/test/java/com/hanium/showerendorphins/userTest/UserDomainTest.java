@@ -15,7 +15,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-@Rollback(value = false)
 public class UserDomainTest {
 
     @Autowired
@@ -26,7 +25,6 @@ public class UserDomainTest {
         //given
         UserDto user = UserDto.builder()
                 .userId("testuser")
-                .password("12345")
                 .username("테스트")
                 .gender(Gender.MALE)
                 .age(20)

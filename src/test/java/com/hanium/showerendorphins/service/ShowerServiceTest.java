@@ -1,7 +1,6 @@
-package com.hanium.showerendorphins.showerTest;
+package com.hanium.showerendorphins.service;
 
 import com.hanium.showerendorphins.domain.Aroma;
-import com.hanium.showerendorphins.domain.Shower;
 import com.hanium.showerendorphins.domain.User;
 import com.hanium.showerendorphins.dto.AromaDto;
 import com.hanium.showerendorphins.dto.ShowerDto;
@@ -21,22 +20,21 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.List;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
 @Rollback(value = false)
-public class ShowerDomainTest {
+public class ShowerServiceTest {
+
+    @Autowired
+    ShowerService showerService;
 
     @Autowired
     UserRepository userRepository;
 
     @Autowired
-    ShowerRepository showerRepository;
-
-    @Autowired
     AromaRepository aromaRepository;
-
 
     Integer usercode = 0;
 
@@ -69,43 +67,24 @@ public class ShowerDomainTest {
     }
 
     @Test
-    public void 샤워정보_저장() {
+    public void 샤워기록_저장() {
         //given
         User user = userRepository.findById(usercode).get();
         Aroma aroma = aromaRepository.findByKoName("라벤더").get();
 
-        ShowerDto userShowerData1 = ShowerDto.builder()
-                .user(user)
+        ShowerDto userShowerDto = ShowerDto.builder()
                 .height(165.5)
                 .bodyTemperature(35.6)
                 .feeling(FeelingStatus.HAPPY)
                 .aroma(aroma)
                 .rating(3.0)
                 .build();
-        ShowerDto userShowerData2 = ShowerDto.builder()
-                .user(user)
-                .height(165.5)
-                .bodyTemperature(35.6)
-                .feeling(FeelingStatus.HAPPY)
-                .aroma(aroma)
-                .rating(4.0)
-                .build();
-        ShowerDto userShowerData3 = ShowerDto.builder()
-                .user(user)
-                .height(165.5)
-                .bodyTemperature(35.6)
-                .feeling(FeelingStatus.HAPPY)
-                .aroma(aroma)
-                .rating(5.0)
-                .build();
+
         //when
-        showerRepository.save(userShowerData1.toEntity());
-        showerRepository.save(userShowerData2.toEntity());
-        showerRepository.save(userShowerData3.toEntity());
-        List<Shower> showerList = showerRepository.findAll();
+        Integer showerLogId = showerService.createShowerLog(userShowerDto, user.getCode());
 
         //then
-        Assertions.assertEquals(showerList.size(), 3);
+        Assertions.assertEquals(showerLogId, 1);
 
     }
 }
