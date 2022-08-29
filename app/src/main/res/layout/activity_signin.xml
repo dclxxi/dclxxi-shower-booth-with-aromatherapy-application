@@ -38,14 +38,15 @@
             android:layout_marginBottom="10dp"
             android:background="@drawable/edittext_background"
             android:drawableLeft="@drawable/drawable_left_image_id"
-            android:drawableTint="#A6A6A6"
             android:drawablePadding="10dp"
+            android:drawableTint="#A6A6A6"
             android:ems="10"
-            android:hint="아이디를 입력하세요"
+            android:hint="이메일을 입력하세요"
             android:inputType="textPersonName"
             android:minWidth="250dp"
             android:minHeight="48dp"
             android:padding="10dp"
+            android:textColor="@color/black"
             android:textColorHint="#5E5E5E" />
 
         <EditText
@@ -63,6 +64,7 @@
             android:minWidth="250dp"
             android:minHeight="48dp"
             android:padding="10dp"
+            android:textColor="@color/black"
             android:textColorHint="#5E5E5E" />
 
         <Button

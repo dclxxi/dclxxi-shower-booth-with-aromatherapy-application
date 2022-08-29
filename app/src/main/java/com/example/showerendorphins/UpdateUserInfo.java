@@ -1,6 +1,7 @@
 package com.example.showerendorphins;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -13,15 +14,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -30,41 +24,52 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class SignupActivity extends AppCompatActivity {
+public class UpdateUserInfo extends AppCompatActivity {
 
-    String urlStr = "http://192.168.10.102:8080/User/join";  //IPv4 주소 변경해야 함
+    String urlStr = "http://192.168.10.102:8080/User/updateUser";  //IPv4 주소 변경해야 함
     private static String addParameterStr = "";
 
-    private FirebaseAuth firebaseAuth;
-    Button btn_signup;
-    TextView tv_age_set;
-    private EditText et_id_set, et_pw_set, et_name_set;
-    RadioGroup radioGroup;
+    TextView tv_id_set, tv_age_set2;
+    EditText tv_name_set;
+    RadioGroup radioGroup2;
+    RadioButton rb_woman2, rb_man2;
+    Button btn_signup2;
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-    }
+    int usercode = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signup);
-        firebaseAuth = FirebaseAuth.getInstance();
+        setContentView(R.layout.activity_update_user_info);
+
+        tv_id_set = findViewById(R.id.tv_id_set);
+        tv_age_set2 = findViewById(R.id.tv_age_set2);
+        tv_name_set = findViewById(R.id.tv_name_set);
+        radioGroup2 = findViewById(R.id.radioGroup2);
+        rb_woman2 = findViewById(R.id.rb_woman2);
+        rb_man2 = findViewById(R.id.rb_man2);
+        btn_signup2 = findViewById(R.id.btn_signup2);
 
 
-        et_id_set = findViewById(R.id.et_id_set);
-        et_pw_set = findViewById(R.id.et_pw_set);
-        et_name_set = findViewById(R.id.et_name_set);
-        radioGroup = findViewById(R.id.radioGroup);
+        Intent intent = getIntent();
 
-        tv_age_set = findViewById(R.id.tv_age_set);
-        tv_age_set.setOnClickListener(new View.OnClickListener() {
+        usercode = Integer.parseInt(intent.getStringExtra("code"));
+        tv_id_set.setText(intent.getStringExtra("email"));
+        tv_name_set.setText(intent.getStringExtra("username"));
+        tv_age_set2.setText(intent.getStringExtra("age"));
+        String gender = intent.getStringExtra("gender");
+
+        if (gender.equals("MALE")) {
+            rb_man2.setChecked(true);
+        } else if (gender.equals("FEMALE")) {
+            rb_woman2.setChecked(true);
+        }
+
+        tv_age_set2.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                View dialogView = (View) View.inflate(SignupActivity.this, R.layout.fragment_age_dialog, null);
-                AlertDialog.Builder dlg = new AlertDialog.Builder(SignupActivity.this);
+            public void onClick(View v) {
+                View dialogView = (View) View.inflate(UpdateUserInfo.this, R.layout.fragment_age_dialog, null);
+                AlertDialog.Builder dlg = new AlertDialog.Builder(UpdateUserInfo.this);
                 dlg.setView(dialogView);
 
                 NumberPicker np_tens = (NumberPicker) dialogView.findViewById(R.id.np_tens);
@@ -98,7 +103,7 @@ public class SignupActivity extends AppCompatActivity {
                 dlg.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        tv_age_set.setText(age[0] * 10 + age[1] + "");
+                        tv_age_set2.setText(age[0] * 10 + age[1] + "");
                     }
                 });
 
@@ -107,33 +112,33 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
 
-        btn_signup = findViewById(R.id.btn_signup2);
-        btn_signup.setOnClickListener(new View.OnClickListener() {
+        btn_signup2.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-
-                RadioButton rdoButton = findViewById(radioGroup.getCheckedRadioButtonId());
+            public void onClick(View v) {
+                RadioButton rdoButton = findViewById(radioGroup2.getCheckedRadioButtonId());
                 String gender = rdoButton.getText().toString().toUpperCase();
-                String id = et_id_set.getText().toString();
-                String pw = et_pw_set.getText().toString();
-                String name = et_name_set.getText().toString();
-                String age = tv_age_set.getText().toString();
+                String id = tv_id_set.getText().toString();
+                String name = tv_name_set.getText().toString();
+                String age = tv_age_set2.getText().toString();
 
-                if (!id.equals("") && !pw.equals("") && !name.equals("") && !gender.equals("") && !age.equals("")) {
-                    saveUserToMySQL(id, pw, name, gender, age);
+                if (!id.equals("") && !name.equals("") && !gender.equals("") && !age.equals("")) {
+                    saveUserToMySQL(usercode, id, name, gender, age);
                 } else {
                     // 이메일과 비밀번호가 공백인 경우
-                    Toast.makeText(SignupActivity.this, "모든 정보를 입력해주세요.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UpdateUserInfo.this, "모든 정보를 입력해주세요.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
 
-    private void saveUserToMySQL(String id, String pw, String name, String gender, String age) {
+    private void saveUserToMySQL(Integer code, String id, String name, String gender, String age) {
+
+        String returnData = "";
         if (gender.equals("여자")) gender = "FEMALE";
         else gender = "MALE";
 
         addParameterStr = "?";
+        addParameterStr += "code=" + code + "&";
         addParameterStr += "userId=" + id + "&";
         addParameterStr += "username=" + name + "&";
         addParameterStr += "gender=" + gender + "&";
@@ -158,19 +163,28 @@ public class SignupActivity extends AppCompatActivity {
                     }
                     String returnData = buffer.toString();
 
-                    if (returnData!=null) {
-                        saveUserToFirebase(id, pw);
-                    }
+
                     isr.close();
                     reader.close();
                     is.close();
+
+                    runOnUiThread(new Runnable() {
+                        public void run() {
+                            if (!returnData.equals("")) {
+                                Toast.makeText(UpdateUserInfo.this, "정보가 수정되었습니다.", Toast.LENGTH_SHORT).show();
+                                finish();
+                            } else {
+                                Toast.makeText(UpdateUserInfo.this, "수정에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
 
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(SignupActivity.this, "데이터 저장에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(UpdateUserInfo.this, "수정에 실패하였습니다.", Toast.LENGTH_SHORT).show();
                         }
                     }, 0);
                 } catch (IOException e) {
@@ -178,27 +192,11 @@ public class SignupActivity extends AppCompatActivity {
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(SignupActivity.this, "데이터 저장에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(UpdateUserInfo.this, "수정에 실패하였습니다.", Toast.LENGTH_SHORT).show();
                         }
                     }, 0);
                 }
             }
         }.start();
-    }
-
-    private void saveUserToFirebase(String email, String password) {
-        firebaseAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(SignupActivity.this, "회원가입에 성공하였습니다.", Toast.LENGTH_SHORT).show();
-                            finish();
-                        } else {
-                            Toast.makeText(SignupActivity.this, "회원가입에 실패하였습니다.", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                    }
-                });
     }
 }

@@ -1,6 +1,7 @@
 package com.example.showerendorphins.ui.notifications;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,38 +10,45 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import com.example.showerendorphins.AromaInfoList;
+import com.example.showerendorphins.LoginActivity;
 import com.example.showerendorphins.R;
+import com.example.showerendorphins.UpdateUserInfo;
 import com.example.showerendorphins.UserPieChart;
 import com.example.showerendorphins.databinding.FragmentNotificationsBinding;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class NotificationsFragment extends Fragment {
+
+    String urlStr = "http://192.168.10.102:8080/User/findUser?email=";  //IPv4 주소 변경해야 함
 
     private FragmentNotificationsBinding binding;
     private FirebaseAuth mAuth;
     private GoogleSignInClient mGoogleSignInClient;
-    Button btn_logout,btn_update_userinfo,selectUserScore,selectUserAroma,btn_add_aroma_item;
+    Button btn_logout, btn_update_userinfo, selectUserScore, selectUserAroma, btn_add_aroma_item;
     TextView textView_username;
+
+    String code, userId, username, gender, age;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-
         binding = FragmentNotificationsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        mAuth = FirebaseAuth.getInstance();
-
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail() // email addresses도 요청함
-                .build();
-
-        mGoogleSignInClient = GoogleSignIn.getClient(getContext(), gso);
-
         btn_logout = root.findViewById(R.id.btn_logout);
         btn_update_userinfo = root.findViewById(R.id.btn_update_userinfo);
         btn_add_aroma_item = root.findViewById(R.id.btn_add_aroma_item);
@@ -48,19 +56,24 @@ public class NotificationsFragment extends Fragment {
         selectUserAroma = root.findViewById(R.id.selectUserAroma);
         textView_username = root.findViewById(R.id.textView_username);
 
-        textView_username.setText("로그인유저");
-
         btn_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 signOut();
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(intent);
                 getActivity().finish();
             }
         });
         btn_update_userinfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), UserPieChart.class);
+                Intent intent = new Intent(getActivity(), UpdateUserInfo.class);
+                intent.putExtra("code", code);
+                intent.putExtra("email", userId);
+                intent.putExtra("username", username);
+                intent.putExtra("gender", gender);
+                intent.putExtra("age", age);
                 startActivity(intent);
             }
         });
@@ -86,12 +99,11 @@ public class NotificationsFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
         return root;
     }
 
     private void signOut() {
-        mGoogleSignInClient.revokeAccess();
+//        mGoogleSignInClient.revokeAccess();
         FirebaseAuth.getInstance().signOut();
     }
 
@@ -99,5 +111,62 @@ public class NotificationsFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+        String email = user.getEmail();
+
+//        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+//                .requestEmail() // email addresses도 요청함
+//                .build();
+
+//        mGoogleSignInClient = GoogleSignIn.getClient(Objects.requireNonNull(getContext()), gso);
+
+        new Thread() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void run() {
+                try {
+                    URL url = new URL(urlStr + email);
+
+                    InputStream is = url.openStream();
+                    InputStreamReader isr = new InputStreamReader(is);
+                    BufferedReader reader = new BufferedReader(isr);
+
+                    StringBuffer buffer = new StringBuffer();
+                    String line = reader.readLine();
+                    while (line != null) {
+                        buffer.append(line + "\n");
+                        line = reader.readLine();
+                    }
+
+                    String jsonData = buffer.toString();
+                    JSONObject jsonObject = new JSONObject(jsonData);
+                    code = jsonObject.get("code").toString();
+                    userId = jsonObject.get("userId").toString();
+                    username = jsonObject.get("username").toString();
+                    gender = jsonObject.get("gender").toString();
+                    age = jsonObject.get("age").toString();
+
+                    getActivity().runOnUiThread(new Runnable() {
+                        public void run() {
+                            textView_username.setText(username);
+                        }
+                    });
+
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }.start();
     }
 }

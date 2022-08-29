@@ -74,11 +74,11 @@ dependencies {
 
     implementation 'com.akexorcist:bluetoothspp:1.0.0'
 
-    // goole play
+    // goole login
     implementation 'com.google.android.gms:play-services-auth:20.2.0'
 
     //Firebase
-    implementation 'com.google.firebase:firebase-auth:19.0.0'
+    implementation 'com.google.firebase:firebase-auth:21.0.7'
     implementation platform('com.google.firebase:firebase-bom:30.3.2')
     implementation 'com.google.firebase:firebase-analytics'
 }
