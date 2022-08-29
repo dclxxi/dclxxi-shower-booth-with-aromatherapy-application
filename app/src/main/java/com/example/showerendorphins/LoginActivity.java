@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
@@ -20,7 +19,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -33,7 +31,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 public class LoginActivity extends AppCompatActivity {
     EditText ed_id, ed_pw;
     Button btn_login, btn_signup;
-    SignInButton btn_google_login;
+//    SignInButton btn_google_login;
     GoogleSignInClient mGoogleSignInClient;
     private FirebaseAuth mAuth = null;
     private FirebaseAuth.AuthStateListener firebaseAuthListener;
@@ -42,7 +40,6 @@ public class LoginActivity extends AppCompatActivity {
             new ActivityResultCallback<ActivityResult>() {
                 @Override
                 public void onActivityResult(ActivityResult result) {
-                    System.out.println(">>>>>>>>result : "+result.toString());
                     if (result.getResultCode() == RESULT_OK) {
                         Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(result.getData());
                         try {
@@ -115,9 +112,9 @@ public class LoginActivity extends AppCompatActivity {
         ed_id = findViewById(R.id.ed_id);
         ed_pw = findViewById(R.id.ed_pw);
         btn_login = findViewById(R.id.btn_login);
-        btn_google_login = (SignInButton) findViewById(R.id.btn_google_login);
-        TextView textView = (TextView) btn_google_login.getChildAt(0);
-        textView.setText("Google 계정으로 로그인");
+//        btn_google_login = (SignInButton) findViewById(R.id.btn_google_login);
+//        TextView textView = (TextView) btn_google_login.getChildAt(0);
+//        textView.setText("Google 계정으로 로그인");
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -142,13 +139,13 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         };
-        btn_google_login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = mGoogleSignInClient.getSignInIntent();
-                preContractStartActivityResult.launch(intent);
-            }
-        });
+//        btn_google_login.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = mGoogleSignInClient.getSignInIntent();
+//                preContractStartActivityResult.launch(intent);
+//            }
+//        });
         btn_signup = findViewById(R.id.btn_signup);
         btn_signup.setOnClickListener(new View.OnClickListener() {
             @Override
