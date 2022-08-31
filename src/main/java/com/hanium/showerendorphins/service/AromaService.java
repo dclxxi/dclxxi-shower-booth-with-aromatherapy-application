@@ -4,6 +4,7 @@ import com.hanium.showerendorphins.domain.Aroma;
 import com.hanium.showerendorphins.dto.AromaDetailDto;
 import com.hanium.showerendorphins.dto.AromaDto;
 import com.hanium.showerendorphins.dto.AromaListDto;
+import com.hanium.showerendorphins.dto.UserStoredAromaListDto;
 import com.hanium.showerendorphins.repository.AromaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,10 @@ public class AromaService {
 
     public List<AromaListDto> findAllAromaList() {
         return aromaRepository.findAllList();
+    }
+
+    public List<UserStoredAromaListDto> findAllAromaModifyList() {
+        return aromaRepository.findAllAromaModifyList();
     }
 
     public Optional<AromaDetailDto> findInfoDetailById(Integer id) {
