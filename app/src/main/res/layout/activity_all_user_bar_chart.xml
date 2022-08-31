@@ -29,16 +29,75 @@
             android:layout_height="400dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
-            android:id="@+id/bar_chart"/>
+            android:id="@+id/bar_chart">
 
-        <TextView
+        </com.github.mikephil.charting.charts.BarChart>
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="20dp"
             android:gravity="center"
-            android:textColor="@color/colorPrimaryText"
-            android:text="n명의 사용자가 이렇게 평가했어요!" />
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/num_of_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#878787"
+                android:textStyle="bold"
+                android:textSize="18dp"
+                android:text="N" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="건의 만족도 데이터가 저장되었어요!"
+                android:textColor="#878787"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="전체 사용자의 평균 만족도는"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="22dp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView_avg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="3.5"
+                    android:textColor="@color/colorPrimaryText"
+                    android:textSize="24dp"
+
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="점 입니다."
+                    android:textColor="@color/black"
+                    android:textSize="22dp"
+
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+
 
     </LinearLayout>
 

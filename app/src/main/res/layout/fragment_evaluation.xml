@@ -31,10 +31,19 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:gravity="center"
-            android:text="2022년 02월 21일의\n샤워 만족도를 평가해주세요!"
+            android:text="오늘의 샤워 만족도를\n평가해주세요!"
             android:textColor="#000000"
             android:textSize="24sp"
             android:textStyle="bold" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:text="만족도 데이터를 기반으로\n더 좋은 추천 기능을 만들 수 있습니다."
+            android:textColor="#747474"
+            android:textSize="16sp" />
+
 
         <RatingBar
             android:id="@+id/ratingBar"
@@ -45,19 +54,24 @@
             android:max="5"
             android:numStars="5"
             android:progressBackgroundTint="#E0E0E0"
-            android:progressTint="#F1C40F"
-            android:stepSize="0.5"
+            android:progressTint="#00BCD4"
+            android:stepSize="1"
             tools:ignore="SpeakableTextPresentCheck" />
 
+        <Button
+            android:id="@+id/btn_save_showerlog"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryText"
+            android:text="평가 완료" />
+
         <TextView
-            android:id="@+id/tv_evaluation_explanation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:gravity="center"
-            android:text="만족도 데이터를 기반으로\n더 좋은 추천 기능을 만들 수 있습니다."
-            android:textColor="#000000"
+            android:text="평가 완료 버튼을 눌러야\n오늘의 샤워 기록이 저장됩니다."
+            android:textColor="#3F51B5"
             android:textSize="16sp" />
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

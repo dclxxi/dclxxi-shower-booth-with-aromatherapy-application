@@ -69,6 +69,10 @@
             android:exported="false"
             android:theme="@style/Theme.AppCompat.Light" />
         <activity
+            android:name=".AromaInfoModifyList"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light" />
+        <activity
             android:name=".ShowerInfoDetail"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.Light" />

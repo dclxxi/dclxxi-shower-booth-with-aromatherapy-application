@@ -2,7 +2,6 @@ package com.example.showerendorphins;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -27,7 +26,7 @@ import java.util.ArrayList;
 public class AllAromaInfoList extends AppCompatActivity {
 
     // URL 설정.
-    String urlStr = "http://192.168.219.106:8080/Aroma/All_Aroma_List";  //IPv4 주소 변경해야 함
+    String urlStr = "http://192.168.219.102:8080/Aroma/All_Aroma_List";  //IPv4 주소 변경해야 함
     private ListView customListView;
     private AromaInfoItemAdapter adapter;
     ArrayList<AromaItem> items;
@@ -72,7 +71,6 @@ public class AllAromaInfoList extends AppCompatActivity {
                         aromaItem.setImgUrl(jsonObject.get("imgURL").toString());
 
                         items.add(aromaItem);
-
                     }
                     runOnUiThread(new Runnable() {
                         @Override

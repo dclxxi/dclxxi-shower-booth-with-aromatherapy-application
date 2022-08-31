@@ -4,7 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class AromaItem implements Parcelable {
-    private int aromaId;
+    private Integer aromaId;
     private String koName;
     private String enName;
     private String note;
@@ -14,15 +14,15 @@ public class AromaItem implements Parcelable {
     private String caution;
     private String imgUrl;
 
-    public AromaItem() {}
+    public AromaItem() {
+    }
 
-    public AromaItem(int aromaId, String koName, String enName, String note, String scent, String imgUrl) {
+    public AromaItem(Integer aromaId, String koName, String enName, String note, String scent, String imgUrl) {
         this.aromaId = aromaId;
         this.koName = koName;
         this.enName = enName;
         this.note = note;
         this.scent = scent;
-
         if (imgUrl.equals("null")) {
             this.imgUrl = "https://cdn-icons-png.flaticon.com/512/4200/4200467.png";
         } else {
@@ -30,7 +30,7 @@ public class AromaItem implements Parcelable {
         }
     }
 
-    public AromaItem(int aromaId, String koName, String enName, String note, String scent, String mood, String summary, String caution, String imgUrl) {
+    public AromaItem(Integer aromaId, String koName, String enName, String note, String scent, String mood, String summary, String caution, String imgUrl) {
         this.aromaId = aromaId;
         this.koName = koName;
         this.enName = enName;

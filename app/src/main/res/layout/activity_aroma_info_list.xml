@@ -5,14 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".AromaInfoList"
-    android:padding="5dp">
-
+    android:padding="5dp"
+    tools:context=".AromaInfoList">
 
     <ListView
         android:id="@+id/aromaInfoListView_custom"
         android:layout_width="match_parent"
         android:layout_height="match_parent"></ListView>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

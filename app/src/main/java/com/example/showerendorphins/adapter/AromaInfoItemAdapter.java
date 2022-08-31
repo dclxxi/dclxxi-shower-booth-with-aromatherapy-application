@@ -60,18 +60,18 @@ public class AromaInfoItemAdapter extends ArrayAdapter implements AdapterView.On
         viewHolder.aroma_scent = convertView.findViewById(R.id.aroma_scent);
         viewHolder.aroma_img = convertView.findViewById(R.id.aroma_img);
 
-        final AromaItem aromaInfo = list.get(position);
-        viewHolder.aroma_ko_name.setText(aromaInfo.getKoName());
-        viewHolder.aroma_en_name.setText(aromaInfo.getEnName());
-        viewHolder.aroma_note.setText(aromaInfo.getNote());
-        viewHolder.aroma_scent.setText(aromaInfo.getScent());
+        final AromaItem aromaItem = list.get(position);
+        viewHolder.aroma_ko_name.setText(aromaItem.getKoName());
+        viewHolder.aroma_en_name.setText(aromaItem.getEnName());
+        viewHolder.aroma_note.setText(aromaItem.getNote());
+        viewHolder.aroma_scent.setText(aromaItem.getScent());
         Glide
                 .with(context)
-                .load(aromaInfo.getImgUrl())
+                .load(aromaItem.getImgUrl())
                 .centerCrop()
                 .apply(new RequestOptions().override(200, 200))
                 .into(viewHolder.aroma_img);
-        viewHolder.aroma_img.setTag(aromaInfo.getKoName());
+        viewHolder.aroma_img.setTag(aromaItem.getKoName());
         return convertView;
     }
 

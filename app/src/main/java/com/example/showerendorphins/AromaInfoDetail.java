@@ -2,8 +2,6 @@ package com.example.showerendorphins;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -11,8 +9,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.example.showerendorphins.adapter.AromaInfoItemAdapter;
-import com.example.showerendorphins.enums.FeelingStatus;
 import com.example.showerendorphins.item.AromaItem;
 
 import org.json.JSONException;
@@ -28,9 +24,9 @@ import java.net.URL;
 public class AromaInfoDetail extends AppCompatActivity {
 
 
-    TextView aroma_detail_ko_name, aroma_detail_en_name, aroma_detail_note, aroma_detail_feeling,
+    private TextView aroma_detail_ko_name, aroma_detail_en_name, aroma_detail_note, aroma_detail_feeling,
             aroma_detail_scent, aroma_detail_summary, aroma_detail_caution;
-    ImageView aroma_detail_img;
+    private ImageView aroma_detail_img;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +35,7 @@ public class AromaInfoDetail extends AppCompatActivity {
 
         Intent intent = getIntent();
         AromaItem aromaItem = intent.getParcelableExtra("aromaItem");
-        String urlStr = "http://192.168.219.106:8080/Aroma/Aroma_Info_Detail?id=" + aromaItem.getAromaId();  //IPv4 주소 변경해야 함
+        String urlStr = "http://192.168.219.102:8080/Aroma/Aroma_Info_Detail?id=" + aromaItem.getAromaId();  //IPv4 주소 변경해야 함
 
         new Thread() {
             @Override

@@ -1,16 +1,12 @@
 package com.example.showerendorphins;
 
-import android.content.DialogInterface;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.showerendorphins.adapter.AromaInfoItemAdapter;
@@ -27,17 +23,16 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class AromaInfoList extends AppCompatActivity {
 
-    String urlStr = "http://192.168.219.106:8080/Aroma/All_User_Stored_Aroma_List?userId=" + "test";  //IPv4 주소 변경해야 함
+    String urlStr = "http://192.168.219.102:8080/Aroma/All_User_Stored_Aroma_List?userId=";  //IPv4 주소 변경해야 함
 
     private ListView customListView;
     private AromaInfoItemAdapter adapter;
-    ArrayList<AromaItem> items;
+    private ArrayList<AromaItem> items;
+
+    public static Context CONTEXT;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,11 +42,13 @@ public class AromaInfoList extends AppCompatActivity {
         customListView = findViewById(R.id.aromaInfoListView_custom);
         items = new ArrayList<>();
 
+        String userId = getIntent().getStringExtra("userId");
+
         new Thread() {
             @Override
             public void run() {
                 try {
-                    URL url = new URL(urlStr);
+                    URL url = new URL(urlStr + userId);
 
                     InputStream is = url.openStream();
                     InputStreamReader isr = new InputStreamReader(is, "UTF-8");
@@ -110,48 +107,34 @@ public class AromaInfoList extends AppCompatActivity {
         });
     }
 
+/*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_menu, menu);
+        getMenuInflater().inflate(R.menu.activity_edit_menu, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        /*
-        View dialogView = (View) View.inflate(AromaInfoList.this, R.layout.all_aroma_info_list_dialog, null);
-
-        int[] image = {R.drawable.lavender, R.drawable.lavender, R.drawable.lavender};
-        String[] text = {"라벤더", "레몬", "로즈마리"};
-
-        for (int i = 0; i < image.length; i++) {
-            Map<String, Object> itemMap = new HashMap<>();
-            itemMap.put(TAG_CHECKBOX, text[i]);
-            itemMap.put(TAG_IMAGEVIEW, image[i]);
-
-            dialogItems.add(itemMap);
-        }
-
-
-        SimpleAdapter simpleAdapter = new SimpleAdapter(AromaInfoList.this, dialogItems,
-                R.layout.dialog_aroma_info_item,
-                new String[]{TAG_CHECKBOX, TAG_IMAGEVIEW},
-                new int[]{R.id.dialogItemCheckBox, R.id.dialogItemImageView});
-
-        dialogListView.setAdapter(simpleAdapter);
-
-
-        dlg.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-            }
-        });
-        dlg.setNegativeButton("취소", null);
-        dlg.show();
-        */
+        Intent intent = new Intent(this, AromaInfoModifyList.class);
+        String userId = getIntent().getStringExtra("userId");
+        intent.putExtra("userId", userId);
+        startActivity(intent);
 
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                adapter.notifyDataSetChanged();
+            }
+        });
+    }
+*/
 
 
 }

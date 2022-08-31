@@ -46,6 +46,7 @@ public class NotificationsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), AromaInfoList.class); //fragment라서 activity intent와는 다른 방식
+                intent.putExtra("userId", "ii@test.com");
                 startActivity(intent);
             }
         });
