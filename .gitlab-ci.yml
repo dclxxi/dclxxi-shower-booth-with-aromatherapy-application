@@ -18,10 +18,11 @@ build:
     artifacts:
         paths:
             - build/libs/*.jar
-        expire_in: 1 week
     only:
         - main
 
 test: 
     stage: test
-    script: ./gradlew test
+    script:
+        - chmod +x gradlew  
+        - ./gradlew test
