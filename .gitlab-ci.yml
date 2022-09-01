@@ -14,15 +14,14 @@ build:
     stage: build
     script:
         - chmod +x gradlew 
-        - ./gradlew clean build
+        - ./gradlew clean 
+        - ./gradlew --debug build
     artifacts:
         paths:
             - build/libs/*.jar
-    only:
-        - main
 
-test: 
-    stage: test
-    script:
-        - chmod +x gradlew  
-        - ./gradlew test
+# test: 
+#     stage: test
+#     script:
+#         - chmod +x gradlew  
+#         - ./gradlew test
