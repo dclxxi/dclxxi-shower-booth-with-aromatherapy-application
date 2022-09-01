@@ -78,11 +78,11 @@ public class CreateTest {
         //when
         Aroma savedData = aromaRepository.save(aromaData.toEntity());
 //        List<Aroma> allAromaList = aromaRepository.findAll();
-        List<Aroma> allAromaList = aromaService.findAllAromaList();
+        List<AromaListDto> allAromaList = aromaService.findAllAromaList();
 
         //then
         Assertions.assertEquals(savedData.getKoName(), "라벤더");
-        for (Aroma aroma : allAromaList) {
+        for (AromaListDto aroma : allAromaList) {
             System.out.println(aroma.getKoName());
         }
     }
