@@ -1,4 +1,6 @@
-image: gradle:alpine
+image: 
+  - gradle:alpine
+  - adoptopenjdk/openjdk11
 
 stages:          
   - build
