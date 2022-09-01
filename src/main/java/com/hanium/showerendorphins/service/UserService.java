@@ -2,6 +2,7 @@ package com.hanium.showerendorphins.service;
 
 import com.hanium.showerendorphins.domain.User;
 import com.hanium.showerendorphins.dto.UserDto;
+import com.hanium.showerendorphins.enums.Gender;
 import com.hanium.showerendorphins.exception.DoesNotExistException;
 import com.hanium.showerendorphins.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,13 +17,11 @@ public class UserService {
 
     @Transactional
     public String saveUser(UserDto user) {
-        //패스워드 인코딩
         User savedUser = userRepository.save(user.toEntity());
         return savedUser.getUserId();
     }
 
-    public Integer signIn(String userEmail) {
-        User user = userRepository.findByUserId(userEmail).orElseThrow(() -> new DoesNotExistException());
-        return user.getCode();
+    public User signIn(String userEmail) {
+        return userRepository.findByUserId(userEmail).orElseThrow(() -> new DoesNotExistException());
     }
 }

@@ -42,7 +42,8 @@ public class User{
     private int age;
 
     @Builder
-    public User(String userId,  String username, LocalDateTime user_joinDate, Gender gender, int age) {
+    public User(Integer code, String userId,  String username, LocalDateTime user_joinDate, Gender gender, int age) {
+        this.code = code;
         this.userId = userId;
         this.username = username;
         this.user_joinDate = user_joinDate;
