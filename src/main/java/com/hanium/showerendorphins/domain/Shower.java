@@ -1,5 +1,6 @@
 package com.hanium.showerendorphins.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.hanium.showerendorphins.enums.FeelingStatus;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,6 +20,7 @@ public class Shower {
     @Column(name = "shower_id")
     private Integer id;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
@@ -37,6 +39,9 @@ public class Shower {
     @Column(name = "body_temperature")
     private double bodyTemperature;
 
+    @Column(name = "water_temperature")
+    private double waterTemperature;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "aroma_id")
     private Aroma aroma;
@@ -45,13 +50,14 @@ public class Shower {
     private double rating;
 
     @Builder
-    public Shower(Integer id, User user, LocalDateTime createDate, double height, FeelingStatus feeling, double bodyTemperature, Aroma aroma, double rating) {
+    public Shower(Integer id, User user, LocalDateTime createDate, double height, FeelingStatus feeling, double bodyTemperature, double waterTemperature, Aroma aroma, double rating) {
         this.id = id;
         this.user = user;
         this.createDate = createDate;
         this.height = height;
         this.feeling = feeling;
         this.bodyTemperature = bodyTemperature;
+        this.waterTemperature = waterTemperature;
         this.aroma = aroma;
         this.rating = rating;
     }
