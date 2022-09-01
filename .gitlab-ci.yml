@@ -1,6 +1,9 @@
-stages:
-    - build
-    - test
+image: java:8-jdk
+
+stages:          # List of stages for jobs, and their order of execution
+  - build
+  - test
+  - deploy
 
 cache:
     paths:
