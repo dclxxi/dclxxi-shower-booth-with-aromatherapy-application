@@ -18,9 +18,3 @@ build:
     artifacts:
         paths:
             - build/libs/*.jar
-
-# test: 
-#     stage: test
-#     script:
-#         - chmod +x gradlew  
-#         - ./gradlew test
