@@ -1,6 +1,5 @@
-image: 
-  - gradle:alpine
-  - adoptopenjdk/openjdk11
+image: gradle:alpine
+
 
 stages:          
   - build
@@ -14,6 +13,7 @@ cache:
 
 build:
     stage: build
+    image: adoptopenjdk/openjdk11
     script:
         - chmod +x gradlew 
         - ./gradlew clean build
