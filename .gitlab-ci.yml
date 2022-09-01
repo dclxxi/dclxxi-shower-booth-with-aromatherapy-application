@@ -6,11 +6,6 @@ stages:
   - test
   - deploy
 
-cache:
-    paths:
-        - .gradle/wrapper
-        - .gradle/caches
-
 build:
     stage: build
     image: adoptopenjdk/openjdk11
