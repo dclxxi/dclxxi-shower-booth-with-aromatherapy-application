@@ -62,13 +62,12 @@ public class userStoredAromaTest {
         //given
         UserDto userDto = UserDto.builder()
                 .userId("test")
-                .password("12345")
                 .username("테스트")
                 .gender(Gender.MALE)
                 .age(20)
                 .build();
 
-        String userId = userService.registerUser(userDto);
+        String userId = userService.saveUser(userDto);
         User user = userRepository.findByUserId(userId).get();
 
         AromaDto aromaDto = AromaDto.builder()
@@ -104,13 +103,12 @@ public class userStoredAromaTest {
         //given
         UserDto userDto = UserDto.builder()
                 .userId("test")
-                .password("12345")
                 .username("테스트")
                 .gender(Gender.MALE)
                 .age(20)
                 .build();
 
-        String userId = userService.registerUser(userDto);
+        String userId = userService.saveUser(userDto);
         User user = userRepository.findByUserId(userId).get();
 
         AromaDto aromaDto = AromaDto.builder()
@@ -152,13 +150,12 @@ public class userStoredAromaTest {
         //given
         UserDto userDto = UserDto.builder()
                 .userId("test")
-                .password("12345")
                 .username("테스트")
                 .gender(Gender.MALE)
                 .age(20)
                 .build();
 
-        String userId = userService.registerUser(userDto);
+        String userId = userService.saveUser(userDto);
         User user = userRepository.findByUserId(userId).get();
 
         AromaDto aromaDto = AromaDto.builder()
@@ -229,13 +226,12 @@ public class userStoredAromaTest {
         //given
         UserDto userDto = UserDto.builder()
                 .userId("test")
-                .password("12345")
                 .username("테스트")
                 .gender(Gender.MALE)
                 .age(20)
                 .build();
 
-        String userId = userService.registerUser(userDto);
+        String userId = userService.saveUser(userDto);
         User user = userRepository.findByUserId(userId).get();
 
         AromaDto aromaDto = AromaDto.builder()
@@ -273,13 +269,12 @@ public class userStoredAromaTest {
         //given
         UserDto userDto = UserDto.builder()
                 .userId("test")
-                .password("12345")
                 .username("테스트")
                 .gender(Gender.MALE)
                 .age(20)
                 .build();
 
-        String userId = userService.registerUser(userDto);
+        String userId = userService.saveUser(userDto);
         User user = userRepository.findByUserId(userId).get();
 
 
