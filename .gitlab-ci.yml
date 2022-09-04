@@ -16,11 +16,11 @@ build:
         paths:
             - build/libs/*.jar
 
-test: 
-    stage: test
-    script:
-        - chmod +x gradlew  
-        - ./gradlew test
+# test: 
+#     stage: test
+#     script:
+#         - chmod +x gradlew  
+#         - ./gradlew test
 
         
 deploy to s3:
@@ -28,6 +28,8 @@ deploy to s3:
     image: 
         name: amazon/aws-cli
         entrypoint: [""]
+    dependencies:
+        - build
     script:
         - aws --version
         - aws s3 rm s3://$S3_BUCKET --recursive
