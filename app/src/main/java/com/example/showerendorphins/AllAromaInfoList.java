@@ -26,7 +26,7 @@ import java.util.ArrayList;
 public class AllAromaInfoList extends AppCompatActivity {
 
     // URL 설정.
-    String urlStr = "http://192.168.219.102:8080/Aroma/All_Aroma_List";  //IPv4 주소 변경해야 함
+    String urlStr = "http://ec2-43-200-238-1.ap-northeast-2.compute.amazonaws.com:8080/Aroma/All_Aroma_List";  //IPv4 주소 변경해야 함
     private ListView customListView;
     private AromaInfoItemAdapter adapter;
     ArrayList<AromaItem> items;
@@ -55,6 +55,10 @@ public class AllAromaInfoList extends AppCompatActivity {
                         buffer.append(line + "\n");
                         line = reader.readLine();
                     }
+
+                    is.close();
+                    isr.close();
+                    reader.close();
 
                     String jsonData = buffer.toString();
                     JSONArray jsonArray = new JSONArray(jsonData);

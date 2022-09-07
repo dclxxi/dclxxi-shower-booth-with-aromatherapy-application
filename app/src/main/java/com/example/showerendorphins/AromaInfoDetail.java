@@ -35,7 +35,7 @@ public class AromaInfoDetail extends AppCompatActivity {
 
         Intent intent = getIntent();
         AromaItem aromaItem = intent.getParcelableExtra("aromaItem");
-        String urlStr = "http://192.168.219.102:8080/Aroma/Aroma_Info_Detail?id=" + aromaItem.getAromaId();  //IPv4 주소 변경해야 함
+        String urlStr = "http://ec2-43-200-238-1.ap-northeast-2.compute.amazonaws.com:8080/Aroma/Aroma_Info_Detail?id=" + aromaItem.getAromaId();  //IPv4 주소 변경해야 함
 
         new Thread() {
             @Override
@@ -53,6 +53,10 @@ public class AromaInfoDetail extends AppCompatActivity {
                         buffer.append(line + "\n");
                         line = reader.readLine();
                     }
+
+                    is.close();
+                    isr.close();
+                    reader.close();
 
                     String jsonData = buffer.toString();
                     JSONObject jsonObject = new JSONObject(jsonData);

@@ -33,8 +33,8 @@ import java.util.List;
 
 public class AromaInfoModifyList extends AppCompatActivity {
 
-    String getUrlStr = "http://192.168.219.102:8080/Aroma/All_User_Stored_Aroma_Modify_List?userId=";
-    String postUrlStr = "http://192.168.219.102:8080/Aroma/Modify_User_Stored_AromaList";
+    String getUrlStr = "http://ec2-43-200-238-1.ap-northeast-2.compute.amazonaws.com:8080/Aroma/All_User_Stored_Aroma_Modify_List?userId=";
+    String postUrlStr = "http://ec2-43-200-238-1.ap-northeast-2.compute.amazonaws.com:8080/Aroma/Modify_User_Stored_AromaList";
 
     private CustomChoiceListViewAdapter adapter;
     private ListView customListView;
@@ -66,6 +66,10 @@ public class AromaInfoModifyList extends AppCompatActivity {
                         buffer.append(line + "\n");
                         line = reader.readLine();
                     }
+
+                    is.close();
+                    isr.close();
+                    reader.close();
 
                     String jsonData = buffer.toString();
                     JSONArray jsonArray = new JSONArray(jsonData);

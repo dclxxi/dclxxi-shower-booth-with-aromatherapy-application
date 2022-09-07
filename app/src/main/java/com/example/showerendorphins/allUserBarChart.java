@@ -26,7 +26,7 @@ import java.util.ArrayList;
 public class allUserBarChart extends AppCompatActivity {
 
     // URL 설정.
-    String urlStr = "http://192.168.0.103:8080/ShowerHistory/all_rating_count";  //IPv4 주소 변경해야 함
+    String urlStr = "http://ec2-43-200-238-1.ap-northeast-2.compute.amazonaws.com:8080/ShowerHistory/all_rating_count";  //IPv4 주소 변경해야 함
 
 
     TextView textView_avg, num_of_data;
