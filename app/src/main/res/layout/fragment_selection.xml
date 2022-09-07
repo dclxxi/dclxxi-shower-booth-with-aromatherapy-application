@@ -56,6 +56,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:buttonTint="#616161"
+                    android:minHeight="40dp"
                     android:text="샌달우드"
                     android:textColor="#000000" />
 
@@ -65,6 +66,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:buttonTint="#616161"
+                    android:minHeight="40dp"
                     android:text="로즈마리"
                     android:textColor="#000000" />
 
@@ -75,18 +77,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:buttonTint="#616161"
+                    android:minHeight="40dp"
                     android:text="라벤더"
                     android:textColor="#000000" />
-
-                <RadioButton
-                    android:id="@+id/rb4"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:buttonTint="#616161"
-                    android:text="시트로넬라"
-                    android:textColor="#000000" />
-
         </RadioGroup>
 
         <Button
