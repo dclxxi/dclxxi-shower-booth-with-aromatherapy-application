@@ -81,4 +81,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:21.0.7'
     implementation platform('com.google.firebase:firebase-bom:30.3.2')
     implementation 'com.google.firebase:firebase-analytics'
+
+    //spinKit
+    implementation 'com.github.ybq:Android-SpinKit:1.4.0'
 }
