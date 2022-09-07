@@ -26,7 +26,7 @@ import java.net.URL;
 
 public class UpdateUserInfo extends AppCompatActivity {
 
-    String urlStr = "http://192.168.10.102:8080/User/updateUser";  //IPv4 주소 변경해야 함
+    String urlStr = "http://ec2-43-200-238-1.ap-northeast-2.compute.amazonaws.com:8080/User/updateUser";  //IPv4 주소 변경해야 함
     private static String addParameterStr = "";
 
     TextView tv_id_set, tv_age_set2;

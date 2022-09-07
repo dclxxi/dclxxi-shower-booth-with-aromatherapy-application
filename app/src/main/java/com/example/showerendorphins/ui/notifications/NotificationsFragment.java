@@ -34,8 +34,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class NotificationsFragment extends Fragment {
-
-    String urlStr = "http://192.168.10.102:8080/User/findUser?email=";  //IPv4 주소 변경해야 함
+    String urlStr = "http://ec2-43-200-238-1.ap-northeast-2.compute.amazonaws.com:8080/User/findUser?email=";  //IPv4 주소 변경해야 함
 
     private FragmentNotificationsBinding binding;
     private FirebaseAuth mAuth;
