@@ -25,8 +25,7 @@ public class EvaluationFragment extends Fragment {
 
     private static String addParameterStr = "";
     // URL 설정.
-    String urlStr = "http://192.168.0.103:8080/ShowerHistory/add_shower_log";  //IPv4 주소 변경해야 함
-    //    String urlStr =  "http://192.168.0.103:8080/ShowerHistory/add_shower_log?height=160&feeling=HAPPY&bodyTemperature=36.5&aroma=1&rating=5&userid=1";
+    String urlStr = "http://ec2-43-200-238-1.ap-northeast-2.compute.amazonaws.com:8080/ShowerHistory/add_shower_log";
     private FragmentEvaluationBinding binding;
     Button btn_save_showerlog;
 
@@ -84,7 +83,6 @@ public class EvaluationFragment extends Fragment {
                             }
 
                             String returnData = buffer.toString();
-
 
                             getActivity().runOnUiThread(new Runnable() {
                                 public void run() {

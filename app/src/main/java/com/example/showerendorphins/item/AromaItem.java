@@ -1,22 +1,26 @@
 package com.example.showerendorphins.item;
 
-public class AromaItem {
-    private int aromaId;
-    private String aromaKoName;
-    private String aromaEnName;
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class AromaItem implements Parcelable {
+    private Integer aromaId;
+    private String koName;
+    private String enName;
     private String note;
+    private String feeling;
     private String scent;
-    private String mood;
     private String summary;
     private String caution;
     private String imgUrl;
 
-    public AromaItem() {}
+    public AromaItem() {
+    }
 
-    public AromaItem(int aromaId, String aromaKoName, String aromaEnName, String note, String scent, String imgUrl) {
+    public AromaItem(Integer aromaId, String koName, String enName, String note, String scent, String imgUrl) {
         this.aromaId = aromaId;
-        this.aromaKoName = aromaKoName;
-        this.aromaEnName = aromaEnName;
+        this.koName = koName;
+        this.enName = enName;
         this.note = note;
         this.scent = scent;
         if (imgUrl.equals("null")) {
@@ -26,17 +30,41 @@ public class AromaItem {
         }
     }
 
-    public AromaItem(int aromaId, String aromaKoName, String aromaEnName, String note, String scent, String mood, String summary, String caution, String imgUrl) {
+    public AromaItem(Integer aromaId, String koName, String enName, String note, String scent, String mood, String summary, String caution, String imgUrl) {
         this.aromaId = aromaId;
-        this.aromaKoName = aromaKoName;
-        this.aromaEnName = aromaEnName;
+        this.koName = koName;
+        this.enName = enName;
         this.note = note;
         this.scent = scent;
-        this.mood = mood;
+        this.feeling = mood;
         this.summary = summary;
         this.caution = caution;
         this.imgUrl = imgUrl;
     }
+
+    protected AromaItem(Parcel in) {
+        this.aromaId = in.readInt();
+        this.koName = in.readString();
+        this.enName = in.readString();
+        this.note = in.readString();
+        this.scent = in.readString();
+        this.feeling = in.readString();
+        this.summary = in.readString();
+        this.caution = in.readString();
+        this.imgUrl = in.readString();
+    }
+
+    public static final Creator<AromaItem> CREATOR = new Creator<AromaItem>() {
+        @Override
+        public AromaItem createFromParcel(Parcel in) {
+            return new AromaItem(in);
+        }
+
+        @Override
+        public AromaItem[] newArray(int size) {
+            return new AromaItem[size];
+        }
+    };
 
     public int getAromaId() {
         return aromaId;
@@ -46,20 +74,20 @@ public class AromaItem {
         this.aromaId = aromaId;
     }
 
-    public String getAromaKoName() {
-        return aromaKoName;
+    public String getKoName() {
+        return koName;
     }
 
-    public void setAromaKoName(String aromaKoName) {
-        this.aromaKoName = aromaKoName;
+    public void setKoName(String koName) {
+        this.koName = koName;
     }
 
-    public String getAromaEnName() {
-        return aromaEnName;
+    public String getEnName() {
+        return enName;
     }
 
-    public void setAromaEnName(String aromaEnName) {
-        this.aromaEnName = aromaEnName;
+    public void setEnName(String enName) {
+        this.enName = enName;
     }
 
     public String getNote() {
@@ -78,12 +106,12 @@ public class AromaItem {
         this.scent = scent;
     }
 
-    public String getMood() {
-        return mood;
+    public String getFeeling() {
+        return feeling;
     }
 
-    public void setMood(String mood) {
-        this.mood = mood;
+    public void setFeeling(String feeling) {
+        this.feeling = feeling;
     }
 
     public String getSummary() {
@@ -108,5 +136,23 @@ public class AromaItem {
 
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(aromaId);
+        parcel.writeString(koName);
+        parcel.writeString(enName);
+        parcel.writeString(note);
+        parcel.writeString(feeling);
+        parcel.writeString(scent);
+        parcel.writeString(summary);
+        parcel.writeString(caution);
+        parcel.writeString(imgUrl);
     }
 }

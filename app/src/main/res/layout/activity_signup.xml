@@ -210,7 +210,7 @@
 
         <Button
             android:id="@+id/btn_signup2"
-            android:layout_width="260dp"
+            android:layout_width="255dp"
             android:layout_height="50dp"
             android:text="회원가입"
             android:textColor="#FFFFFF"

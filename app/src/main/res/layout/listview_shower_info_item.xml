@@ -119,10 +119,7 @@
                         android:textSize="14dp"
                         android:text=" 샤워를 했어요" />
                 </LinearLayout>
-
             </LinearLayout>
         </LinearLayout>
-
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

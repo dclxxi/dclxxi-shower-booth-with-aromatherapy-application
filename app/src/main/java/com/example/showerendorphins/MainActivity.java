@@ -77,7 +77,6 @@ public class MainActivity extends AppCompatActivity {
 //        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
-
 //        // Enable bluetooth
 //        btAdapter = BluetoothAdapter.getDefaultAdapter();
 //        if (!btAdapter.isEnabled()) {
@@ -94,7 +93,6 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
 //        }
-
     }
 
     private void displayMessage(String message) {

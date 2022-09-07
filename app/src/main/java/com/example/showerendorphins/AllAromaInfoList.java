@@ -26,8 +26,7 @@ import java.util.ArrayList;
 public class AllAromaInfoList extends AppCompatActivity {
 
     // URL 설정.
-    String urlStr = "http://192.168.0.103:8080/Aroma/All_Aroma_List";  //IPv4 주소 변경해야 함
-
+    String urlStr = "http://ec2-43-200-238-1.ap-northeast-2.compute.amazonaws.com:8080/Aroma/All_Aroma_List";  //IPv4 주소 변경해야 함
     private ListView customListView;
     private AromaInfoItemAdapter adapter;
     ArrayList<AromaItem> items;
@@ -47,7 +46,7 @@ public class AllAromaInfoList extends AppCompatActivity {
                     URL url = new URL(urlStr);
 
                     InputStream is = url.openStream();
-                    InputStreamReader isr = new InputStreamReader(is);
+                    InputStreamReader isr = new InputStreamReader(is, "UTF-8");
                     BufferedReader reader = new BufferedReader(isr);
 
                     StringBuffer buffer = new StringBuffer();
@@ -57,17 +56,25 @@ public class AllAromaInfoList extends AppCompatActivity {
                         line = reader.readLine();
                     }
 
+                    is.close();
+                    isr.close();
+                    reader.close();
+
                     String jsonData = buffer.toString();
                     JSONArray jsonArray = new JSONArray(jsonData);
 
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        String koName = jsonObject.get("koName").toString();
-                        String enName = jsonObject.get("enName").toString();
-                        String note = jsonObject.get("note").toString();
-                        String scent = jsonObject.get("scent").toString();
-                        String imgURL = jsonObject.get("imgURL").toString();
-                        items.add(new AromaItem(i+1,koName , enName, note, scent, imgURL));
+                        AromaItem aromaItem = new AromaItem();
+
+                        aromaItem.setAromaId((Integer) jsonObject.get("id"));
+                        aromaItem.setKoName(jsonObject.get("koName").toString());
+                        aromaItem.setEnName(jsonObject.get("enName").toString());
+                        aromaItem.setNote(jsonObject.get("note").toString());
+                        aromaItem.setScent(jsonObject.get("scent").toString());
+                        aromaItem.setImgUrl(jsonObject.get("imgURL").toString());
+
+                        items.add(aromaItem);
                     }
                     runOnUiThread(new Runnable() {
                         @Override
@@ -91,10 +98,11 @@ public class AllAromaInfoList extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long l) {
                 //각 아이템을 분간 할 수 있는 position과 뷰
-                startActivity(new Intent(AllAromaInfoList.this, AromaInfoDetail.class)
-                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                Intent intent = new Intent(AllAromaInfoList.this, AromaInfoDetail.class);
+                AromaItem aromaItem = items.get(position);
+                intent.putExtra("aromaItem", aromaItem);
+                startActivity(intent);
             }
-
         });
     }
 
