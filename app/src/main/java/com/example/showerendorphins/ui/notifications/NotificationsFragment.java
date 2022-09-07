@@ -14,6 +14,7 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import com.example.showerendorphins.AromaInfoList;
+import com.example.showerendorphins.AromaInfoModifyList;
 import com.example.showerendorphins.LoginActivity;
 import com.example.showerendorphins.R;
 import com.example.showerendorphins.UpdateUserInfo;
@@ -80,6 +81,7 @@ public class NotificationsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), AromaInfoModifyList.class);
+                intent.putExtra("userId", userId);
                 startActivity(intent);
             }
         });

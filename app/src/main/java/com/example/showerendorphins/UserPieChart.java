@@ -75,6 +75,10 @@ public class UserPieChart extends AppCompatActivity {
                         line = reader.readLine();
                     }
 
+                    is.close();
+                    isr.close();
+                    reader.close();
+
                     String jsonData = buffer.toString();
                     JSONArray jsonArray = new JSONArray(jsonData);
                     ArrayList NoOfEmp = new ArrayList();
