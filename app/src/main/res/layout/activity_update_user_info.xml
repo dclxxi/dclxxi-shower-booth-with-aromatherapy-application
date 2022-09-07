@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E0E0E0"
-    android:orientation="vertical"
-    tools:context=".SignupActivity">
+    android:background="@color/whitegray"
+    tools:context=".UpdateUserInfo">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,11 +16,10 @@
         tools:layout_editor_absoluteY="-119dp">
 
         <TextView
-            android:id="@+id/tv_signup_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="30dp"
-            android:text="회원가입"
+            android:text="사용자 정보 수정"
             android:textColor="#2980B9"
             android:textSize="34sp"
             android:textStyle="bold" />
@@ -38,7 +36,6 @@
                 android:minHeight="48dp">
 
                 <TextView
-                    android:id="@+id/tv_id"
                     android:layout_width="63dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -47,20 +44,18 @@
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
-                <EditText
-                    android:id="@+id/et_id_set"
+                <TextView
+                    android:id="@+id/tv_id_set"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:autofillHints=""
                     android:background="@drawable/edittext_background"
-                    android:ems="10"
-                    android:hint="이메일 입력 (user@ex.com)"
-                    android:inputType="textPersonName"
                     android:minHeight="48dp"
+                    android:textSize="17sp"
                     android:padding="10dp"
-                    android:textColorHint="#616161" />
+                    android:text="zzzzzz"
+                    android:textColor="#616161" />
             </TableRow>
+
 
             <TableRow
                 android:layout_width="match_parent"
@@ -69,39 +64,6 @@
                 android:minHeight="48dp">
 
                 <TextView
-                    android:id="@+id/tv_pw"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:text="PW"
-                    android:textColor="#616161"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/et_pw_set"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:autofillHints=""
-                    android:background="@drawable/edittext_background"
-                    android:ems="10"
-                    android:hint="비밀번호 입력 (6글자 이상)"
-                    android:inputType="textPassword"
-                    android:minHeight="48dp"
-                    android:padding="10dp"
-                    android:textColorHint="#616161"
-                    tools:ignore="TouchTargetSizeCheck" />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="10dp"
-                android:minHeight="48dp">
-
-                <TextView
-                    android:id="@+id/tv_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -111,7 +73,7 @@
                     android:textStyle="bold" />
 
                 <EditText
-                    android:id="@+id/et_name_set"
+                    android:id="@+id/tv_name_set"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -122,6 +84,7 @@
                     android:inputType="textPersonName"
                     android:minHeight="48dp"
                     android:padding="10dp"
+                    android:textColor="#616161"
                     android:textColorHint="#616161"
                     tools:ignore="TouchTargetSizeCheck" />
             </TableRow>
@@ -133,7 +96,6 @@
                 android:minHeight="48dp">
 
                 <TextView
-                    android:id="@+id/tv_gender"
                     android:layout_width="72dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -143,14 +105,14 @@
                     android:textStyle="bold" />
 
                 <RadioGroup
-                    android:id="@+id/radioGroup"
+                    android:id="@+id/radioGroup2"
                     android:layout_width="279dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:orientation="horizontal">
 
                     <RadioButton
-                        android:id="@+id/rb_woman"
+                        android:id="@+id/rb_woman2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="80dp"
@@ -163,7 +125,7 @@
                         tools:targetApi="lollipop" />
 
                     <RadioButton
-                        android:id="@+id/rb_man"
+                        android:id="@+id/rb_man2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:buttonTint="#616161"
@@ -183,7 +145,6 @@
                 android:minHeight="48dp">
 
                 <TextView
-                    android:id="@+id/tv_age"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -193,7 +154,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tv_age_set"
+                    android:id="@+id/tv_age_set2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -210,9 +171,9 @@
 
         <Button
             android:id="@+id/btn_signup2"
-            android:layout_width="255dp"
+            android:layout_width="260dp"
             android:layout_height="50dp"
-            android:text="회원가입"
+            android:text="수정하기"
             android:textColor="#FFFFFF"
             app:backgroundTint="#2980B9" />
 

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "57947707139",
+    "firebase_url": "https://showerendorphins-1661585973137-default-rtdb.firebaseio.com",
+    "project_id": "showerendorphins-1661585973137",
+    "storage_bucket": "showerendorphins-1661585973137.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:57947707139:android:3a9ec4a002cfc02831fb36",
+        "android_client_info": {
+          "package_name": "com.example.showerendorphins"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "57947707139-t2g43m13720ajb14f0g6uod7chf5dnai.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.showerendorphins",
+            "certificate_hash": "d7f92c1645d8d0b928133520541c93d318e8fc78"
+          }
+        },
+        {
+          "client_id": "57947707139-mkli5lj87c536jvmfjo2566o06t8qqdt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_8qqmdx0w393db9GniRgXZzDFvE1_Qgc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "57947707139-mkli5lj87c536jvmfjo2566o06t8qqdt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
