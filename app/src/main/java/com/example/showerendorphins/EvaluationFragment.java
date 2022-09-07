@@ -90,7 +90,7 @@ public class EvaluationFragment extends Fragment {
                                         Toast.makeText(getContext(), "데이터 저장에 실패하였습니다.", Toast.LENGTH_SHORT).show();
                                     } else {
                                         Toast.makeText(getContext(), "샤워기록을 저장하였습니다!", Toast.LENGTH_SHORT).show();
-                                        ((MainActivity) getActivity()).replaceFragment(8); //홈 화면으로 화면전환
+                                        ((MainActivity) getActivity()).replaceFragment(11); //홈 화면으로 화면전환
                                     }
                                 }
                             });

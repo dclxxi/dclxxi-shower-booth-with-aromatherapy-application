@@ -32,7 +32,7 @@ public class SelectionFragment extends Fragment {
         btn_selection_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity)getActivity()).replaceFragment(6);
+                ((MainActivity)getActivity()).replaceFragment(7);
             }
         });
 

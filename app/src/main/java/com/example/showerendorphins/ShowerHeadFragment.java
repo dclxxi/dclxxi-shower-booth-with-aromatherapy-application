@@ -9,13 +9,14 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.example.showerendorphins.databinding.FragmentWaterBinding;
+import com.example.showerendorphins.databinding.FragmentShowerHeadBinding;
 
-public class WaterFragment extends Fragment {
-    private FragmentWaterBinding binding;
+public class ShowerHeadFragment extends Fragment {
 
-    public static WaterFragment newInstance() {
-        WaterFragment fragment = new WaterFragment();
+    private FragmentShowerHeadBinding binding;
+
+    public static ShowerHeadFragment newInstance() {
+        ShowerHeadFragment fragment = new ShowerHeadFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -24,14 +25,14 @@ public class WaterFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        binding = FragmentWaterBinding.inflate(inflater, container, false);
+        binding = FragmentShowerHeadBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                ((MainActivity) getActivity()).replaceFragment(10);
+                ((MainActivity) getActivity()).replaceFragment(4);
             }
         }, 1000); // 1000밀리 초 동안 딜레이
 

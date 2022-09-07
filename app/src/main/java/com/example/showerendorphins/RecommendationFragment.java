@@ -32,7 +32,7 @@ public class RecommendationFragment extends Fragment {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                ((MainActivity) getActivity()).replaceFragment(5);
+                ((MainActivity) getActivity()).replaceFragment(6);
             }
         }, 1000); // 1000밀리 초 동안 딜레이
 

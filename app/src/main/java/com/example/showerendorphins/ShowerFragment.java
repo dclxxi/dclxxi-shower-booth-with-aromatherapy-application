@@ -23,22 +23,22 @@ public class ShowerFragment extends Fragment {
         return fragment;
     }
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-
-        binding = FragmentShowerBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
-
-        btn_shower_save = root.findViewById(R.id.btn_shower_save);
-        btn_shower_save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ((MainActivity)getActivity()).replaceFragment(4);
-            }
-        });
-
-        return root;
-    }
+//    public View onCreateView(@NonNull LayoutInflater inflater,
+//                             ViewGroup container, Bundle savedInstanceState) {
+//
+//        binding = FragmentShowerBinding.inflate(inflater, container, false);
+//        View root = binding.getRoot();
+//
+//        btn_shower_save = root.findViewById(R.id.btn_shower_save);
+//        btn_shower_save.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                ((MainActivity)getActivity()).replaceFragment(4);
+//            }
+//        });
+//
+//        return root;
+//    }
 
     @Override
     public void onDestroyView() {

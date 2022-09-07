@@ -18,6 +18,8 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.showerendorphins.databinding.ActivityMainBinding;
+import com.example.showerendorphins.enums.FeelingStatus;
+import com.example.showerendorphins.enums.Fragment;
 import com.example.showerendorphins.ui.home.HomeFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
@@ -100,37 +102,48 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void replaceFragment(int index) {
-
         switch (index) {
-            case 1:
+            case 1: // SERVICE
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.frame_layout, new ServiceFragment()).commit();
                 break;
-            case 2:
+            case 2: // HEIGHT
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frame_container, new MeasurementFragment()).commit();
+                        .replace(R.id.frame_container, new HeightFragment()).commit();
                 break;
-            case 3:
+            case 3: // SHOWER_HEAD
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frame_container, new ShowerFragment()).commit();
+                        .replace(R.id.frame_container, new ShowerHeadFragment()).commit();
                 break;
-            case 4:
+            case 4: // MOOD
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.frame_container, new MoodFragment()).commit();
+                break;
+            case 5: // RECOMMENDATION
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.frame_container, new RecommendationFragment()).commit();
                 break;
-            case 5:
+            case 6: // SELECTION
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.frame_container, new SelectionFragment()).commit();
                 break;
-            case 6:
+            case 7: // USER_TEMP
+//                getSupportFragmentManager().beginTransaction()
+//                        .replace(R.id.frame_container, new ()).commit();
+                break;
+            case 8: // WATER_TEMP
+//                getSupportFragmentManager().beginTransaction()
+//                        .replace(R.id.frame_container, new ()).commit();
+                break;
+            case 9: // WATER
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.frame_container, new WaterFragment()).commit();
                 break;
-            case 7:
+            case 10: // EVALUATION
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.frame_layout2, new EvaluationFragment()).commit();
                 break;
-            case 8:
+            case 11: // HOME
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.frame_layout, new HomeFragment()).commit();
                 break;

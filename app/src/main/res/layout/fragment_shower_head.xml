@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="horizontal"
+    tools:context=".ShowerHeadFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingTop="50dp"
+        tools:layout_editor_absoluteX="9dp"
+        tools:layout_editor_absoluteY="9dp">
+
+        <ImageView
+            android:id="@+id/img_shower_head"
+            android:layout_width="192dp"
+            android:layout_height="197dp"
+            android:contentDescription="TODO"
+            app:srcCompat="@drawable/shower" />
+
+        <TextView
+            android:id="@+id/tv_shower_head"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:gravity="center"
+            android:text="샤워기 헤드를 조절하고 있습니다."
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
