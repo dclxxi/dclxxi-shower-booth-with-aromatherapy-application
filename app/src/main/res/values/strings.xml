@@ -15,4 +15,6 @@
     <string name="title_home">아로마샤워</string>
     <string name="title_dashboard">기록조회</string>
     <string name="title_notifications">마이페이지</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
