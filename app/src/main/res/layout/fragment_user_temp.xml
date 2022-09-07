@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#FFFFFF"
     android:orientation="horizontal"
-    tools:context=".WaterFragment">
+    tools:context=".UserTempFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,21 +20,20 @@
 
         <ImageView
             android:id="@+id/img_water"
-            android:layout_width="315dp"
-            android:layout_height="285dp"
-            app:srcCompat="@drawable/water" />
+            android:layout_width="180dp"
+            android:layout_height="200dp"
+            app:srcCompat="@drawable/thermometers" />
 
         <TextView
             android:id="@+id/tv_water"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:layout_marginTop="50px"
-            android:text="물 배출을 시작합니다.\n즐거운 샤워하세요!"
+            android:layout_marginTop="50dp"
+            android:text="사용자의 체온을 측정합니다."
             android:textColor="#000000"
             android:textSize="20sp"
             android:textStyle="bold" />
 
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

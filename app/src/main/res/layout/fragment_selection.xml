@@ -19,14 +19,22 @@
         tools:layout_editor_absoluteY="30dp">
 
         <TextView
-            android:id="@+id/tv_selection"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="아로마향 선택"
             android:textColor="#000000"
-            android:textSize="30sp"
+            android:textSize="25sp"
             android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="원하는 아로마오일을 직접 선택합니다."
+            android:textColor="#000000"
+            android:textSize="15sp"/>
 
         <ImageView
             android:id="@+id/img_oil"
@@ -36,16 +44,11 @@
             app:srcCompat="@drawable/oil" />
 
         <RadioGroup
-            android:layout_width="300dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
-            android:paddingLeft="30dp"
-            android:paddingRight="30dp">
+            android:layout_marginBottom="20dp">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+
 
                 <RadioButton
                     android:id="@+id/rb1"
@@ -53,7 +56,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:buttonTint="#616161"
-                    android:minHeight="48dp"
+                    android:minHeight="40dp"
                     android:text="샌달우드"
                     android:textColor="#000000" />
 
@@ -63,15 +66,10 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:buttonTint="#616161"
-                    android:minHeight="48dp"
+                    android:minHeight="40dp"
                     android:text="로즈마리"
                     android:textColor="#000000" />
-            </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
 
                 <RadioButton
                     android:id="@+id/rb3"
@@ -79,27 +77,16 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:buttonTint="#616161"
-                    android:minHeight="48dp"
+                    android:minHeight="40dp"
                     android:text="라벤더"
                     android:textColor="#000000" />
-
-                <RadioButton
-                    android:id="@+id/rb4"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:buttonTint="#616161"
-                    android:minHeight="48dp"
-                    android:text="시트로넬라"
-                    android:textColor="#000000" />
-            </LinearLayout>
         </RadioGroup>
 
         <Button
             android:id="@+id/btn_selection_save"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:text="저장하기"
+            android:text="사용하기"
             app:backgroundTint="#2980B9" />
 
     </LinearLayout>
