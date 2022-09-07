@@ -14,6 +14,8 @@ import com.example.showerendorphins.databinding.FragmentRecommendationBinding;
 
 public class RecommendationFragment extends Fragment {
     private FragmentRecommendationBinding binding;
+    Button btn_recommendation_accept;
+    Button btn_recommendation_refusal;
 
     public static RecommendationFragment newInstance() {
         RecommendationFragment fragment = new RecommendationFragment();
@@ -28,13 +30,22 @@ public class RecommendationFragment extends Fragment {
         binding = FragmentRecommendationBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
+
+        btn_recommendation_accept = root.findViewById(R.id.btn_recommendation_accept);
+        btn_recommendation_accept.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void run() {
-                ((MainActivity) getActivity()).replaceFragment(6);
+            public void onClick(View view) {
+                ((MainActivity)getActivity()).replaceFragment(7);
             }
-        }, 1000); // 1000밀리 초 동안 딜레이
+        });
+
+        btn_recommendation_refusal = root.findViewById(R.id.btn_recommendation_refusal);
+        btn_recommendation_refusal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((MainActivity)getActivity()).replaceFragment(6);
+            }
+        });
 
         return root;
     }

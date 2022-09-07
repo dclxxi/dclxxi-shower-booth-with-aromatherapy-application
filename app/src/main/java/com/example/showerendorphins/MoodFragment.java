@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -12,7 +13,6 @@ import androidx.fragment.app.Fragment;
 import com.example.showerendorphins.databinding.FragmentMoodBinding;
 
 public class MoodFragment extends Fragment {
-
     private FragmentMoodBinding binding;
 
     public static MoodFragment newInstance() {
@@ -35,6 +35,7 @@ public class MoodFragment extends Fragment {
                 ((MainActivity) getActivity()).replaceFragment(5);
             }
         }, 1000); // 1000밀리 초 동안 딜레이
+
 
         return root;
     }
