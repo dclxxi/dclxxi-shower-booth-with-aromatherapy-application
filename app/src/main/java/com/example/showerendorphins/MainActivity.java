@@ -128,12 +128,12 @@ public class MainActivity extends AppCompatActivity {
                         .replace(R.id.frame_container, new SelectionFragment()).commit();
                 break;
             case 7: // USER_TEMP
-//                getSupportFragmentManager().beginTransaction()
-//                        .replace(R.id.frame_container, new ()).commit();
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.frame_container, new UserTempFragment()).commit();
                 break;
             case 8: // WATER_TEMP
-//                getSupportFragmentManager().beginTransaction()
-//                        .replace(R.id.frame_container, new ()).commit();
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.frame_container, new WaterTempFragment()).commit();
                 break;
             case 9: // WATER
                 getSupportFragmentManager().beginTransaction()
