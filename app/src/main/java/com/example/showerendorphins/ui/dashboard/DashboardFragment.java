@@ -37,7 +37,9 @@ import java.util.Locale;
 public class DashboardFragment extends Fragment {
 
     // URL 설정.
-    String urlStr = "http://192.168.0.103:8080/ShowerHistory/shower_log_list?usercode=";  //IPv4 주소 변경해야 함
+    String urlStrFindUserCode = "http://ec2-43-200-238-1.ap-northeast-2.compute.amazonaws.com:8080/User/findUserCode?email=";  //IPv4 주소 변경해야 함
+
+    String urlStrShowerLog = "http://ec2-43-200-238-1.ap-northeast-2.compute.amazonaws.com:8080/ShowerHistory/shower_log_list?usercode=";  //IPv4 주소 변경해야 함
 
     private FragmentDashboardBinding binding;
 
@@ -61,7 +63,7 @@ public class DashboardFragment extends Fragment {
             @Override
             public void run() {
                 try {
-                    URL url = new URL(urlStr + usercode);
+                    URL url = new URL(urlStrShowerLog + usercode);
 
                     InputStream is = url.openStream();
                     InputStreamReader isr = new InputStreamReader(is);
@@ -93,7 +95,9 @@ public class DashboardFragment extends Fragment {
                         list.add(new ShowerItem(showerid, usercode, height, feeling, bodyTemperature,waterTemperature,
                                 aroma.get("koName").toString(), rating, createDate, getContext()));
                     }
-
+                    isr.close();
+                    reader.close();
+                    is.close();
                     getActivity().runOnUiThread(new Runnable() {
                         public void run() {
                             adapter.notifyDataSetChanged();

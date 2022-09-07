@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.application'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -7,11 +8,11 @@ android {
 
     defaultConfig {
         applicationId "com.example.showerendorphins"
-        minSdk 16
+        minSdk 19
         targetSdk 32
         versionCode 1
         versionName "1.0"
-
+        multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -32,7 +33,7 @@ android {
 }
 
 dependencies {
-
+    implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'androidx.appcompat:appcompat:1.4.2'
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
@@ -73,4 +74,11 @@ dependencies {
 
     implementation 'com.akexorcist:bluetoothspp:1.0.0'
 
+    // goole login
+    implementation 'com.google.android.gms:play-services-auth:20.2.0'
+
+    //Firebase
+    implementation 'com.google.firebase:firebase-auth:21.0.7'
+    implementation platform('com.google.firebase:firebase-bom:30.3.2')
+    implementation 'com.google.firebase:firebase-analytics'
 }

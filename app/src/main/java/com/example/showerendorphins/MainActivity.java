@@ -2,8 +2,6 @@ package com.example.showerendorphins;
 
 import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
-import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
