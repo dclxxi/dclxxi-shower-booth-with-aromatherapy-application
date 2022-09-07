@@ -27,7 +27,7 @@ import java.util.ArrayList;
 public class UserPieChart extends AppCompatActivity {
 
     // URL 설정.
-    String urlStr = "http://192.168.0.103:8080/ShowerHistory/user_rating_count?usercode=";  //IPv4 주소 변경해야 함
+    String urlStr = "http://ec2-43-200-238-1.ap-northeast-2.compute.amazonaws.com:8080/ShowerHistory/user_rating_count?usercode=";  //IPv4 주소 변경해야 함
     //    http://localhost:8080/ShowerHistory/user_rating_count?usercode=1
     PieChart pieChart;
     public static final int[] LIBERTY_COLORS = {

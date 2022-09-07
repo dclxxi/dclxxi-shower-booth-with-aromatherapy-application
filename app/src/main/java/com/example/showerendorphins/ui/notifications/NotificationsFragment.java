@@ -79,7 +79,7 @@ public class NotificationsFragment extends Fragment {
         btn_add_aroma_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), UserPieChart.class);
+                Intent intent = new Intent(getActivity(), AromaInfoModifyList.class);
                 startActivity(intent);
             }
         });
@@ -95,6 +95,7 @@ public class NotificationsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), AromaInfoList.class);
+                intent.putExtra("userId", userId);
                 startActivity(intent);
             }
         });
