@@ -2,6 +2,8 @@ package com.example.showerendorphins;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -44,6 +46,12 @@ public class AromaInfoList extends AppCompatActivity {
 
         String userId = getIntent().getStringExtra("userId");
 
+        ProgressDialogCustom progressDialog = new ProgressDialogCustom(this); //다이얼로그 선언
+        progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT)); //백그라운를 투명하게
+        progressDialog.setCancelable(false); //다이얼로그 외부 클릭으로 종료되지 않게
+
+        progressDialog.show(); //로딩화면 보여주기
+
         new Thread() {
             @Override
             public void run() {
@@ -84,6 +92,7 @@ public class AromaInfoList extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            progressDialog.dismiss();	//progress dialog 종료
                             adapter.notifyDataSetChanged();
                         }
                     });

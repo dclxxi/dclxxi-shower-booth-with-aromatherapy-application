@@ -1,6 +1,5 @@
 package com.example.showerendorphins.ui.dashboard;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -16,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
+import com.example.showerendorphins.ProgressDialogCustom;
 import com.example.showerendorphins.R;
 import com.example.showerendorphins.ShowerInfoDetail;
 import com.example.showerendorphins.adapter.ShowerInfoItemAdapter;
@@ -60,7 +60,7 @@ public class DashboardFragment extends Fragment {
         showerInfoListView = (ListView) rootView.findViewById(R.id.showerInfoListView_custom);
         list = new ArrayList<>();
 
-        ProgressDialog progressDialog = new ProgressDialog(this.getContext()); //다이얼로그 선언
+        ProgressDialogCustom progressDialog = new ProgressDialogCustom(this.getContext()); //다이얼로그 선언
         progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT)); //백그라운를 투명하게
         progressDialog.setCancelable(false); //다이얼로그 외부 클릭으로 종료되지 않게
 

@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="라벤더"
+            android:text=""
             android:textColor="@color/black"
             android:textSize="30dp"
             android:textStyle="bold" />
@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:gravity="center"
-            android:text="Lavender"
+            android:text=""
             android:textColor="#8C8C8C"
             android:textSize="24dp" />
 
@@ -54,7 +54,7 @@
                 android:id="@+id/aroma_detail_note"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="미들노트"
+                android:text=""
                 android:textColor="@color/colorPrimaryText"
                 android:textSize="16dp" />
 
@@ -69,7 +69,7 @@
                 android:id="@+id/aroma_detail_scent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="우아함"
+                android:text=""
                 android:textColor="@color/colorPrimaryText"
                 android:textSize="16dp" />
 
@@ -80,8 +80,7 @@
             android:layout_width="300dp"
             android:layout_height="300dp"
             android:layout_gravity="center"
-            android:layout_margin="15dp"
-            app:srcCompat="@drawable/lavender" />
+            android:layout_margin="15dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -105,7 +104,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="25dp"
                 android:gravity="center"
-                android:text="기쁠"
+                android:text=""
                 android:textColor="@color/colorPrimaryText"
                 android:textSize="20dp"
                 android:textStyle="bold" />
@@ -137,7 +136,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="아로마 테라피 에서 가장 폭넓게 쓰이는 오일, 피부에 직접 바를 수 있음. "
+            android:text=""
             android:textColor="@color/black"
             android:textSize="18dp" />
 
@@ -158,7 +157,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="광과민성 반응(강한 햇빛에 노출될시 피부 자극이 유발) 에 주의"
+            android:text=""
             android:textColor="@color/black"
             android:textSize="18dp" />
     </LinearLayout>

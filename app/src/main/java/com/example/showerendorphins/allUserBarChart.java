@@ -44,7 +44,6 @@ public class allUserBarChart extends AppCompatActivity {
 
         ArrayList score = new ArrayList();
 
-
         score.add("1점");
         score.add("2점");
         score.add("3점");

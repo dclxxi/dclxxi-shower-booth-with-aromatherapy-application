@@ -1,6 +1,7 @@
 package com.example.showerendorphins;
 
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -55,6 +56,12 @@ public class UserPieChart extends AppCompatActivity {
 
         int usercode = 1;   /* 하드코딩 */
 
+        ProgressDialogCustom progressDialog = new ProgressDialogCustom(this); //다이얼로그 선언
+        progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT)); //백그라운를 투명하게
+        progressDialog.setCancelable(false); //다이얼로그 외부 클릭으로 종료되지 않게
+
+        progressDialog.show(); //로딩화면 보여주기
+
         new Thread() {
             @Override
             public void run() {
@@ -98,6 +105,8 @@ public class UserPieChart extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            progressDialog.dismiss();   //progress dialog 종료
+
                             PieDataSet dataSet = new PieDataSet(NoOfEmp, "Satisfaction Score");
                             dataSet.setSliceSpace(3f);
 
