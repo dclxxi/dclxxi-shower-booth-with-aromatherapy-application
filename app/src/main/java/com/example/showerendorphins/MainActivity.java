@@ -1,7 +1,10 @@
 package com.example.showerendorphins;
 
 import android.Manifest;
+import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -10,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -18,17 +20,19 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.showerendorphins.databinding.ActivityMainBinding;
-import com.example.showerendorphins.enums.FeelingStatus;
-import com.example.showerendorphins.enums.Fragment;
 import com.example.showerendorphins.ui.home.HomeFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
-public class MainActivity extends AppCompatActivity {
+import app.akexorcist.bluetotohspp.library.BluetoothSPP;
+import app.akexorcist.bluetotohspp.library.BluetoothState;
+import app.akexorcist.bluetotohspp.library.DeviceList;
 
+public class MainActivity extends AppCompatActivity implements BluetoothAware {
+    boolean flag = false;
+    int fragIndex = 0;
+    private BluetoothSPP bt;
     private ActivityMainBinding binding;
-    FragmentManager manager;
-    FragmentTransaction transaction;
 
     BluetoothAdapter btAdapter;
     private final static int REQUEST_ENABLE_BT = 1;
@@ -37,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_main);
-
         // Get permission
         String[] permission_list = {
                 Manifest.permission.ACCESS_FINE_LOCATION,
@@ -79,22 +82,15 @@ public class MainActivity extends AppCompatActivity {
 //        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
-//        // Enable bluetooth
-//        btAdapter = BluetoothAdapter.getDefaultAdapter();
-//        if (!btAdapter.isEnabled()) {
-//            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-//            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
-//                // TODO: Consider calling
-//                //    ActivityCompat#requestPermissions
-//                // here to request the missing permissions, and then overriding
-//                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-//                //                                          int[] grantResults)
-//                // to handle the case where the user grants the permission. See the documentation
-//                // for ActivityCompat#requestPermissions for more details.
-//                return;
-//            }
-//            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
-//        }
+        /*Blooth*/
+        bt = new BluetoothSPP(this); //Initializing
+        if (!bt.isBluetoothAvailable()) { //블루투스 사용 불가
+            Toast.makeText(getApplicationContext(), "Bluetooth is not available",
+                    Toast.LENGTH_SHORT).show();
+            finish();
+        }
+        connect();
+
     }
 
     private void displayMessage(String message) {
@@ -102,51 +98,156 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void replaceFragment(int index) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         switch (index) {
             case 1: // SERVICE
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frame_layout, new ServiceFragment()).commit();
+                fragmentTransaction.replace(R.id.frame_layout, new ServiceFragment()).commitAllowingStateLoss();
                 break;
             case 2: // HEIGHT
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frame_container, new HeightFragment()).commit();
+                fragmentTransaction
+                        .replace(R.id.frame_layout, new HeightFragment()).commitAllowingStateLoss();
                 break;
             case 3: // SHOWER_HEAD
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frame_container, new ShowerHeadFragment()).commit();
+                fragmentTransaction
+                        .replace(R.id.frame_layout, new ShowerHeadFragment()).commitAllowingStateLoss();
                 break;
             case 4: // MOOD
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frame_container, new MoodFragment()).commit();
+                fragmentTransaction
+                        .replace(R.id.frame_layout, new MoodFragment()).commitAllowingStateLoss();
                 break;
             case 5: // RECOMMENDATION
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frame_container, new RecommendationFragment()).commit();
+                fragmentTransaction
+                        .replace(R.id.frame_layout, new RecommendationFragment()).commitAllowingStateLoss();
                 break;
             case 6: // SELECTION
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frame_container, new SelectionFragment()).commit();
+                fragmentTransaction
+                        .replace(R.id.frame_layout, new SelectionFragment()).commitAllowingStateLoss();
                 break;
             case 7: // USER_TEMP
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frame_container, new UserTempFragment()).commit();
+                fragmentTransaction
+                        .replace(R.id.frame_layout, new UserTempFragment()).commitAllowingStateLoss();
                 break;
             case 8: // WATER_TEMP
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frame_container, new WaterTempFragment()).commit();
+                fragmentTransaction
+                        .replace(R.id.frame_layout, new WaterTempFragment()).commitAllowingStateLoss();
                 break;
             case 9: // WATER
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frame_container, new WaterFragment()).commit();
+                fragmentTransaction
+                        .replace(R.id.frame_layout, new WaterFragment()).commitAllowingStateLoss();
                 break;
             case 10: // EVALUATION
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frame_layout2, new EvaluationFragment()).commit();
+                fragmentTransaction
+                        .replace(R.id.frame_layout2, new EvaluationFragment()).commitAllowingStateLoss();
                 break;
             case 11: // HOME
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frame_layout, new HomeFragment()).commit();
+                fragmentTransaction
+                        .replace(R.id.frame_layout, new HomeFragment()).commitAllowingStateLoss();
                 break;
         }
+    }
+
+    @Override
+    public void connect() {
+        bt.setBluetoothConnectionListener(new BluetoothSPP.BluetoothConnectionListener() { //연결됐을 때
+            public void onDeviceConnected(String name, String address) {
+                Toast.makeText(getApplicationContext(), "Connected to " + name + "\n" + address
+                        , Toast.LENGTH_SHORT).show();
+                flag = true;
+                if (flag == true) {
+                    replaceFragment(fragIndex);
+                }
+            }
+
+            public void onDeviceDisconnected() { //연결해제
+                Toast.makeText(getApplicationContext(), "Connection lost", Toast.LENGTH_SHORT).show();
+            }
+
+            public void onDeviceConnectionFailed() { //연결실패
+                Toast.makeText(getApplicationContext(), "Unable to connect", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+    public void onDestroy() {
+        super.onDestroy();
+//        bt.stopService(); //블루투스 중지
+    }
+
+    public void onStart() {
+        super.onStart();
+        if (!bt.isBluetoothEnabled()) {
+            Intent intent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return;
+            }
+            startActivityForResult(intent, BluetoothState.REQUEST_ENABLE_BT);
+        } else {
+            if (!bt.isServiceAvailable()) {
+                bt.setupService();
+                bt.startService(BluetoothState.DEVICE_OTHER); //DEVICE_ANDROID는 안드로이드 기기 끼리
+            }
+        }
+    }
+
+    @Override
+    public void startScan(int index) {
+        fragIndex = index;
+        if (bt.getServiceState() == BluetoothState.STATE_CONNECTED) {
+            bt.disconnect();
+        } else {
+            Intent intent = new Intent(getApplicationContext(), DeviceList.class);
+            startActivityForResult(intent, BluetoothState.REQUEST_CONNECT_DEVICE);
+        }
+    }
+
+    @Override
+    public void stopService() {
+        bt.stopService(); //블루투스 중지
+    }
+
+    @Override
+    public void send(String text) { //데이터 전송
+        bt.send(text, true);
+    }
+
+    @Override
+    public void receive() {
+        bt.setOnDataReceivedListener(new BluetoothSPP.OnDataReceivedListener() { //데이터 수신
+            public void onDataReceived(byte[] data, String message) {
+                Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
+                if (flag == true) {
+                    replaceFragment(fragIndex);
+                }
+            }
+
+        });
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == BluetoothState.REQUEST_CONNECT_DEVICE) {
+            if (resultCode == Activity.RESULT_OK) {
+                bt.connect(data);
+            }
+        } else if (requestCode == BluetoothState.REQUEST_ENABLE_BT) {
+            if (resultCode == Activity.RESULT_OK) {
+                bt.setupService();
+                bt.startService(BluetoothState.DEVICE_OTHER);
+            } else {
+                Toast.makeText(getApplicationContext()
+                        , "Bluetooth was not enabled."
+                        , Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        }
+
     }
 }

@@ -13,6 +13,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import java.util.Set;
+
 import app.akexorcist.bluetotohspp.library.BluetoothSPP;
 import app.akexorcist.bluetotohspp.library.BluetoothState;
 import app.akexorcist.bluetotohspp.library.DeviceList;
@@ -103,9 +105,34 @@ public class MainActivity_temp2 extends AppCompatActivity {
             }
         });
     }
+    public static void printInent(Intent i) {
+        try {
+            System.out.println("-------------------------------------------------------");
+            System.out.println("intent = " + i);
+            if (i != null) {
+                Bundle extras = i.getExtras();
+                System.out.println("extras = " + extras);
+                if (extras != null) {
+                    Set keys = extras.keySet();
+                    System.out.println("++ bundle key count = " + keys.size());
+
+                    for (String _key : extras.keySet()) {
+                        System.out.println("key=" + _key + " : " + extras.get(_key));
+                    }
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            System.out.println("-------------------------------------------------------");
+        }
+    }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        System.out.println(">>>> requestCode : "+requestCode);
+        printInent(data);
+
         if (requestCode == BluetoothState.REQUEST_CONNECT_DEVICE) {
             if (resultCode == Activity.RESULT_OK)
                 bt.connect(data);

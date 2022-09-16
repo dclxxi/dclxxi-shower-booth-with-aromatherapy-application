@@ -1,5 +1,6 @@
 package com.example.showerendorphins.ui.home;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,14 +10,22 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.example.showerendorphins.MainActivity;
+import com.example.showerendorphins.BluetoothAware;
 import com.example.showerendorphins.R;
 import com.example.showerendorphins.databinding.FragmentHomeBinding;
 
-public class HomeFragment extends Fragment {
+import java.util.Objects;
 
+public class HomeFragment extends Fragment  {
+    private BluetoothAware bluetoothAware;
     private FragmentHomeBinding binding;
     ImageView img_start;
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        bluetoothAware =  Objects.requireNonNull((BluetoothAware)context);
+    }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -30,7 +39,7 @@ public class HomeFragment extends Fragment {
         img_start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity)getActivity()).replaceFragment(1);
+                bluetoothAware.startScan(1);
             }
         });
 
@@ -42,4 +51,5 @@ public class HomeFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+
 }

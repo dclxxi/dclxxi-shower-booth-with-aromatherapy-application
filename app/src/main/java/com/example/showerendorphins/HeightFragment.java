@@ -1,7 +1,7 @@
 package com.example.showerendorphins;
 
+import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +11,17 @@ import androidx.fragment.app.Fragment;
 
 import com.example.showerendorphins.databinding.FragmentHeightBinding;
 
-public class HeightFragment extends Fragment {
+import java.util.Objects;
 
+public class HeightFragment extends Fragment {
+    private BluetoothAware bluetoothAware;
     private FragmentHeightBinding binding;
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        bluetoothAware =  Objects.requireNonNull((BluetoothAware)context);
+    }
 
     public static HeightFragment newInstance() {
         HeightFragment fragment = new HeightFragment();
@@ -24,17 +32,11 @@ public class HeightFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-
         binding = FragmentHeightBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                ((MainActivity) getActivity()).replaceFragment(3);
-            }
-        }, 1000); // 1000밀리 초 동안 딜레이
+        bluetoothAware.startScan(3);
+//        ((MainActivity) getActivity()).replaceFragment(3);
 
         return root;
     }
@@ -44,4 +46,5 @@ public class HeightFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+
 }
