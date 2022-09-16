@@ -33,6 +33,8 @@ public class MainActivity extends AppCompatActivity implements BluetoothAware {
     int fragIndex = 0;
     private BluetoothSPP bt;
     private ActivityMainBinding binding;
+    String mood = "";
+    String aroma = "";
 
     BluetoothAdapter btAdapter;
     private final static int REQUEST_ENABLE_BT = 1;
@@ -116,8 +118,14 @@ public class MainActivity extends AppCompatActivity implements BluetoothAware {
                         .replace(R.id.frame_layout, new MoodFragment()).commitAllowingStateLoss();
                 break;
             case 5: // RECOMMENDATION
-                fragmentTransaction
-                        .replace(R.id.frame_layout, new RecommendationFragment()).commitAllowingStateLoss();
+                Bundle bundle = new Bundle();
+                bundle.putString("mood",mood); // mood값 전달
+                RecommendationFragment recommendationFragment = new RecommendationFragment();
+                recommendationFragment.setArguments(bundle);
+                fragmentTransaction.replace(R.id.frame_layout, recommendationFragment).commitAllowingStateLoss();
+
+//                fragmentTransaction
+//                        .replace(R.id.frame_layout, new RecommendationFragment()).commitAllowingStateLoss();
                 break;
             case 6: // SELECTION
                 fragmentTransaction
@@ -137,7 +145,7 @@ public class MainActivity extends AppCompatActivity implements BluetoothAware {
                 break;
             case 10: // EVALUATION
                 fragmentTransaction
-                        .replace(R.id.frame_layout2, new EvaluationFragment()).commitAllowingStateLoss();
+                        .replace(R.id.frame_layout, new EvaluationFragment()).commitAllowingStateLoss();
                 break;
             case 11: // HOME
                 fragmentTransaction
@@ -219,13 +227,35 @@ public class MainActivity extends AppCompatActivity implements BluetoothAware {
     }
 
     @Override
-    public void receive() {
+    public void setAroma(String aroma) {
+        this.aroma = aroma;
+    }
+
+    @Override
+    public void receive(int index) {
         bt.setOnDataReceivedListener(new BluetoothSPP.OnDataReceivedListener() { //데이터 수신
             public void onDataReceived(byte[] data, String message) {
-                Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
-                if (flag == true) {
-                    replaceFragment(fragIndex);
+//                Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
+
+                if (index == 2) {
+                    //키 저장
+                    int height = Integer.parseInt(message);
+                } else if (index == 4) {
+                    int i = Integer.parseInt(message);
+                    //사용자 기분 저장
+                    if ( i== 1) {   //happy
+                        mood = "HAPPY";
+                    } else if (i == 2) {//angry
+                        mood = "ANGRY";
+                    } else if (i == 3) {    //sad
+                        mood = "SAD";
+                    }
+                } else if (index == 7) {
+                    System.out.println("체온 저장");
+                    int temp = Integer.parseInt(message);
                 }
+                replaceFragment(index + 1);
+
             }
 
         });

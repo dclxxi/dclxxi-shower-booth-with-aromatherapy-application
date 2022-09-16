@@ -14,6 +14,7 @@ import com.example.showerendorphins.databinding.FragmentMoodBinding;
 import java.util.Objects;
 
 public class MoodFragment extends Fragment {
+    int INDEX = 4;
     private BluetoothAware bluetoothAware;
     private FragmentMoodBinding binding;
 
@@ -36,17 +37,7 @@ public class MoodFragment extends Fragment {
         binding = FragmentMoodBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        bluetoothAware.startScan(5);
-
-//        Handler handler = new Handler();
-//        handler.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                ((MainActivity) getActivity()).replaceFragment(5);
-//            }
-//        }, 1000); // 1000밀리 초 동안 딜레이
-
-
+        bluetoothAware.receive(INDEX);
         return root;
     }
 

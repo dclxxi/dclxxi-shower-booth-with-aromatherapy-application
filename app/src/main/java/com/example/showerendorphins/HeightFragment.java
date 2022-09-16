@@ -14,6 +14,7 @@ import com.example.showerendorphins.databinding.FragmentHeightBinding;
 import java.util.Objects;
 
 public class HeightFragment extends Fragment {
+    int INDEX = 2;
     private BluetoothAware bluetoothAware;
     private FragmentHeightBinding binding;
 
@@ -22,20 +23,21 @@ public class HeightFragment extends Fragment {
         super.onAttach(context);
         bluetoothAware =  Objects.requireNonNull((BluetoothAware)context);
     }
-
-    public static HeightFragment newInstance() {
-        HeightFragment fragment = new HeightFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
+//
+//    public static HeightFragment newInstance() {
+//        HeightFragment fragment = new HeightFragment();
+//        Bundle args = new Bundle();
+//        fragment.setArguments(args);
+//        return fragment;
+//    }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHeightBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        bluetoothAware.startScan(3);
+        bluetoothAware.receive(INDEX);
+//        bluetoothAware.startScan(3);
 //        ((MainActivity) getActivity()).replaceFragment(3);
 
         return root;

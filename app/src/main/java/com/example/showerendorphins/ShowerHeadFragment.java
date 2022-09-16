@@ -14,6 +14,7 @@ import com.example.showerendorphins.databinding.FragmentShowerHeadBinding;
 import java.util.Objects;
 
 public class ShowerHeadFragment extends Fragment {
+    int INDEX = 3;
     private BluetoothAware bluetoothAware;
     private FragmentShowerHeadBinding binding;
 
@@ -34,7 +35,7 @@ public class ShowerHeadFragment extends Fragment {
 
         binding = FragmentShowerHeadBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        bluetoothAware.startScan(4);
+        bluetoothAware.receive(INDEX);
 
 //        Handler handler = new Handler();
 //        handler.postDelayed(new Runnable() {
