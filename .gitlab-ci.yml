@@ -8,6 +8,8 @@ stages:
 
 build:
     stage: build
+    only:
+        - master
     image: adoptopenjdk/openjdk11
     script:
         - chmod +x gradlew 
@@ -15,3 +17,24 @@ build:
     artifacts:
         paths:
             - build/libs/*.jar
+
+test: 
+    stage: test
+    only:
+        - spring-api-dev
+    script:
+        - chmod +x gradlew  
+        - ./gradlew test
+
+        
+deploy to s3:
+    stage: deploy
+    only:
+        - master
+    image: 
+        name: python:latest
+    dependencies:
+        - build
+    script:
+        - pip install awscli
+        - aws s3 cp build/ s3://shower-endorphin-bucket/ --recursive --include "*" 
