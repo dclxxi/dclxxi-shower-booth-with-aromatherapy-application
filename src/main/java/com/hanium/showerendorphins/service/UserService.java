@@ -29,7 +29,8 @@ public class UserService {
 
     @Transactional
     public String saveUser(UserDto user) {
-        validateDuplicateUser(user);
+        if(user.getCode()==null)
+          validateDuplicateUser(user);
         User savedUser = userRepository.save(user.toEntity());
         return savedUser.getUserId();
     }

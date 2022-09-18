@@ -15,7 +15,6 @@ public class UserDto {
     private int age;
 
     @Builder
-
     public UserDto(Integer code, String userId, String username, Gender gender, int age) {
         this.code = code;
         this.userId = userId;

@@ -12,9 +12,12 @@ import java.util.Optional;
 public interface ShowerRepository extends JpaRepository<Shower, Integer> {
     Optional<Shower> findById(Integer id);
 
-    @Query("select s from Shower s where s.user.code = :usercode")
-    List<Shower> showerLogListByUserCode(@Param("usercode") Integer usercode);
+//    @Query("select s from Shower s where s.user.code = :usercode")
+//    List<Shower> showerLogListByUserCode(@Param("usercode") Integer usercode);
 
+    //SELECT * FROM showerEndorphin.shower join showerEndorphin.user on shower.user_id = user.user_code where user.user_id = "ii@test.com" ;
+    @Query("select s from Shower s where s.user.userId = :email")
+    List<Shower> showerLogListByUserCode(@Param("email") String email);
 
     //SELECT RATING, COUNT(*) FROM SHOWER  WHERE USER_ID=1 GROUP BY RATING;
     @Query("select new com.hanium.showerendorphins.dto.GroupingRatingDto(s.rating, count(s))" +

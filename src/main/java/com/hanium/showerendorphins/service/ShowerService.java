@@ -31,8 +31,8 @@ public class ShowerService {
         return savedData.getId();
     }
 
-    public List<Shower> findShowerLogList(Integer usercode) {
-        return showerRepository.showerLogListByUserCode(usercode);
+    public List<Shower> findShowerLogList(String email) {
+        return showerRepository.showerLogListByUserCode(email);
     }
 
     public List<GroupingRatingDto> userRatingCount(Integer usercode) {
