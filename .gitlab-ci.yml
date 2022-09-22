@@ -20,8 +20,6 @@ build:
 
 test: 
     stage: test
-    only:
-        - spring-api-dev
     script:
         - chmod +x gradlew  
         - ./gradlew test
