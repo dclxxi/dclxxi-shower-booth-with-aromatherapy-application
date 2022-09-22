@@ -5,6 +5,6 @@ public interface BluetoothAware {
     void startScan(int index);
     void stopService();
     void send(String text);
-    void setAroma(String aroma);
+    void setAroma(int aromaId);
     void receive(int index);
 }

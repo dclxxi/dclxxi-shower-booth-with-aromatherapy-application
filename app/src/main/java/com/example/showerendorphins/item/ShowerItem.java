@@ -27,11 +27,11 @@ public class ShowerItem {
     public ShowerItem() {
     }
 
-    public ShowerItem(Integer showerId, Integer usercode, double height, String feeling,
+    public ShowerItem(Integer showerId, double height, String feeling,
                       double bodyTemperature,double waterTemperature,
                       String aromaKoname, float rating,LocalDateTime date,Context context) {
         this.showerId = showerId;
-        this.usercode = usercode;
+//        this.usercode = usercode;
         this.height = height;
         this.feeling = feeling;
         this.bodyTemperature = bodyTemperature;

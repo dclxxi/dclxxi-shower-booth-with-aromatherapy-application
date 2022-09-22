@@ -45,18 +45,16 @@ public class RecommendationFragment extends Fragment {
         if (bundle != null) {
             mood = bundle.getString("mood"); // 프래그먼트1에서 받아온 값 넣기
             Toast.makeText(getActivity(), mood, Toast.LENGTH_SHORT).show();
-
-
         }
 
-        String aroma = "아로마이름";
+        int aromaId = 1;
 
         btn_recommendation_accept = root.findViewById(R.id.btn_recommendation_accept);
         btn_recommendation_accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                bluetoothAware.setAroma(aroma);
-                bluetoothAware.send(aroma);
+                bluetoothAware.setAroma(aromaId);
+                bluetoothAware.send(aromaId+"");
                 ((MainActivity) getActivity()).replaceFragment(7);
             }
         });

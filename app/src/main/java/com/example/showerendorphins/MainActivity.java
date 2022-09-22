@@ -33,8 +33,10 @@ public class MainActivity extends AppCompatActivity implements BluetoothAware {
     int fragIndex = 0;
     private BluetoothSPP bt;
     private ActivityMainBinding binding;
+    int height = 0;
     String mood = "";
-    String aroma = "";
+    int aromaId = 0;
+    int temp = 0;
 
     BluetoothAdapter btAdapter;
     private final static int REQUEST_ENABLE_BT = 1;
@@ -101,6 +103,8 @@ public class MainActivity extends AppCompatActivity implements BluetoothAware {
 
     public void replaceFragment(int index) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        Bundle bundle = new Bundle();
+
         switch (index) {
             case 1: // SERVICE
                 fragmentTransaction.replace(R.id.frame_layout, new ServiceFragment()).commitAllowingStateLoss();
@@ -118,8 +122,7 @@ public class MainActivity extends AppCompatActivity implements BluetoothAware {
                         .replace(R.id.frame_layout, new MoodFragment()).commitAllowingStateLoss();
                 break;
             case 5: // RECOMMENDATION
-                Bundle bundle = new Bundle();
-                bundle.putString("mood",mood); // mood값 전달
+                bundle.putString("mood", mood); // mood값 전달
                 RecommendationFragment recommendationFragment = new RecommendationFragment();
                 recommendationFragment.setArguments(bundle);
                 fragmentTransaction.replace(R.id.frame_layout, recommendationFragment).commitAllowingStateLoss();
@@ -144,6 +147,12 @@ public class MainActivity extends AppCompatActivity implements BluetoothAware {
                         .replace(R.id.frame_layout, new WaterFragment()).commitAllowingStateLoss();
                 break;
             case 10: // EVALUATION
+                bundle.putString("height", String.valueOf(height));
+                bundle.putString("feeling", mood);
+                bundle.putString("bodyTemperature", String.valueOf(temp));
+                bundle.putString("aroma", String.valueOf(aromaId)); //번호 전달
+                EvaluationFragment evaluationFragment = new EvaluationFragment();
+                evaluationFragment.setArguments(bundle);
                 fragmentTransaction
                         .replace(R.id.frame_layout, new EvaluationFragment()).commitAllowingStateLoss();
                 break;
@@ -227,8 +236,8 @@ public class MainActivity extends AppCompatActivity implements BluetoothAware {
     }
 
     @Override
-    public void setAroma(String aroma) {
-        this.aroma = aroma;
+    public void setAroma(int aromaId) {
+        this.aromaId = aromaId;
     }
 
     @Override
@@ -239,11 +248,11 @@ public class MainActivity extends AppCompatActivity implements BluetoothAware {
 
                 if (index == 2) {
                     //키 저장
-                    int height = Integer.parseInt(message);
+                    height = Integer.parseInt(message);
                 } else if (index == 4) {
                     int i = Integer.parseInt(message);
                     //사용자 기분 저장
-                    if ( i== 1) {   //happy
+                    if (i == 1) {   //happy
                         mood = "HAPPY";
                     } else if (i == 2) {//angry
                         mood = "ANGRY";
@@ -251,8 +260,7 @@ public class MainActivity extends AppCompatActivity implements BluetoothAware {
                         mood = "SAD";
                     }
                 } else if (index == 7) {
-                    System.out.println("체온 저장");
-                    int temp = Integer.parseInt(message);
+                    temp = Integer.parseInt(message);
                 }
                 replaceFragment(index + 1);
 

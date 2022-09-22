@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.showerendorphins.databinding.FragmentEvaluationBinding;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -23,7 +24,12 @@ import java.net.URL;
 
 public class EvaluationFragment extends Fragment {
 
+    // URL 설정.
+    String urlStrFindUserCode = "http://ec2-43-200-238-1.ap-northeast-2.compute.amazonaws.com:8080/User/findUserCode?email=";  //IPv4 주소 변경해야 함
+
     private static String addParameterStr = "";
+    private FirebaseAuth mAuth;
+
     // URL 설정.
     String urlStr = "http://ec2-43-200-238-1.ap-northeast-2.compute.amazonaws.com:8080/ShowerHistory/add_shower_log";
     private FragmentEvaluationBinding binding;
@@ -39,23 +45,26 @@ public class EvaluationFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        /*setting parameter*/
-        double height = 160.2;
-        String feeling = "ANGRY";
-        double bodyTemperature = 35.9;
-        Integer aroma = 1;
-        double rating = 4.5;
-        Integer userid = 1;
 
-        addParameterStr = "?";
-        addParameterStr += "height=" + height + "&";
-        addParameterStr += "feeling=" + feeling + "&";
-        addParameterStr += "bodyTemperature=" + bodyTemperature + "&";
-        addParameterStr += "aroma=" + aroma + "&";
-        addParameterStr += "rating=" + rating + "&";
-        addParameterStr += "userid=" + userid;
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            /*setting parameter*/
+            double height = Double.parseDouble(bundle.getString("height"));
+            String feeling = bundle.getString("feeling");
+            double bodyTemperature = Double.parseDouble(bundle.getString("bodyTemperature"));
+            Integer aroma = Integer.parseInt(bundle.getString("aroma"));
+            double rating = 4.5;
+            Integer userid = 1;
 
+            addParameterStr = "?";
+            addParameterStr += "height=" + height + "&";
+            addParameterStr += "feeling=" + feeling + "&";
+            addParameterStr += "bodyTemperature=" + bodyTemperature + "&";
+            addParameterStr += "aroma=" + aroma + "&";
+            addParameterStr += "rating=" + rating + "&";
+            addParameterStr += "userid=" + userid;
 
+        }
         binding = FragmentEvaluationBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         btn_save_showerlog = root.findViewById(R.id.btn_save_showerlog);
