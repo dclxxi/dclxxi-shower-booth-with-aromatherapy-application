@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import com.example.showerendorphins.BluetoothAware;
 import com.example.showerendorphins.R;
 import com.example.showerendorphins.databinding.FragmentHomeBinding;
+import com.example.showerendorphins.enums.FragmentIndex;
 
 import java.util.Objects;
 
@@ -39,7 +40,7 @@ public class HomeFragment extends Fragment  {
         img_start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                bluetoothAware.startScan(1);
+                bluetoothAware.startScan(FragmentIndex.SERVICE);
             }
         });
 

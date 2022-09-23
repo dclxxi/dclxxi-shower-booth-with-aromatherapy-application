@@ -6,6 +6,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Toast;
 
@@ -20,6 +21,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.showerendorphins.databinding.ActivityMainBinding;
+import com.example.showerendorphins.enums.FragmentIndex;
 import com.example.showerendorphins.ui.home.HomeFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
@@ -30,13 +32,13 @@ import app.akexorcist.bluetotohspp.library.DeviceList;
 
 public class MainActivity extends AppCompatActivity implements BluetoothAware {
     boolean flag = false;
-    int fragIndex = 0;
+    FragmentIndex fragIndex;
     private BluetoothSPP bt;
     private ActivityMainBinding binding;
     int height = 0;
     String mood = "";
     int aromaId = 0;
-    int temp = 0;
+    int userTemp = 0;
 
     BluetoothAdapter btAdapter;
     private final static int REQUEST_ENABLE_BT = 1;
@@ -101,64 +103,52 @@ public class MainActivity extends AppCompatActivity implements BluetoothAware {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
-    public void replaceFragment(int index) {
+    public void replaceFragment(FragmentIndex index) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         Bundle bundle = new Bundle();
 
         switch (index) {
-            case 1: // SERVICE
+            case SERVICE: // SERVICE
                 fragmentTransaction.replace(R.id.frame_layout, new ServiceFragment()).commitAllowingStateLoss();
                 break;
-            case 2: // HEIGHT
-                fragmentTransaction
-                        .replace(R.id.frame_layout, new HeightFragment()).commitAllowingStateLoss();
+            case HEIGHT: // HEIGHT
+                fragmentTransaction.replace(R.id.frame_container, new HeightFragment()).commitAllowingStateLoss();
                 break;
-            case 3: // SHOWER_HEAD
-                fragmentTransaction
-                        .replace(R.id.frame_layout, new ShowerHeadFragment()).commitAllowingStateLoss();
+            case SHOWER_HEAD: // SHOWER_HEAD
+                fragmentTransaction.replace(R.id.frame_container, new ShowerHeadFragment()).commitAllowingStateLoss();
                 break;
-            case 4: // MOOD
-                fragmentTransaction
-                        .replace(R.id.frame_layout, new MoodFragment()).commitAllowingStateLoss();
+            case MOOD: // MOOD
+                fragmentTransaction.replace(R.id.frame_container, new MoodFragment()).commitAllowingStateLoss();
                 break;
-            case 5: // RECOMMENDATION
+            case RECOMMENDATION: // RECOMMENDATION
                 bundle.putString("mood", mood); // mood값 전달
                 RecommendationFragment recommendationFragment = new RecommendationFragment();
                 recommendationFragment.setArguments(bundle);
-                fragmentTransaction.replace(R.id.frame_layout, recommendationFragment).commitAllowingStateLoss();
-
-//                fragmentTransaction
-//                        .replace(R.id.frame_layout, new RecommendationFragment()).commitAllowingStateLoss();
+                fragmentTransaction.replace(R.id.frame_container, recommendationFragment).commitAllowingStateLoss();
                 break;
-            case 6: // SELECTION
-                fragmentTransaction
-                        .replace(R.id.frame_layout, new SelectionFragment()).commitAllowingStateLoss();
+            case SELECTION: // SELECTION
+                fragmentTransaction.replace(R.id.frame_container, new SelectionFragment()).commitAllowingStateLoss();
                 break;
-            case 7: // USER_TEMP
-                fragmentTransaction
-                        .replace(R.id.frame_layout, new UserTempFragment()).commitAllowingStateLoss();
+            case USER_TEMP: // USER_TEMP
+                fragmentTransaction.replace(R.id.frame_container, new UserTempFragment()).commitAllowingStateLoss();
                 break;
-            case 8: // WATER_TEMP
-                fragmentTransaction
-                        .replace(R.id.frame_layout, new WaterTempFragment()).commitAllowingStateLoss();
+            case WATER_TEMP: // WATER_TEMP
+                fragmentTransaction.replace(R.id.frame_container, new WaterTempFragment()).commitAllowingStateLoss();
                 break;
-            case 9: // WATER
-                fragmentTransaction
-                        .replace(R.id.frame_layout, new WaterFragment()).commitAllowingStateLoss();
+            case WATER: // WATER
+                fragmentTransaction.replace(R.id.frame_container, new WaterFragment()).commitAllowingStateLoss();
                 break;
-            case 10: // EVALUATION
+            case EVALUATION: // EVALUATION
                 bundle.putString("height", String.valueOf(height));
                 bundle.putString("feeling", mood);
-                bundle.putString("bodyTemperature", String.valueOf(temp));
-                bundle.putString("aroma", String.valueOf(aromaId)); //번호 전달
+                bundle.putString("bodyTemperature", String.valueOf(userTemp));
+                bundle.putString("aroma", String.valueOf(aromaId)); // 번호 전달
                 EvaluationFragment evaluationFragment = new EvaluationFragment();
                 evaluationFragment.setArguments(bundle);
-                fragmentTransaction
-                        .replace(R.id.frame_layout, new EvaluationFragment()).commitAllowingStateLoss();
+                fragmentTransaction.replace(R.id.frame_layout2, new EvaluationFragment()).commitAllowingStateLoss();
                 break;
-            case 11: // HOME
-                fragmentTransaction
-                        .replace(R.id.frame_layout, new HomeFragment()).commitAllowingStateLoss();
+            case HOME: // HOME
+                fragmentTransaction.replace(R.id.frame_layout, new HomeFragment()).commitAllowingStateLoss();
                 break;
         }
     }
@@ -215,7 +205,7 @@ public class MainActivity extends AppCompatActivity implements BluetoothAware {
     }
 
     @Override
-    public void startScan(int index) {
+    public void startScan(FragmentIndex index) {
         fragIndex = index;
         if (bt.getServiceState() == BluetoothState.STATE_CONNECTED) {
             bt.disconnect();
@@ -241,31 +231,52 @@ public class MainActivity extends AppCompatActivity implements BluetoothAware {
     }
 
     @Override
-    public void receive(int index) {
+    public void receive(FragmentIndex index) {
         bt.setOnDataReceivedListener(new BluetoothSPP.OnDataReceivedListener() { //데이터 수신
             public void onDataReceived(byte[] data, String message) {
 //                Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
 
-                if (index == 2) {
-                    //키 저장
-                    height = Integer.parseInt(message);
-                } else if (index == 4) {
-                    int i = Integer.parseInt(message);
-                    //사용자 기분 저장
-                    if (i == 1) {   //happy
-                        mood = "HAPPY";
-                    } else if (i == 2) {//angry
-                        mood = "ANGRY";
-                    } else if (i == 3) {    //sad
-                        mood = "SAD";
+                int msg = Integer.parseInt(message);
+
+                if (!index.equals(FragmentIndex.MOOD)) {
+                    if (msg != 1) {
+                        if (index.equals(FragmentIndex.HEIGHT)) {
+                            height = msg; // 키 저장
+                        } else if (index.equals(FragmentIndex.USER_TEMP)) {
+                            userTemp = msg; // 체온 측정
+                        }
                     }
-                } else if (index == 7) {
-                    temp = Integer.parseInt(message);
+                } else {
+                    switch (msg) {  // 사용자 기분 저장
+                        case 1:
+                            mood = "HAPPY";
+                            break;
+                        case 2:
+                            mood = "ANGRY";
+                            break;
+                        case 3:
+                            mood = "SAD";
+                            break;
+                    }
                 }
-                replaceFragment(index + 1);
-
+                replaceFragment(index);
             }
-
+//                if (!message.equals("1")) {
+//                    if (index.equals(FragmentIndex.HEIGHT)) {
+//                        height = Integer.parseInt(message); // 키 저장
+//                    } else if (index.equals(FragmentIndex.MOOD)) {
+//                        int i = Integer.parseInt(message); // 사용자 기분 저장
+//                        if (i == 1) {           // happy
+//                            mood = "HAPPY";
+//                        } else if (i == 2) {    // angry
+//                            mood = "ANGRY";
+//                        } else if (i == 3) {    // sad
+//                            mood = "SAD";
+//                        }
+//                    } else if (index.equals(FragmentIndex.USER_TEMP)) {
+//                        temp = Integer.parseInt(message);
+//                    }
+//                }
         });
     }
 
@@ -280,12 +291,9 @@ public class MainActivity extends AppCompatActivity implements BluetoothAware {
                 bt.setupService();
                 bt.startService(BluetoothState.DEVICE_OTHER);
             } else {
-                Toast.makeText(getApplicationContext()
-                        , "Bluetooth was not enabled."
-                        , Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Bluetooth was not enabled.", Toast.LENGTH_SHORT).show();
                 finish();
             }
         }
-
     }
 }

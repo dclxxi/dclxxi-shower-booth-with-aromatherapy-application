@@ -2,6 +2,7 @@ package com.example.showerendorphins;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,11 +11,11 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.showerendorphins.databinding.FragmentWaterBinding;
+import com.example.showerendorphins.enums.FragmentIndex;
 
 import java.util.Objects;
 
 public class WaterFragment extends Fragment {
-    int INDEX = 9;
     private BluetoothAware bluetoothAware;
     private FragmentWaterBinding binding;
 
@@ -37,7 +38,7 @@ public class WaterFragment extends Fragment {
 
         binding = FragmentWaterBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        bluetoothAware.receive(INDEX);
+        bluetoothAware.receive(FragmentIndex.EVALUATION);
         return root;
     }
 

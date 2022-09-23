@@ -10,11 +10,11 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.showerendorphins.databinding.FragmentWaterTempBinding;
+import com.example.showerendorphins.enums.FragmentIndex;
 
 import java.util.Objects;
 
 public class WaterTempFragment extends Fragment {
-    int INDEX = 8;
     private BluetoothAware bluetoothAware;
     private FragmentWaterTempBinding binding;
 
@@ -36,7 +36,7 @@ public class WaterTempFragment extends Fragment {
 
         binding = FragmentWaterTempBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        bluetoothAware.receive(INDEX);
+        bluetoothAware.receive(FragmentIndex.WATER);
 
         return root;
     }

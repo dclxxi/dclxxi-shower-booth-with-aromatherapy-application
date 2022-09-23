@@ -10,11 +10,11 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.showerendorphins.databinding.FragmentHeightBinding;
+import com.example.showerendorphins.enums.FragmentIndex;
 
 import java.util.Objects;
 
 public class HeightFragment extends Fragment {
-    int INDEX = 2;
     private BluetoothAware bluetoothAware;
     private FragmentHeightBinding binding;
 
@@ -36,7 +36,8 @@ public class HeightFragment extends Fragment {
         binding = FragmentHeightBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        bluetoothAware.receive(INDEX);
+
+        bluetoothAware.receive(FragmentIndex.SHOWER_HEAD);
 //        bluetoothAware.startScan(3);
 //        ((MainActivity) getActivity()).replaceFragment(3);
 

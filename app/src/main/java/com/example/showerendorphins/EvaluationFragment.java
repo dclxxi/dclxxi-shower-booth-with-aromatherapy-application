@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.showerendorphins.databinding.FragmentEvaluationBinding;
+import com.example.showerendorphins.enums.FragmentIndex;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.BufferedReader;
@@ -99,7 +100,7 @@ public class EvaluationFragment extends Fragment {
                                         Toast.makeText(getContext(), "데이터 저장에 실패하였습니다.", Toast.LENGTH_SHORT).show();
                                     } else {
                                         Toast.makeText(getContext(), "샤워기록을 저장하였습니다!", Toast.LENGTH_SHORT).show();
-                                        ((MainActivity) getActivity()).replaceFragment(11); //홈 화면으로 화면전환
+                                        ((MainActivity) getActivity()).replaceFragment(FragmentIndex.HOME); // 홈 화면으로 화면전환
                                     }
                                 }
                             });

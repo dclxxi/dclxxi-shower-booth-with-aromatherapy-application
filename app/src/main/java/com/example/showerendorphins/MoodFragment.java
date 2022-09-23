@@ -10,11 +10,11 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.showerendorphins.databinding.FragmentMoodBinding;
+import com.example.showerendorphins.enums.FragmentIndex;
 
 import java.util.Objects;
 
 public class MoodFragment extends Fragment {
-    int INDEX = 4;
     private BluetoothAware bluetoothAware;
     private FragmentMoodBinding binding;
 
@@ -37,7 +37,7 @@ public class MoodFragment extends Fragment {
         binding = FragmentMoodBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        bluetoothAware.receive(INDEX);
+        bluetoothAware.receive(FragmentIndex.RECOMMENDATION);
         return root;
     }
 

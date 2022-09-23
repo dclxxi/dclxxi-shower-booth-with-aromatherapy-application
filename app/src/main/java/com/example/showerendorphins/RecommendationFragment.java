@@ -12,11 +12,11 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.showerendorphins.databinding.FragmentRecommendationBinding;
+import com.example.showerendorphins.enums.FragmentIndex;
 
 import java.util.Objects;
 
 public class RecommendationFragment extends Fragment {
-    int INDEX = 5;
     private BluetoothAware bluetoothAware;
     private FragmentRecommendationBinding binding;
     Button btn_recommendation_accept;
@@ -55,7 +55,7 @@ public class RecommendationFragment extends Fragment {
             public void onClick(View view) {
                 bluetoothAware.setAroma(aromaId);
                 bluetoothAware.send(aromaId+"");
-                ((MainActivity) getActivity()).replaceFragment(7);
+                ((MainActivity) getActivity()).replaceFragment(FragmentIndex.USER_TEMP);
             }
         });
 
@@ -63,7 +63,7 @@ public class RecommendationFragment extends Fragment {
         btn_recommendation_refusal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity) getActivity()).replaceFragment(6);
+                ((MainActivity) getActivity()).replaceFragment(FragmentIndex.SELECTION);
             }
         });
 

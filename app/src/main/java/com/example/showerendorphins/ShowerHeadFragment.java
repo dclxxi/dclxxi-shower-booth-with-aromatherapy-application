@@ -10,11 +10,11 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.showerendorphins.databinding.FragmentShowerHeadBinding;
+import com.example.showerendorphins.enums.FragmentIndex;
 
 import java.util.Objects;
 
 public class ShowerHeadFragment extends Fragment {
-    int INDEX = 3;
     private BluetoothAware bluetoothAware;
     private FragmentShowerHeadBinding binding;
 
@@ -35,7 +35,7 @@ public class ShowerHeadFragment extends Fragment {
 
         binding = FragmentShowerHeadBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        bluetoothAware.receive(INDEX);
+        bluetoothAware.receive(FragmentIndex.MOOD);
 
 //        Handler handler = new Handler();
 //        handler.postDelayed(new Runnable() {

@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.showerendorphins.databinding.FragmentServiceBinding;
+import com.example.showerendorphins.enums.FragmentIndex;
 
 public class ServiceFragment extends Fragment {
     private FragmentServiceBinding binding;
@@ -26,7 +27,7 @@ public class ServiceFragment extends Fragment {
         binding = FragmentServiceBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        ((MainActivity)getActivity()).replaceFragment(2);
+        ((MainActivity)getActivity()).replaceFragment(FragmentIndex.HEIGHT);
 
         return root;
     }

@@ -1,5 +1,6 @@
 package com.example.showerendorphins;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,10 +11,20 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.showerendorphins.databinding.FragmentSelectionBinding;
+import com.example.showerendorphins.enums.FragmentIndex;
+
+import java.util.Objects;
 
 public class SelectionFragment extends Fragment {
+    private BluetoothAware bluetoothAware;
     private FragmentSelectionBinding binding;
     Button btn_selection_save;
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        bluetoothAware = Objects.requireNonNull((BluetoothAware) context);
+    }
 
     public static SelectionFragment newInstance() {
         SelectionFragment fragment = new SelectionFragment();
@@ -32,7 +43,7 @@ public class SelectionFragment extends Fragment {
         btn_selection_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity)getActivity()).replaceFragment(7);
+                bluetoothAware.receive(FragmentIndex.USER_TEMP);
             }
         });
 

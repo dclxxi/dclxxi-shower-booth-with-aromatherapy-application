@@ -1,10 +1,12 @@
 package com.example.showerendorphins;
 
+import com.example.showerendorphins.enums.FragmentIndex;
+
 public interface BluetoothAware {
     void connect();
-    void startScan(int index);
+    void startScan(FragmentIndex index);
     void stopService();
     void send(String text);
     void setAroma(int aromaId);
-    void receive(int index);
+    void receive(FragmentIndex index);
 }
