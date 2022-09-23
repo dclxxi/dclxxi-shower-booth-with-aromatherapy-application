@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RatingBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -14,7 +15,6 @@ import androidx.fragment.app.Fragment;
 
 import com.example.showerendorphins.databinding.FragmentEvaluationBinding;
 import com.example.showerendorphins.enums.FragmentIndex;
-import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -26,12 +26,8 @@ import java.net.URL;
 public class EvaluationFragment extends Fragment {
 
     // URL 설정.
-    String urlStrFindUserCode = "http://ec2-43-200-238-1.ap-northeast-2.compute.amazonaws.com:8080/User/findUserCode?email=";  //IPv4 주소 변경해야 함
-
     private static String addParameterStr = "";
-    private FirebaseAuth mAuth;
 
-    // URL 설정.
     String urlStr = "http://ec2-43-200-238-1.ap-northeast-2.compute.amazonaws.com:8080/ShowerHistory/add_shower_log";
     private FragmentEvaluationBinding binding;
     Button btn_save_showerlog;
@@ -46,29 +42,33 @@ public class EvaluationFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-
+        View root = binding.getRoot();
+        btn_save_showerlog = root.findViewById(R.id.btn_save_showerlog);
+        RatingBar ratingbar = root.findViewById(R.id.ratingBar);
         Bundle bundle = getArguments();
         if (bundle != null) {
             /*setting parameter*/
+            String email = bundle.getString("email");
             double height = Double.parseDouble(bundle.getString("height"));
             String feeling = bundle.getString("feeling");
             double bodyTemperature = Double.parseDouble(bundle.getString("bodyTemperature"));
+            double waterTemperature = Double.parseDouble(bundle.getString("waterTemperature"));
             Integer aroma = Integer.parseInt(bundle.getString("aroma"));
-            double rating = 4.5;
+            double rating = ratingbar.getRating();
             Integer userid = 1;
 
             addParameterStr = "?";
             addParameterStr += "height=" + height + "&";
             addParameterStr += "feeling=" + feeling + "&";
             addParameterStr += "bodyTemperature=" + bodyTemperature + "&";
+            addParameterStr += "waterTemperature=" + waterTemperature + "&";
             addParameterStr += "aroma=" + aroma + "&";
             addParameterStr += "rating=" + rating + "&";
-            addParameterStr += "userid=" + userid;
+            addParameterStr += "email=" + email;
 
         }
         binding = FragmentEvaluationBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
-        btn_save_showerlog = root.findViewById(R.id.btn_save_showerlog);
+
         btn_save_showerlog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,7 +100,7 @@ public class EvaluationFragment extends Fragment {
                                         Toast.makeText(getContext(), "데이터 저장에 실패하였습니다.", Toast.LENGTH_SHORT).show();
                                     } else {
                                         Toast.makeText(getContext(), "샤워기록을 저장하였습니다!", Toast.LENGTH_SHORT).show();
-                                        ((MainActivity) getActivity()).replaceFragment(FragmentIndex.HOME); // 홈 화면으로 화면전환
+                                        ((MainActivity) getActivity()).replaceFragment(FragmentIndex.HOME); //홈 화면으로 화면전환
                                     }
                                 }
                             });
