@@ -2,10 +2,8 @@ package com.hanium.showerendorphins.service;
 
 import com.hanium.showerendorphins.domain.Aroma;
 import com.hanium.showerendorphins.domain.User;
-import com.hanium.showerendorphins.dto.AromaListDto;
-import com.hanium.showerendorphins.dto.UserStoredAromaDto;
-import com.hanium.showerendorphins.dto.UserStoredAromaListDto;
-import com.hanium.showerendorphins.dto.UserStoredAromaModifyDto;
+import com.hanium.showerendorphins.dto.*;
+import com.hanium.showerendorphins.enums.FeelingStatus;
 import com.hanium.showerendorphins.repository.AromaRepository;
 import com.hanium.showerendorphins.repository.UserRepository;
 import com.hanium.showerendorphins.repository.UserStoredAromaRepository;
@@ -133,5 +131,10 @@ public class UserStoredAromaService {
 
     public List<Integer> findUserStoredAromaIdByUserId(String userId) {
         return userStoredAromaRepository.findUserStoredAromaIdByUserId(userId);
+    }
+
+    public Optional<UserStoredAromaRecommendationDto> findUserStoredAromaIdByUserIdAndFeeling(String userId, String feeling) {
+        FeelingStatus feelingStatus = FeelingStatus.fromString(feeling);
+        return userStoredAromaRepository.findUserStoredAromaIdByUserIdAndFeeling(userId, feelingStatus);
     }
 }

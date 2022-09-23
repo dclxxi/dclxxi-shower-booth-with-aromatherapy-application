@@ -1,9 +1,6 @@
 package com.hanium.showerendorphins.controller;
 
-import com.hanium.showerendorphins.dto.AromaDetailDto;
-import com.hanium.showerendorphins.dto.AromaListDto;
-import com.hanium.showerendorphins.dto.UserStoredAromaListDto;
-import com.hanium.showerendorphins.dto.UserStoredAromaModifyDto;
+import com.hanium.showerendorphins.dto.*;
 import com.hanium.showerendorphins.repository.UserStoredAromaRepository;
 import com.hanium.showerendorphins.service.AromaService;
 import com.hanium.showerendorphins.service.UserStoredAromaService;
@@ -46,6 +43,11 @@ public class AromaController {
     @GetMapping(value = "/All_User_Stored_Aroma_Modify_List")
     public List<UserStoredAromaListDto> allUserStoredAromaToJSON(@RequestParam String userId) {
         return userStoredAromaService.findAllUserStoredAromaList(userId);
+    }
+
+    @GetMapping(value = "/User_Stored_Aroma_Recommendation")
+    public Optional<UserStoredAromaRecommendationDto> findUserStoredAromaIdByUserIdAndFeelingToJSON(@RequestParam String userId, @RequestParam String feeling) {
+        return userStoredAromaService.findUserStoredAromaIdByUserIdAndFeeling(userId, feeling);
     }
 
 }
