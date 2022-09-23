@@ -133,8 +133,12 @@ public class UserStoredAromaService {
         return userStoredAromaRepository.findUserStoredAromaIdByUserId(userId);
     }
 
-    public Optional<UserStoredAromaRecommendationDto> findUserStoredAromaIdByUserIdAndFeeling(String userId, String feeling) {
+    public Optional<UserStoredAromaRecommendationDto> findUserStoredAromaRecommendationByUserIdAndFeeling(String userId, String feeling) {
         FeelingStatus feelingStatus = FeelingStatus.fromString(feeling);
-        return userStoredAromaRepository.findUserStoredAromaIdByUserIdAndFeeling(userId, feelingStatus);
+        return userStoredAromaRepository.findUserStoredAromaRecommendationByUserIdAndFeeling(userId, feelingStatus);
+    }
+
+    public List<UserStoredAromaSelectionDto> findUserStoredAromaSelectionByUserIdAndFeeling(String userId) {
+        return userStoredAromaRepository.findUserStoredAromaSelectionByUserIdAndFeeling(userId);
     }
 }

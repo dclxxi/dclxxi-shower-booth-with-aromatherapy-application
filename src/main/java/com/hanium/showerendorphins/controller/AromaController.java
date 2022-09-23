@@ -47,7 +47,12 @@ public class AromaController {
 
     @GetMapping(value = "/User_Stored_Aroma_Recommendation")
     public Optional<UserStoredAromaRecommendationDto> findUserStoredAromaIdByUserIdAndFeelingToJSON(@RequestParam String userId, @RequestParam String feeling) {
-        return userStoredAromaService.findUserStoredAromaIdByUserIdAndFeeling(userId, feeling);
+        return userStoredAromaService.findUserStoredAromaRecommendationByUserIdAndFeeling(userId, feeling);
+    }
+
+    @GetMapping(value = "/User_Stored_Aroma_Selection")
+    public List<UserStoredAromaSelectionDto> findUserStoredAromaIdByUserIdToJSON(@RequestParam String userId) {
+        return userStoredAromaService.findUserStoredAromaSelectionByUserIdAndFeeling(userId);
     }
 
 }

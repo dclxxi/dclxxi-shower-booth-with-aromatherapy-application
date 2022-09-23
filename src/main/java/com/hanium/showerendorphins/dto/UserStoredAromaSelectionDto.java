@@ -8,8 +8,9 @@ import lombok.*;
 @AllArgsConstructor
 @Getter
 @Setter
-public class UserStoredAromaRecommendationDto {
+public class UserStoredAromaSelectionDto {
     private Integer aromaId;
     private String koName;
+    private FeelingStatus feeling;
     private String imgURL;
 }

@@ -6,6 +6,7 @@ import com.hanium.showerendorphins.domain.UserStoredAroma;
 import com.hanium.showerendorphins.dto.AromaListDto;
 import com.hanium.showerendorphins.dto.UserStoredAromaListDto;
 import com.hanium.showerendorphins.dto.UserStoredAromaRecommendationDto;
+import com.hanium.showerendorphins.dto.UserStoredAromaSelectionDto;
 import com.hanium.showerendorphins.enums.FeelingStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -39,7 +40,11 @@ public interface UserStoredAromaRepository extends JpaRepository<UserStoredAroma
     List<Integer> findUserStoredAromaIdByUserId(@Param("userId") String userId);
 
     @Query("select new com.hanium.showerendorphins.dto.UserStoredAromaRecommendationDto(u.aroma.id, u.aroma.koName, u.aroma.imgURL) from UserStoredAroma u where u.user.userId = :userId and u.aroma.feeling = :feeling")
-    Optional<UserStoredAromaRecommendationDto> findUserStoredAromaIdByUserIdAndFeeling(@Param("userId") String userId, @Param("feeling") FeelingStatus feeling);
+    Optional<UserStoredAromaRecommendationDto> findUserStoredAromaRecommendationByUserIdAndFeeling(@Param("userId") String userId, @Param("feeling") FeelingStatus feeling);
+
+    @Query("select new com.hanium.showerendorphins.dto.UserStoredAromaSelectionDto(u.aroma.id, u.aroma.koName, u.aroma.feeling, u.aroma.imgURL) from UserStoredAroma u where u.user.userId = :userId")
+    List<UserStoredAromaSelectionDto> findUserStoredAromaSelectionByUserIdAndFeeling(@Param("userId") String userId);
+
 
     @Modifying
     @Transactional
