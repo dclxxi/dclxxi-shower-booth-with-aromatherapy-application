@@ -25,6 +25,8 @@ import com.example.showerendorphins.enums.FragmentIndex;
 import com.example.showerendorphins.ui.home.HomeFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import app.akexorcist.bluetotohspp.library.BluetoothSPP;
 import app.akexorcist.bluetotohspp.library.BluetoothState;
@@ -35,10 +37,13 @@ public class MainActivity extends AppCompatActivity implements BluetoothAware {
     FragmentIndex fragIndex;
     private BluetoothSPP bt;
     private ActivityMainBinding binding;
-    int height = 0;
+    private FirebaseAuth mAuth;
+    String email = "";
     String mood = "";
+    int height = 0;
     int aromaId = 0;
     int userTemp = 0;
+    int waterTemp = 0;
 
     BluetoothAdapter btAdapter;
     private final static int REQUEST_ENABLE_BT = 1;
@@ -46,7 +51,11 @@ public class MainActivity extends AppCompatActivity implements BluetoothAware {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_main);
+
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+        email = user.getEmail();
+
         // Get permission
         String[] permission_list = {
                 Manifest.permission.ACCESS_FINE_LOCATION,
@@ -121,13 +130,17 @@ public class MainActivity extends AppCompatActivity implements BluetoothAware {
                 fragmentTransaction.replace(R.id.frame_container, new MoodFragment()).commitAllowingStateLoss();
                 break;
             case RECOMMENDATION: // RECOMMENDATION
-                bundle.putString("mood", mood); // mood값 전달
+                bundle.putString("userId", email);
+                bundle.putString("feeling", mood); // mood값 전달
                 RecommendationFragment recommendationFragment = new RecommendationFragment();
                 recommendationFragment.setArguments(bundle);
                 fragmentTransaction.replace(R.id.frame_container, recommendationFragment).commitAllowingStateLoss();
                 break;
             case SELECTION: // SELECTION
-                fragmentTransaction.replace(R.id.frame_container, new SelectionFragment()).commitAllowingStateLoss();
+                bundle.putString("userId", email);
+                SelectionFragment selectionFragment = new SelectionFragment();
+                selectionFragment.setArguments(bundle);
+                fragmentTransaction.replace(R.id.frame_container, selectionFragment).commitAllowingStateLoss();
                 break;
             case USER_TEMP: // USER_TEMP
                 fragmentTransaction.replace(R.id.frame_container, new UserTempFragment()).commitAllowingStateLoss();
@@ -139,13 +152,15 @@ public class MainActivity extends AppCompatActivity implements BluetoothAware {
                 fragmentTransaction.replace(R.id.frame_container, new WaterFragment()).commitAllowingStateLoss();
                 break;
             case EVALUATION: // EVALUATION
+                bundle.putString("email", email);
                 bundle.putString("height", String.valueOf(height));
                 bundle.putString("feeling", mood);
                 bundle.putString("bodyTemperature", String.valueOf(userTemp));
-                bundle.putString("aroma", String.valueOf(aromaId)); // 번호 전달
+                bundle.putString("waterTemperature", String.valueOf(waterTemp));
+                bundle.putString("aroma", String.valueOf(aromaId)); //번호 전달
                 EvaluationFragment evaluationFragment = new EvaluationFragment();
                 evaluationFragment.setArguments(bundle);
-                fragmentTransaction.replace(R.id.frame_layout2, new EvaluationFragment()).commitAllowingStateLoss();
+                fragmentTransaction.replace(R.id.frame_layout2, evaluationFragment).commitAllowingStateLoss();
                 break;
             case HOME: // HOME
                 fragmentTransaction.replace(R.id.frame_layout, new HomeFragment()).commitAllowingStateLoss();
@@ -244,6 +259,8 @@ public class MainActivity extends AppCompatActivity implements BluetoothAware {
                             height = msg; // 키 저장
                         } else if (index.equals(FragmentIndex.USER_TEMP)) {
                             userTemp = msg; // 체온 측정
+                        } else if (index.equals(FragmentIndex.WATER_TEMP)) {
+                            waterTemp = msg; // 체온 측정
                         }
                     }
                 } else {
