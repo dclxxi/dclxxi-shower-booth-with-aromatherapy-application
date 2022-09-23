@@ -87,6 +87,7 @@ public class NotificationsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), UserPieChart.class);
+                intent.putExtra("code", code);
                 startActivity(intent);
             }
         });

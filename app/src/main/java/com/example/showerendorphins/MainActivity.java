@@ -23,6 +23,8 @@ import com.example.showerendorphins.databinding.ActivityMainBinding;
 import com.example.showerendorphins.ui.home.HomeFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import app.akexorcist.bluetotohspp.library.BluetoothSPP;
 import app.akexorcist.bluetotohspp.library.BluetoothState;
@@ -33,10 +35,13 @@ public class MainActivity extends AppCompatActivity implements BluetoothAware {
     int fragIndex = 0;
     private BluetoothSPP bt;
     private ActivityMainBinding binding;
+    private FirebaseAuth mAuth;
+    String email = "";
     int height = 0;
     String mood = "";
     int aromaId = 0;
     int temp = 0;
+    int waterTemp = 0;
 
     BluetoothAdapter btAdapter;
     private final static int REQUEST_ENABLE_BT = 1;
@@ -44,7 +49,11 @@ public class MainActivity extends AppCompatActivity implements BluetoothAware {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_main);
+
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+        email = user.getEmail();
+
         // Get permission
         String[] permission_list = {
                 Manifest.permission.ACCESS_FINE_LOCATION,
@@ -147,9 +156,11 @@ public class MainActivity extends AppCompatActivity implements BluetoothAware {
                         .replace(R.id.frame_layout, new WaterFragment()).commitAllowingStateLoss();
                 break;
             case 10: // EVALUATION
+                bundle.putString("email", email);
                 bundle.putString("height", String.valueOf(height));
                 bundle.putString("feeling", mood);
                 bundle.putString("bodyTemperature", String.valueOf(temp));
+                bundle.putString("waterTemperature", String.valueOf(waterTemp));
                 bundle.putString("aroma", String.valueOf(aromaId)); //번호 전달
                 EvaluationFragment evaluationFragment = new EvaluationFragment();
                 evaluationFragment.setArguments(bundle);
@@ -261,6 +272,8 @@ public class MainActivity extends AppCompatActivity implements BluetoothAware {
                     }
                 } else if (index == 7) {
                     temp = Integer.parseInt(message);
+                } else if (index == 8) {
+                    waterTemp = Integer.parseInt(message);
                 }
                 replaceFragment(index + 1);
 
