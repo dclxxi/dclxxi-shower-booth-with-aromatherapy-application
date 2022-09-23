@@ -38,11 +38,11 @@ public class SelectionFragment extends Fragment {
     private BluetoothAware bluetoothAware;
     private FragmentSelectionBinding binding;
     private Button btn_selection_save;
-    private RadioButton rb[];
+    private RadioButton rb1, rb2, rb3;
     private RadioGroup radioGroup;
     private ImageView img_oil;
 
-    String urlStr = "http://ec2-43-200-238-1.ap-northeast-2.compute.amazonaws.com:8080/Aroma/All_User_Stored_Aroma_List?userId=";
+    String urlStr = "http://ec2-43-200-238-1.ap-northeast-2.compute.amazonaws.com:8080/Aroma/User_Stored_Aroma_Selection?userId=";
 
     private ArrayList<AromaItem> items;
     private String userId;
@@ -104,17 +104,48 @@ public class SelectionFragment extends Fragment {
 
                         aromaItem.setAromaId((Integer) jsonObject.get("id"));
                         aromaItem.setKoName(jsonObject.get("koName").toString());
-                        aromaItem.setEnName(jsonObject.get("enName").toString());
-                        aromaItem.setNote(jsonObject.get("note").toString());
-                        aromaItem.setScent(jsonObject.get("scent").toString());
+                        aromaItem.setFeeling(jsonObject.get("feeling").toString());
                         aromaItem.setImgUrl(jsonObject.get("imgURL").toString());
 
                         items.add(aromaItem);
-                        rb[i].setText(aromaItem.getKoName());
+
                     }
+
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            rb1 = root.findViewById(R.id.rb1);
+                            rb2 = root.findViewById(R.id.rb2);
+                            rb3 = root.findViewById(R.id.rb3);
+
+                            rb1.setText(items.get(0).getKoName());
+                            rb2.setText(items.get(1).getKoName());
+                            rb3.setText(items.get(2).getKoName());
+
+                            img_oil = root.findViewById(R.id.img_oil);
+
+                            radioGroup = root.findViewById(R.id.radioGroup);
+                            radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                                @Override
+                                public void onCheckedChanged(RadioGroup radioGroup, @IdRes int i) {
+                                    if (i == R.id.rb1) {
+                                        index = 0;
+                                    } else if (i == R.id.rb2) {
+                                        index = 1;
+                                    } else if (i == R.id.rb2) {
+                                        index = 2;
+                                    }
+
+                                    aromaId = items.get(index).getAromaId();
+                                    Glide
+                                            .with(getActivity())
+                                            .load(items.get(index).getImgUrl())
+                                            .centerCrop()
+                                            .apply(new RequestOptions().override(110, 110))
+                                            .into(img_oil);
+                                    img_oil.setTag(items.get(index).getKoName());
+                                }
+                            });
 
                         }
                     });
@@ -127,34 +158,6 @@ public class SelectionFragment extends Fragment {
                 }
             }
         }.start();
-
-        rb[0] = root.findViewById(R.id.rb1);
-        rb[1] = root.findViewById(R.id.rb2);
-        rb[2] = root.findViewById(R.id.rb3);
-        img_oil = root.findViewById(R.id.img_oil);
-
-        radioGroup = root.findViewById(R.id.radioGroup);
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, @IdRes int i) {
-                if (i == R.id.rb1) {
-                    index = 0;
-                } else if (i == R.id.rb2) {
-                    index = 1;
-                } else if (i == R.id.rb2) {
-                    index = 2;
-                }
-
-                aromaId = items.get(index).getAromaId();
-                Glide
-                        .with(getActivity())
-                        .load(items.get(index).getImgUrl())
-                        .centerCrop()
-                        .apply(new RequestOptions().override(115, 115))
-                        .into(img_oil);
-                img_oil.setTag(items.get(index).getKoName());
-            }
-        });
 
         btn_selection_save = root.findViewById(R.id.btn_selection_save);
         btn_selection_save.setOnClickListener(new View.OnClickListener() {

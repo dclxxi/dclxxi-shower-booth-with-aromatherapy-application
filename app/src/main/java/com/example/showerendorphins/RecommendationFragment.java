@@ -8,11 +8,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextClock;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.showerendorphins.databinding.FragmentRecommendationBinding;
 import com.example.showerendorphins.enums.FragmentIndex;
 import com.example.showerendorphins.item.AromaItem;
@@ -32,14 +37,15 @@ import java.util.Objects;
 public class RecommendationFragment extends Fragment {
     private BluetoothAware bluetoothAware;
     private FragmentRecommendationBinding binding;
-    Button btn_recommendation_accept;
-    Button btn_recommendation_refusal;
+    private Button btn_recommendation_accept, btn_recommendation_refusal;
+    private TextView tv_recommendation, tv_recommendation_name;
+    private ImageView img_recommendation;
 
     private static String addParameterStr = "";
-    String urlStr = "http://192.168.219.103:8080/Aroma/User_Stored_Aroma_Recommendation";
+    String urlStr = "http://ec2-43-200-238-1.ap-northeast-2.compute.amazonaws.com:8080/Aroma/User_Stored_Aroma_Recommendation";
 
-    String email, mood;
-
+    String email, mood, index = "";
+    AromaItem aromaItem;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -68,12 +74,13 @@ public class RecommendationFragment extends Fragment {
             addParameterStr = "?";
             addParameterStr += "userId=" + email + "&";
             addParameterStr += "feeling=" + mood;
+
+            aromaItem = new AromaItem();
         }
 
         new Thread() {
             @Override
             public void run() {
-                Handler handler = new Handler(Looper.getMainLooper());
                 try {
                     URL url = new URL(urlStr + addParameterStr);
 
@@ -92,50 +99,79 @@ public class RecommendationFragment extends Fragment {
                     isr.close();
                     reader.close();
 
+                    String jsonData = buffer.toString();
+                    JSONObject jsonObject = new JSONObject(jsonData);
+
+                    aromaItem.setAromaId((Integer) jsonObject.get("aromaId"));
+                    aromaItem.setKoName(jsonObject.get("koName").toString());
+                    aromaItem.setImgUrl(jsonObject.get("imgURL").toString());
+
                     getActivity().runOnUiThread(new Runnable() {
                         public void run() {
-                            int aromaId =  Integer.parseInt(buffer.toString());
+                            img_recommendation = root.findViewById(R.id.img_recommendation);
+                            Glide
+                                    .with(getActivity())
+                                    .load(aromaItem.getImgUrl())
+                                    .centerCrop()
+                                    .apply(new RequestOptions().override(200, 200))
+                                    .into(img_recommendation);
+                            img_recommendation.setTag(aromaItem.getKoName());
 
-                            btn_recommendation_accept = root.findViewById(R.id.btn_recommendation_accept);
-                            btn_recommendation_accept.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    bluetoothAware.setAroma(aromaId);
+                            tv_recommendation = root.findViewById(R.id.tv_recommendation);
+                            switch (mood) {
+                                case "HAPPY":
+                                    tv_recommendation.setText("좋을");
+                                    index = "1";
+                                    break;
 
-                                    switch (mood) {
-                                        case "HAPPY":
-                                            bluetoothAware.send("1");
-                                            break;
-                                        case "ANGRY":
-                                            bluetoothAware.send("2");
-                                            break;
-                                        case "SAD":
-                                            bluetoothAware.send("3");
-                                            break;
-                                    }
-                                    ((MainActivity) getActivity()).replaceFragment(FragmentIndex.USER_TEMP);
-                                }
-                            });
+                                case "ANGRY":
+                                    tv_recommendation.setText("화날");
+                                    index = "2";
+                                    break;
 
-                            btn_recommendation_refusal = root.findViewById(R.id.btn_recommendation_refusal);
-                            btn_recommendation_refusal.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    ((MainActivity) getActivity()).replaceFragment(FragmentIndex.SELECTION);
-                                }
-                            });
+                                case "SAD":
+                                    tv_recommendation.setText("슬플");
+                                    index = "3";
+                                    break;
+                            }
+
+                            tv_recommendation_name = root.findViewById(R.id.tv_recommendation_name);
+                            tv_recommendation_name.setText(aromaItem.getKoName());
                         }
                     });
+
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
         }.start();
 
+        btn_recommendation_accept = root.findViewById(R.id.btn_recommendation_accept);
+        btn_recommendation_accept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                bluetoothAware.setAroma(aromaItem.getAromaId());
+                bluetoothAware.send(index);
+
+                ((MainActivity) getActivity()).replaceFragment(FragmentIndex.USER_TEMP);
+            }
+        });
+
+        btn_recommendation_refusal = root.findViewById(R.id.btn_recommendation_refusal);
+        btn_recommendation_refusal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((MainActivity) getActivity()).replaceFragment(FragmentIndex.SELECTION);
+            }
+        });
+
         return root;
     }
+
 
     @Override
     public void onDestroyView() {
