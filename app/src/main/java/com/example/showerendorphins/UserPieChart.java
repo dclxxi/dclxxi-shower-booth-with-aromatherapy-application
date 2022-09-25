@@ -3,6 +3,8 @@ package com.example.showerendorphins;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -41,7 +43,10 @@ public class UserPieChart extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_pie_chart);
 
+        String usercode = getIntent().getStringExtra("code");
+
         pieChart = (PieChart) findViewById(R.id.piechart);
+        TextView textHistoryIsNull = findViewById(R.id.visibleTextWhenShowerHistoryIsNull);
         setTitle("PieChartActivity");
         pieChart.setUsePercentValues(true);
 //        pieChart.setDrawHoleEnabled(false);
@@ -53,8 +58,6 @@ public class UserPieChart extends AppCompatActivity {
         Legend l = pieChart.getLegend();
         l.setTextSize(15f);
 //        l.setEnabled(false);  //대체 왜 레이블이 안뜰까...
-
-        int usercode = 1;   /* 하드코딩 */
 
         ProgressDialogCustom progressDialog = new ProgressDialogCustom(this); //다이얼로그 선언
         progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT)); //백그라운를 투명하게
@@ -87,48 +90,60 @@ public class UserPieChart extends AppCompatActivity {
                     reader.close();
 
                     String jsonData = buffer.toString();
-                    JSONArray jsonArray = new JSONArray(jsonData);
-                    ArrayList NoOfEmp = new ArrayList();
 
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        Integer rating = (int) Float.parseFloat(jsonObject.get("rating").toString());
-                        float count = Float.parseFloat(jsonObject.get("count").toString());
-                        sum+=rating*count;
-                        total+=count;
-                        NoOfEmp.add(new Entry(count, rating - 1));
-                    }
+                    if (jsonData.equals("[]\n")) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                progressDialog.dismiss();    //progress dialog 종료
+                                textHistoryIsNull.setVisibility(View.VISIBLE);
+                                pieChart.setVisibility(View.GONE);
+                            }
+                        });
+                    } else {
+                        JSONArray jsonArray = new JSONArray(jsonData);
+                        ArrayList NoOfEmp = new ArrayList();
 
-                    double finalSum = sum;
-                    int finalTotal = total;
-
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            progressDialog.dismiss();   //progress dialog 종료
-
-                            PieDataSet dataSet = new PieDataSet(NoOfEmp, "Satisfaction Score");
-                            dataSet.setSliceSpace(3f);
-
-                            ArrayList score = new ArrayList();
-
-                            score.add("5점");
-                            score.add("4점");
-                            score.add("3점");
-                            score.add("2점");
-                            score.add("1점");
-
-                            pieChart.setCenterText("평균\n만족도\n" +( finalSum / finalTotal)+"점");
-
-                            PieData data = new PieData(score, dataSet);
-                            data.setValueTextSize(18f);
-                            data.setValueFormatter(new PercentFormatter());
-                            data.setValueTextColor(Color.WHITE);
-                            pieChart.setData(data);
-                            dataSet.setColors(LIBERTY_COLORS);
-                            pieChart.animateXY(1000, 1000);
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject jsonObject = jsonArray.getJSONObject(i);
+                            Integer rating = (int) Float.parseFloat(jsonObject.get("rating").toString());
+                            float count = Float.parseFloat(jsonObject.get("count").toString());
+                            sum+=rating*count;
+                            total+=count;
+                            NoOfEmp.add(new Entry(count, rating - 1));
                         }
-                    });
+
+                        double finalSum = sum;
+                        int finalTotal = total;
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                progressDialog.dismiss();   //progress dialog 종료
+
+                                PieDataSet dataSet = new PieDataSet(NoOfEmp, "Satisfaction Score");
+                                dataSet.setSliceSpace(3f);
+
+                                ArrayList score = new ArrayList();
+
+                                score.add("5점");
+                                score.add("4점");
+                                score.add("3점");
+                                score.add("2점");
+                                score.add("1점");
+
+                                pieChart.setCenterText("평균\n만족도\n" +( finalSum / finalTotal)+"점");
+
+                                PieData data = new PieData(score, dataSet);
+                                data.setValueTextSize(18f);
+                                data.setValueFormatter(new PercentFormatter());
+                                data.setValueTextColor(Color.WHITE);
+                                pieChart.setData(data);
+                                dataSet.setColors(LIBERTY_COLORS);
+                                pieChart.animateXY(1000, 1000);
+                            }
+                        });
+                    }
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
                 } catch (IOException e) {

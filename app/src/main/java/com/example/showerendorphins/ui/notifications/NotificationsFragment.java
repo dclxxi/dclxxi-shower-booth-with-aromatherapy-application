@@ -20,7 +20,6 @@ import com.example.showerendorphins.R;
 import com.example.showerendorphins.UpdateUserInfo;
 import com.example.showerendorphins.UserPieChart;
 import com.example.showerendorphins.databinding.FragmentNotificationsBinding;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -39,7 +38,6 @@ public class NotificationsFragment extends Fragment {
 
     private FragmentNotificationsBinding binding;
     private FirebaseAuth mAuth;
-    private GoogleSignInClient mGoogleSignInClient;
     Button btn_logout, btn_update_userinfo, selectUserScore, selectUserAroma, btn_add_aroma_item;
     TextView textView_username;
 
@@ -89,6 +87,7 @@ public class NotificationsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), UserPieChart.class);
+                intent.putExtra("code", code);
                 startActivity(intent);
             }
         });

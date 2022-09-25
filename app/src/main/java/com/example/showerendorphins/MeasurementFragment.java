@@ -27,13 +27,13 @@ public class MeasurementFragment extends Fragment {
         binding = FragmentMeasurementBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                ((MainActivity) getActivity()).replaceFragment(3);
-            }
-        }, 1000); // 1000밀리 초 동안 딜레이
+//        Handler handler = new Handler();
+//        handler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                ((MainActivity) getActivity()).replaceFragment(3);
+//            }
+//        }, 1000); // 1000밀리 초 동안 딜레이
 
         return root;
     }

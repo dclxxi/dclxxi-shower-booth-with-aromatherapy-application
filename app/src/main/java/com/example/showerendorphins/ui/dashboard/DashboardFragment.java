@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -21,6 +22,8 @@ import com.example.showerendorphins.ShowerInfoDetail;
 import com.example.showerendorphins.adapter.ShowerInfoItemAdapter;
 import com.example.showerendorphins.databinding.FragmentDashboardBinding;
 import com.example.showerendorphins.item.ShowerItem;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,25 +42,28 @@ import java.util.Locale;
 
 public class DashboardFragment extends Fragment {
 
-    // URL 설정.
-    String urlStrFindUserCode = "http://ec2-43-200-238-1.ap-northeast-2.compute.amazonaws.com:8080/User/findUserCode?email=";  //IPv4 주소 변경해야 함
 
-    String urlStrShowerLog = "http://ec2-43-200-238-1.ap-northeast-2.compute.amazonaws.com:8080/ShowerHistory/shower_log_list?usercode=";  //IPv4 주소 변경해야 함
+    String urlStrShowerLog = "http://ec2-43-200-238-1.ap-northeast-2.compute.amazonaws.com:8080/ShowerHistory/shower_log_list?email=";
+//    String urlStrShowerLog = "http://ec2-43-200-238-1.ap-northeast-2.compute.amazonaws.com:8080/ShowerHistory/shower_log_list?email=";
 
     private FragmentDashboardBinding binding;
-
+    private FirebaseAuth mAuth;
     private ListView showerInfoListView;
     private ShowerInfoItemAdapter adapter;
     private ArrayList<ShowerItem> list;
-
-    int usercode = 1;   /* 하드코딩 */
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         binding = FragmentDashboardBinding.inflate(inflater, container, false);
         View rootView = binding.getRoot();
+
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+        String email = user.getEmail();
+
         showerInfoListView = (ListView) rootView.findViewById(R.id.showerInfoListView_custom);
+        TextView textHistoryIsNull = rootView.findViewById(R.id.visibleTextWhenShowerHistoryIsNull);
         list = new ArrayList<>();
 
         ProgressDialogCustom progressDialog = new ProgressDialogCustom(this.getContext()); //다이얼로그 선언
@@ -71,7 +77,7 @@ public class DashboardFragment extends Fragment {
             @Override
             public void run() {
                 try {
-                    URL url = new URL(urlStrShowerLog + usercode);
+                    URL url = new URL(urlStrShowerLog + email);
 
                     InputStream is = url.openStream();
                     InputStreamReader isr = new InputStreamReader(is);
@@ -85,33 +91,44 @@ public class DashboardFragment extends Fragment {
                     }
 
                     String jsonData = buffer.toString();
-                    JSONArray jsonArray = new JSONArray(jsonData);
+                    if (jsonData.equals("[]\n")) {
+                        getActivity().runOnUiThread(new Runnable() {
+                            public void run() {
+                                progressDialog.dismiss();	//progress dialog 종료
+                                textHistoryIsNull.setVisibility(View.VISIBLE);
+                            }
+                        });
+                    } else {
+                        JSONArray jsonArray = new JSONArray(jsonData);
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject jsonObject = jsonArray.getJSONObject(i);
+                            Integer showerid = Integer.parseInt(jsonObject.get("id").toString());
+                            String createDateStr = jsonObject.get("createDate").toString();
+                            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss", Locale.KOREA);
+                            LocalDateTime createDate = LocalDateTime.parse(createDateStr, dateTimeFormatter);
+                            double height = Double.parseDouble(jsonObject.get("height").toString());
+                            String feeling = jsonObject.get("feeling").toString();
+                            double bodyTemperature = Double.parseDouble(jsonObject.get("bodyTemperature").toString());
+                            double waterTemperature = Double.parseDouble(jsonObject.get("waterTemperature").toString());
+                            JSONObject aroma = new JSONObject(jsonObject.get("aroma").toString());
+                            float rating = Float.parseFloat(jsonObject.get("rating").toString());
 
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        Integer showerid = Integer.parseInt(jsonObject.get("id").toString());
-                        String createDateStr = jsonObject.get("createDate").toString();
-                        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss", Locale.KOREA);
-                        LocalDateTime createDate = LocalDateTime.parse(createDateStr, dateTimeFormatter);
-                        double height = Double.parseDouble(jsonObject.get("height").toString());
-                        String feeling = jsonObject.get("feeling").toString();
-                        double bodyTemperature = Double.parseDouble(jsonObject.get("bodyTemperature").toString());
-                        double waterTemperature = Double.parseDouble(jsonObject.get("waterTemperature").toString());
-                        JSONObject aroma = new JSONObject(jsonObject.get("aroma").toString());
-                        float rating = Float.parseFloat(jsonObject.get("rating").toString());
+                            list.add(new ShowerItem(showerid, height, feeling, bodyTemperature,waterTemperature,
+                                    aroma.get("koName").toString(), rating, createDate, getContext()));
+                        }
 
-                        list.add(new ShowerItem(showerid, usercode, height, feeling, bodyTemperature,waterTemperature,
-                                aroma.get("koName").toString(), rating, createDate, getContext()));
+                        getActivity().runOnUiThread(new Runnable() {
+                            public void run() {
+                                progressDialog.dismiss();	//progress dialog 종료
+                                adapter.notifyDataSetChanged();
+                            }
+                        });
                     }
+
                     isr.close();
                     reader.close();
                     is.close();
-                    getActivity().runOnUiThread(new Runnable() {
-                        public void run() {
-                            progressDialog.dismiss();	//progress dialog 종료
-                            adapter.notifyDataSetChanged();
-                        }
-                    });
+
 
                 } catch (MalformedURLException e) {
                     e.printStackTrace();

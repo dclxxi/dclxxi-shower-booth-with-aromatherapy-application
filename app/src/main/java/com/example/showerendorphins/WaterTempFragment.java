@@ -1,7 +1,7 @@
 package com.example.showerendorphins;
 
+import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,11 +9,20 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.example.showerendorphins.databinding.FragmentUserTempBinding;
 import com.example.showerendorphins.databinding.FragmentWaterTempBinding;
+import com.example.showerendorphins.enums.FragmentIndex;
+
+import java.util.Objects;
 
 public class WaterTempFragment extends Fragment {
+    private BluetoothAware bluetoothAware;
     private FragmentWaterTempBinding binding;
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        bluetoothAware =  Objects.requireNonNull((BluetoothAware)context);
+    }
 
     public static WaterTempFragment newInstance() {
         WaterTempFragment fragment = new WaterTempFragment();
@@ -27,14 +36,7 @@ public class WaterTempFragment extends Fragment {
 
         binding = FragmentWaterTempBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                ((MainActivity) getActivity()).replaceFragment(9);
-            }
-        }, 1000); // 1000밀리 초 동안 딜레이
+        bluetoothAware.receive(FragmentIndex.WATER);
 
         return root;
     }

@@ -44,11 +44,10 @@
             app:srcCompat="@drawable/oil" />
 
         <RadioGroup
+            android:id="@+id/radioGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp">
-
-
 
                 <RadioButton
                     android:id="@+id/rb1"
@@ -57,7 +56,7 @@
                     android:layout_weight="1"
                     android:buttonTint="#616161"
                     android:minHeight="40dp"
-                    android:text="샌달우드"
+                    android:text="아로마오일1"
                     android:textColor="#000000" />
 
                 <RadioButton
@@ -67,9 +66,8 @@
                     android:layout_weight="1"
                     android:buttonTint="#616161"
                     android:minHeight="40dp"
-                    android:text="로즈마리"
+                    android:text="아로마오일2"
                     android:textColor="#000000" />
-
 
                 <RadioButton
                     android:id="@+id/rb3"
@@ -78,7 +76,7 @@
                     android:layout_weight="1"
                     android:buttonTint="#616161"
                     android:minHeight="40dp"
-                    android:text="라벤더"
+                    android:text="아로마오일3"
                     android:textColor="#000000" />
         </RadioGroup>
 
