@@ -81,7 +81,7 @@ public class ShowerServiceTest {
                 .build();
 
         //when
-        Integer showerLogId = showerService.createShowerLog(userShowerDto, user.getCode());
+        Integer showerLogId = showerService.createShowerLog(userShowerDto, user.getUserId());
 
         //then
         Assertions.assertEquals(showerLogId, 1);

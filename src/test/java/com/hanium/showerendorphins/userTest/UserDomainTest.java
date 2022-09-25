@@ -12,6 +12,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Optional;
+
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -24,7 +26,7 @@ public class UserDomainTest {
     public void 유저객체_생성(){
         //given
         UserDto user = UserDto.builder()
-                .userId("testuser")
+                .userId("aa@test.com")
                 .username("테스트")
                 .gender(Gender.MALE)
                 .age(20)
@@ -34,6 +36,7 @@ public class UserDomainTest {
         User savedUser = userRepository.save(user.toEntity());
 
         //when
+
         Assertions.assertEquals(savedUser.getUserId(),"testuser");
 
     }

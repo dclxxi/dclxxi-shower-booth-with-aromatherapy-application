@@ -21,13 +21,10 @@ public class ShowerHistoryController {
     private final ShowerService showerService;
 
     @RequestMapping(value = "/add_shower_log")
-    public Integer addShowerLog(@ModelAttribute ShowerDto showerDto, @RequestParam(value="userid") Integer userid) {
-        return showerService.createShowerLog(showerDto, userid);
+    public Integer addShowerLog(@ModelAttribute ShowerDto showerDto, @RequestParam(value="email") String email) {
+        return showerService.createShowerLog(showerDto, email);
     }
-//    @GetMapping(value = "/shower_log_list")
-//    public List<Shower> showerLogListToJSON(@RequestParam(value="usercode") Integer usercode) {
-//        return showerService.findShowerLogList(usercode);
-//    }
+
     @GetMapping(value = "/shower_log_list")
     public List<Shower> showerLogListToJSON(@RequestParam(value="email") String email) {
         return showerService.findShowerLogList(email);

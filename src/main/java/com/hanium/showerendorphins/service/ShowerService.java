@@ -24,8 +24,8 @@ public class ShowerService {
     @Autowired
     private UserRepository userRepository;
 
-    public Integer createShowerLog(ShowerDto showerlog, Integer usercode){
-        User user = userRepository.findById(usercode).orElseThrow(() -> new DoesNotExistException());
+    public Integer createShowerLog(ShowerDto showerlog, String email){
+        User user = userRepository.findByUserId(email).orElseThrow(() -> new DoesNotExistException());
         showerlog.setUser(user);
         Shower savedData = showerRepository.save(showerlog.toEntity());
         return savedData.getId();
