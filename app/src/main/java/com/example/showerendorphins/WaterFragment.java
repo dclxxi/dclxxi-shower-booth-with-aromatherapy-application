@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -38,6 +39,10 @@ public class WaterFragment extends Fragment {
 
         binding = FragmentWaterBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        ProgressBar progressBar = root.findViewById(R.id.progressBar);
+        progressBar.setProgress(100);
+
         bluetoothAware.receive(FragmentIndex.EVALUATION);
         return root;
     }

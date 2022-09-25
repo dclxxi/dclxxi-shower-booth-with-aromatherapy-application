@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextClock;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -65,6 +66,9 @@ public class RecommendationFragment extends Fragment {
 
         binding = FragmentRecommendationBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        ProgressBar progressBar = root.findViewById(R.id.progressBar);
+        progressBar.setProgress(50);
 
         Bundle bundle = getArguments();
         if (bundle != null) {

@@ -11,18 +11,24 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:visibility="gone"
         android:text="샤워기록이 없습니다.\n아로마샤워를 시작해보세요!"
         android:textColor="@color/colorPrimaryText"
-        tools:layout_editor_absoluteX="252dp"
-        tools:layout_editor_absoluteY="118dp" />
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:id="@+id/linearLayout2"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingTop="60dp"
-        android:paddingBottom="60dp">
+        android:paddingBottom="60dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/visibleTextWhenShowerHistoryIsNull">
 
 
         <ListView
@@ -30,7 +36,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></ListView>
     </LinearLayout>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

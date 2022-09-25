@@ -42,9 +42,7 @@ import java.util.Locale;
 
 public class DashboardFragment extends Fragment {
 
-
     String urlStrShowerLog = "http://ec2-43-200-238-1.ap-northeast-2.compute.amazonaws.com:8080/ShowerHistory/shower_log_list?email=";
-//    String urlStrShowerLog = "http://ec2-43-200-238-1.ap-northeast-2.compute.amazonaws.com:8080/ShowerHistory/shower_log_list?email=";
 
     private FragmentDashboardBinding binding;
     private FirebaseAuth mAuth;
@@ -94,7 +92,7 @@ public class DashboardFragment extends Fragment {
                     if (jsonData.equals("[]\n")) {
                         getActivity().runOnUiThread(new Runnable() {
                             public void run() {
-                                progressDialog.dismiss();	//progress dialog 종료
+                                progressDialog.dismiss();    //progress dialog 종료
                                 textHistoryIsNull.setVisibility(View.VISIBLE);
                             }
                         });
@@ -113,13 +111,13 @@ public class DashboardFragment extends Fragment {
                             JSONObject aroma = new JSONObject(jsonObject.get("aroma").toString());
                             float rating = Float.parseFloat(jsonObject.get("rating").toString());
 
-                            list.add(new ShowerItem(showerid, height, feeling, bodyTemperature,waterTemperature,
+                            list.add(new ShowerItem(showerid, height, feeling, bodyTemperature, waterTemperature,
                                     aroma.get("koName").toString(), rating, createDate, getContext()));
                         }
 
                         getActivity().runOnUiThread(new Runnable() {
                             public void run() {
-                                progressDialog.dismiss();	//progress dialog 종료
+                                progressDialog.dismiss();    //progress dialog 종료
                                 adapter.notifyDataSetChanged();
                             }
                         });
@@ -128,8 +126,6 @@ public class DashboardFragment extends Fragment {
                     isr.close();
                     reader.close();
                     is.close();
-
-
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
@@ -140,6 +136,7 @@ public class DashboardFragment extends Fragment {
 
             }
         }.start();
+
         adapter = new ShowerInfoItemAdapter(getContext(), list);
         showerInfoListView.setAdapter(adapter);
         showerInfoListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -147,20 +144,19 @@ public class DashboardFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(getActivity(), ShowerInfoDetail.class);
-                intent.putExtra("showerId",list.get(i).getShowerId());
+                intent.putExtra("showerId", list.get(i).getShowerId());
                 String date = list.get(i).getDate().format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 E요일"));
                 String time = list.get(i).getDate().format(DateTimeFormatter.ofPattern("a h:mm"));
-                intent.putExtra("date",date);
-                intent.putExtra("time",time);
-                intent.putExtra("aromaKoname",list.get(i).getAromaKoname());
-                intent.putExtra("feeling",list.get(i).getFeeling());
-                intent.putExtra("bodyTemperature",list.get(i).getBodyTemperature()+"");
-                intent.putExtra("waterTemperature",list.get(i).getWaterTemperature()+"");
-                intent.putExtra("height",list.get(i).getHeight()+"");
-                intent.putExtra("rating",list.get(i).getRating()+"");
+                intent.putExtra("date", date);
+                intent.putExtra("time", time);
+                intent.putExtra("aromaKoname", list.get(i).getAromaKoname());
+                intent.putExtra("feeling", list.get(i).getFeeling());
+                intent.putExtra("bodyTemperature", list.get(i).getBodyTemperature() + "");
+                intent.putExtra("waterTemperature", list.get(i).getWaterTemperature() + "");
+                intent.putExtra("height", list.get(i).getHeight() + "");
+                intent.putExtra("rating", list.get(i).getRating() + "");
 
                 startActivity(intent);
-
             }
         });
         return rootView;
