@@ -102,13 +102,12 @@ public class SelectionFragment extends Fragment {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         AromaItem aromaItem = new AromaItem();
 
-                        aromaItem.setAromaId((Integer) jsonObject.get("id"));
+                        aromaItem.setAromaId((Integer) jsonObject.get("aromaId"));
                         aromaItem.setKoName(jsonObject.get("koName").toString());
                         aromaItem.setFeeling(jsonObject.get("feeling").toString());
                         aromaItem.setImgUrl(jsonObject.get("imgURL").toString());
 
                         items.add(aromaItem);
-
                     }
 
                     getActivity().runOnUiThread(new Runnable() {
@@ -132,7 +131,7 @@ public class SelectionFragment extends Fragment {
                                         index = 0;
                                     } else if (i == R.id.rb2) {
                                         index = 1;
-                                    } else if (i == R.id.rb2) {
+                                    } else if (i == R.id.rb3) {
                                         index = 2;
                                     }
 

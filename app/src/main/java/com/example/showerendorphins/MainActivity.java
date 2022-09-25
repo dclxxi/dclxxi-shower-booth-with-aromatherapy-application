@@ -130,10 +130,6 @@ public class MainActivity extends AppCompatActivity implements BluetoothAware {
                 fragmentTransaction.replace(R.id.frame_container, new MoodFragment()).commitAllowingStateLoss();
                 break;
             case RECOMMENDATION: // RECOMMENDATION
-
-                email = "aa@test.com";
-                mood = "ANGRY";
-
                 bundle.putString("userId", email);
                 bundle.putString("feeling", mood); // mood값 전달
                 RecommendationFragment recommendationFragment = new RecommendationFragment();
@@ -141,8 +137,6 @@ public class MainActivity extends AppCompatActivity implements BluetoothAware {
                 fragmentTransaction.replace(R.id.frame_container, recommendationFragment).commitAllowingStateLoss();
                 break;
             case SELECTION: // SELECTION
-                email = "aa@test.com";
-
                 bundle.putString("userId", email);
                 SelectionFragment selectionFragment = new SelectionFragment();
                 selectionFragment.setArguments(bundle);
