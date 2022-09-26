@@ -37,9 +37,11 @@ public class HomeFragment extends Fragment  {
         View root = binding.getRoot();
 
         img_start = root.findViewById(R.id.img_start);
+        img_start.setClickable(true);
         img_start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                img_start.setClickable(false);
                 bluetoothAware.startScan(FragmentIndex.SERVICE);
             }
         });

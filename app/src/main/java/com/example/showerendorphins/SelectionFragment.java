@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -46,7 +47,7 @@ public class SelectionFragment extends Fragment {
 
     private ArrayList<AromaItem> items;
     private String userId;
-    private int aromaId, index;
+    private int aromaId, index = -1;
 
 
     @Override
@@ -159,23 +160,30 @@ public class SelectionFragment extends Fragment {
         }.start();
 
         btn_selection_save = root.findViewById(R.id.btn_selection_save);
+        btn_selection_save.setClickable(true);
         btn_selection_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                switch (items.get(index).getFeeling()) {
-                    case "HAPPY":
-                        bluetoothAware.send("1");
-                        break;
-                    case "ANGRY":
-                        bluetoothAware.send("2");
-                        break;
-                    case "SAD":
-                        bluetoothAware.send("3");
-                        break;
-                }
+                if (index == -1) {
+                    Toast.makeText(getActivity(), "아로마 오일을 선택해주세요.", Toast.LENGTH_SHORT).show();
+                } else {
+                    switch (items.get(index).getFeeling()) {
+                        case "HAPPY":
+                            bluetoothAware.send("1");
+                            break;
+                        case "ANGRY":
+                            bluetoothAware.send("2");
+                            break;
+                        case "SAD":
+                            bluetoothAware.send("3");
+                            break;
+                    }
 
-                bluetoothAware.setAroma(aromaId);
-                bluetoothAware.receive(FragmentIndex.USER_TEMP);
+                    bluetoothAware.setAroma(aromaId);
+
+                    btn_selection_save.setClickable(false);
+                    bluetoothAware.receive(FragmentIndex.USER_TEMP);
+                }
             }
         });
 

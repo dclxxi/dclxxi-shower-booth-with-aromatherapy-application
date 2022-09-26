@@ -39,9 +39,6 @@ public class ShowerHeadFragment extends Fragment {
         binding = FragmentShowerHeadBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        ProgressBar progressBar = root.findViewById(R.id.progressBar);
-        progressBar.setProgress(20);
-
         bluetoothAware.receive(FragmentIndex.MOOD);
         return root;
     }

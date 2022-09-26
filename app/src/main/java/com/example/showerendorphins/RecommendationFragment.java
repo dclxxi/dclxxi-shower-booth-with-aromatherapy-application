@@ -7,6 +7,7 @@ import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -66,9 +67,6 @@ public class RecommendationFragment extends Fragment {
 
         binding = FragmentRecommendationBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
-        ProgressBar progressBar = root.findViewById(R.id.progressBar);
-        progressBar.setProgress(50);
 
         Bundle bundle = getArguments();
         if (bundle != null) {
@@ -155,20 +153,26 @@ public class RecommendationFragment extends Fragment {
         }.start();
 
         btn_recommendation_accept = root.findViewById(R.id.btn_recommendation_accept);
+        btn_recommendation_accept.setClickable(true);
         btn_recommendation_accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 bluetoothAware.setAroma(aromaItem.getAromaId());
                 bluetoothAware.send(index);
 
+                btn_recommendation_accept.setClickable(false);
+                btn_recommendation_refusal.setClickable(false);
                 ((MainActivity) getActivity()).replaceFragment(FragmentIndex.USER_TEMP);
             }
         });
 
         btn_recommendation_refusal = root.findViewById(R.id.btn_recommendation_refusal);
+        btn_recommendation_refusal.setClickable(true);
         btn_recommendation_refusal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                btn_recommendation_accept.setClickable(false);
+                btn_recommendation_refusal.setClickable(false);
                 ((MainActivity) getActivity()).replaceFragment(FragmentIndex.SELECTION);
             }
         });

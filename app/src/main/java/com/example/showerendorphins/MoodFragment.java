@@ -40,10 +40,6 @@ public class MoodFragment extends Fragment {
         binding = FragmentMoodBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-
-        ProgressBar progressBar = root.findViewById(R.id.progressBar);
-        progressBar.setProgress(35);
-
         bluetoothAware.receive(FragmentIndex.RECOMMENDATION);
 
         return root;

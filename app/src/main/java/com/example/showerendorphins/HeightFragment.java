@@ -39,9 +39,6 @@ public class HeightFragment extends Fragment {
         binding = FragmentHeightBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        ProgressBar progressBar = root.findViewById(R.id.progressBar);
-        progressBar.setProgress(10);
-
         bluetoothAware.receive(FragmentIndex.SHOWER_HEAD);
 
 //        bluetoothAware.startScan(3);

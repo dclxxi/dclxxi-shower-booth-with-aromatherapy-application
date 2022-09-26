@@ -2,10 +2,13 @@ package com.example.showerendorphins;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.TestLooperManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -18,6 +21,7 @@ import java.util.Objects;
 public class WaterTempFragment extends Fragment {
     private BluetoothAware bluetoothAware;
     private FragmentWaterTempBinding binding;
+    private TextView tv_water;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -38,9 +42,13 @@ public class WaterTempFragment extends Fragment {
         binding = FragmentWaterTempBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        ProgressBar progressBar = root.findViewById(R.id.progressBar);
-        progressBar.setProgress(85);
-
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            /*setting parameter*/
+            String waterTemp = bundle.getString("waterTemperature");
+            tv_water = root.findViewById(R.id.tv_water);
+            tv_water.setText(waterTemp);
+        }
         bluetoothAware.receive(FragmentIndex.WATER);
 
         return root;

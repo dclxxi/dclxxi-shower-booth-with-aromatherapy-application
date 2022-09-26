@@ -40,9 +40,6 @@ public class WaterFragment extends Fragment {
         binding = FragmentWaterBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        ProgressBar progressBar = root.findViewById(R.id.progressBar);
-        progressBar.setProgress(100);
-
         bluetoothAware.receive(FragmentIndex.EVALUATION);
         return root;
     }
