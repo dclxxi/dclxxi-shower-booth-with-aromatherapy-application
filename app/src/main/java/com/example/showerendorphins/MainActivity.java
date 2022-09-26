@@ -115,41 +115,49 @@ public class MainActivity extends AppCompatActivity implements BluetoothAware {
     public void replaceFragment(FragmentIndex index) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         Bundle bundle = new Bundle();
-
         switch (index) {
             case SERVICE: // SERVICE
                 fragmentTransaction.replace(R.id.frame_layout, new ServiceFragment()).commitAllowingStateLoss();
                 break;
             case HEIGHT: // HEIGHT
-                fragmentTransaction.replace(R.id.frame_container, new HeightFragment()).commitAllowingStateLoss();
+                fragmentTransaction.replace(R.id.frame_layout, new HeightFragment()).commitAllowingStateLoss();
                 break;
             case SHOWER_HEAD: // SHOWER_HEAD
-                fragmentTransaction.replace(R.id.frame_container, new ShowerHeadFragment()).commitAllowingStateLoss();
+                fragmentTransaction.replace(R.id.frame_layout, new ShowerHeadFragment()).commitAllowingStateLoss();
                 break;
             case MOOD: // MOOD
-                fragmentTransaction.replace(R.id.frame_container, new MoodFragment()).commitAllowingStateLoss();
+                fragmentTransaction.replace(R.id.frame_layout, new MoodFragment()).commitAllowingStateLoss();
                 break;
             case RECOMMENDATION: // RECOMMENDATION
+
+                email = "aa@test.com";
+                mood = "ANGRY";
+
                 bundle.putString("userId", email);
                 bundle.putString("feeling", mood); // mood값 전달
                 RecommendationFragment recommendationFragment = new RecommendationFragment();
                 recommendationFragment.setArguments(bundle);
-                fragmentTransaction.replace(R.id.frame_container, recommendationFragment).commitAllowingStateLoss();
+                fragmentTransaction.replace(R.id.frame_layout, recommendationFragment).commitAllowingStateLoss();
                 break;
             case SELECTION: // SELECTION
+                email = "aa@test.com";
+
                 bundle.putString("userId", email);
                 SelectionFragment selectionFragment = new SelectionFragment();
                 selectionFragment.setArguments(bundle);
-                fragmentTransaction.replace(R.id.frame_container, selectionFragment).commitAllowingStateLoss();
+                fragmentTransaction.replace(R.id.frame_layout, selectionFragment).commitAllowingStateLoss();
                 break;
             case USER_TEMP: // USER_TEMP
-                fragmentTransaction.replace(R.id.frame_container, new UserTempFragment()).commitAllowingStateLoss();
+                fragmentTransaction.replace(R.id.frame_layout, new UserTempFragment()).commitAllowingStateLoss();
                 break;
             case WATER_TEMP: // WATER_TEMP
-                fragmentTransaction.replace(R.id.frame_container, new WaterTempFragment()).commitAllowingStateLoss();
+                bundle.putString("waterTemperature", String.valueOf(waterTemp));
+                WaterTempFragment waterTempFragment = new WaterTempFragment();
+                waterTempFragment.setArguments(bundle);
+                fragmentTransaction.replace(R.id.frame_layout, waterTempFragment).commitAllowingStateLoss();
                 break;
             case WATER: // WATER
-                fragmentTransaction.replace(R.id.frame_container, new WaterFragment()).commitAllowingStateLoss();
+                fragmentTransaction.replace(R.id.frame_layout, new WaterFragment()).commitAllowingStateLoss();
                 break;
             case EVALUATION: // EVALUATION
                 bundle.putString("email", email);
@@ -157,10 +165,10 @@ public class MainActivity extends AppCompatActivity implements BluetoothAware {
                 bundle.putString("feeling", mood);
                 bundle.putString("bodyTemperature", String.valueOf(userTemp));
                 bundle.putString("waterTemperature", String.valueOf(waterTemp));
-                bundle.putString("aroma", String.valueOf(aromaId)); //번호 전달
+                bundle.putString("aroma", String.valueOf(aromaId));
                 EvaluationFragment evaluationFragment = new EvaluationFragment();
                 evaluationFragment.setArguments(bundle);
-                fragmentTransaction.replace(R.id.frame_layout2, evaluationFragment).commitAllowingStateLoss();
+                fragmentTransaction.replace(R.id.frame_layout, evaluationFragment).commitAllowingStateLoss();
                 break;
             case HOME: // HOME
                 fragmentTransaction.replace(R.id.frame_layout, new HomeFragment()).commitAllowingStateLoss();
@@ -175,6 +183,7 @@ public class MainActivity extends AppCompatActivity implements BluetoothAware {
                 Toast.makeText(getApplicationContext(), "Connected to " + name + "\n" + address
                         , Toast.LENGTH_SHORT).show();
                 flag = true;
+
                 if (flag == true) {
                     replaceFragment(fragIndex);
                 }
@@ -247,20 +256,18 @@ public class MainActivity extends AppCompatActivity implements BluetoothAware {
 
     @Override
     public void receive(FragmentIndex index) {
-        bt.setOnDataReceivedListener(new BluetoothSPP.OnDataReceivedListener() { //데이터 수신
+        bt.setOnDataReceivedListener(new BluetoothSPP.OnDataReceivedListener() { // 데이터 수신
             public void onDataReceived(byte[] data, String message) {
-//                Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
-
                 int msg = Integer.parseInt(message);
 
-                if (!index.equals(FragmentIndex.MOOD)) {
+                if (!index.equals(FragmentIndex.RECOMMENDATION)) { // 기분 저장 후 RECOMMENDATION
                     if (msg != 1) {
-                        if (index.equals(FragmentIndex.HEIGHT)) {
-                            height = msg; // 키 저장
-                        } else if (index.equals(FragmentIndex.USER_TEMP)) {
-                            userTemp = msg; // 체온 측정
-                        } else if (index.equals(FragmentIndex.WATER_TEMP)) {
-                            waterTemp = msg; // 체온 측정
+                        if (index.equals(FragmentIndex.SHOWER_HEAD)) { // 키 저장 후 SHOWER_HEAD
+                            height = msg;
+                        } else if (index.equals(FragmentIndex.WATER_TEMP)) { // 체온 저장 후 WATER_TEMP
+                            userTemp = msg;
+                        } else if (index.equals(FragmentIndex.WATER)) { // 수온 저장 후 WATER
+                            waterTemp = msg;
                         }
                     }
                 } else {
