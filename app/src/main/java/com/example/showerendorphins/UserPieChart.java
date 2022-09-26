@@ -108,8 +108,8 @@ public class UserPieChart extends AppCompatActivity {
                             JSONObject jsonObject = jsonArray.getJSONObject(i);
                             Integer rating = (int) Float.parseFloat(jsonObject.get("rating").toString());
                             float count = Float.parseFloat(jsonObject.get("count").toString());
-                            sum+=rating*count;
-                            total+=count;
+                            sum += rating * count;
+                            total += count;
                             NoOfEmp.add(new Entry(count, rating - 1));
                         }
 
@@ -132,7 +132,8 @@ public class UserPieChart extends AppCompatActivity {
                                 score.add("2점");
                                 score.add("1점");
 
-                                pieChart.setCenterText("평균\n만족도\n" +( finalSum / finalTotal)+"점");
+
+                                pieChart.setCenterText("평균\n만족도\n" + String.format("%.2f", finalSum / finalTotal) + "점");
 
                                 PieData data = new PieData(score, dataSet);
                                 data.setValueTextSize(18f);
