@@ -126,7 +126,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="50dp"
                     android:gravity="center"
-                    android:text="시스템에서 추천하는 수온은"
+                    android:text="시스템에서 적당한 수온을"
                     android:textColor="#000000"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -137,20 +137,12 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/tv_water"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="null"
-                    android:textColor="#2196F3"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="도 입니다."
+                    android:text="추천해줄게요!"
                     android:textColor="#000000"
                     android:textSize="20sp"
                     android:textStyle="bold" />

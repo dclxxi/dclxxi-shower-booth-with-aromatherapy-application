@@ -3,17 +3,12 @@ package com.example.showerendorphins;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.TextClock;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -24,7 +19,6 @@ import com.example.showerendorphins.databinding.FragmentRecommendationBinding;
 import com.example.showerendorphins.enums.FragmentIndex;
 import com.example.showerendorphins.item.AromaItem;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -153,21 +147,33 @@ public class RecommendationFragment extends Fragment {
         }.start();
 
         btn_recommendation_accept = root.findViewById(R.id.btn_recommendation_accept);
-        btn_recommendation_accept.setClickable(true);
+        btn_recommendation_accept.setClickable(false);
+
+        btn_recommendation_refusal = root.findViewById(R.id.btn_recommendation_refusal);
+        btn_recommendation_refusal.setClickable(false);
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                btn_recommendation_accept.setClickable(true);
+                btn_recommendation_refusal.setClickable(true);
+            }
+        },6000);
+
         btn_recommendation_accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 bluetoothAware.setAroma(aromaItem.getAromaId());
-                bluetoothAware.send(index);
 
                 btn_recommendation_accept.setClickable(false);
                 btn_recommendation_refusal.setClickable(false);
+                bluetoothAware.send(index);
                 ((MainActivity) getActivity()).replaceFragment(FragmentIndex.USER_TEMP);
             }
         });
 
-        btn_recommendation_refusal = root.findViewById(R.id.btn_recommendation_refusal);
-        btn_recommendation_refusal.setClickable(true);
+
         btn_recommendation_refusal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

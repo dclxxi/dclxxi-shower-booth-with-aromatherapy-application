@@ -31,6 +31,9 @@ public class EvaluationFragment extends Fragment {
     String urlStr = "http://ec2-43-200-238-1.ap-northeast-2.compute.amazonaws.com:8080/ShowerHistory/add_shower_log";
     private FragmentEvaluationBinding binding;
     Button btn_save_showerlog;
+    String email, feeling;
+    double height, bodyTemperature, waterTemperature, rate;
+    Integer aroma;
 
     public static EvaluationFragment newInstance() {
         EvaluationFragment fragment = new EvaluationFragment();
@@ -42,37 +45,41 @@ public class EvaluationFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        binding = FragmentEvaluationBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         btn_save_showerlog = root.findViewById(R.id.btn_save_showerlog);
         RatingBar ratingbar = root.findViewById(R.id.ratingBar);
         Bundle bundle = getArguments();
         if (bundle != null) {
             /*setting parameter*/
-            String email = bundle.getString("email");
-            double height = Double.parseDouble(bundle.getString("height"));
-            String feeling = bundle.getString("feeling");
-            double bodyTemperature = Double.parseDouble(bundle.getString("bodyTemperature"));
-            double waterTemperature = Double.parseDouble(bundle.getString("waterTemperature"));
-            Integer aroma = Integer.parseInt(bundle.getString("aroma"));
-            double rating = ratingbar.getRating();
-            Integer userid = 1;
-
-            addParameterStr = "?";
-            addParameterStr += "height=" + height + "&";
-            addParameterStr += "feeling=" + feeling + "&";
-            addParameterStr += "bodyTemperature=" + bodyTemperature + "&";
-            addParameterStr += "waterTemperature=" + waterTemperature + "&";
-            addParameterStr += "aroma=" + aroma + "&";
-            addParameterStr += "rating=" + rating + "&";
-            addParameterStr += "email=" + email;
-
+            email = bundle.getString("email");
+            height = Double.parseDouble(bundle.getString("height"));
+            feeling = bundle.getString("feeling");
+            bodyTemperature = Double.parseDouble(bundle.getString("bodyTemperature"));
+            waterTemperature = Double.parseDouble(bundle.getString("waterTemperature"));
+            aroma = Integer.parseInt(bundle.getString("aroma"));
         }
-        binding = FragmentEvaluationBinding.inflate(inflater, container, false);
+
+        ratingbar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                rate = rating;
+            }
+        });
 
         btn_save_showerlog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getContext(), "데이터를 저장합니다...\n잠시만 기다려주세요.", Toast.LENGTH_SHORT).show();
+
+                addParameterStr = "?";
+                addParameterStr += "height=" + height + "&";
+                addParameterStr += "feeling=" + feeling + "&";
+                addParameterStr += "bodyTemperature=" + bodyTemperature + "&";
+                addParameterStr += "waterTemperature=" + waterTemperature + "&";
+                addParameterStr += "aroma=" + aroma + "&";
+                addParameterStr += "rating=" + rate + "&";
+                addParameterStr += "email=" + email;
 
                 new Thread() {
                     @Override

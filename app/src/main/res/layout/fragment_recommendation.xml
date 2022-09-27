@@ -114,7 +114,7 @@
                 android:id="@+id/img_recommendation"
                 android:layout_width="288dp"
                 android:layout_height="206dp"
-                app:srcCompat="@drawable/lavender" />
+              />
 
 
             <LinearLayout
@@ -139,7 +139,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
                     android:gravity="center"
-                    android:text="좋을"
                     android:textColor="#000000"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -174,7 +173,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="로즈마리"
                     android:textColor="#000000"
                     android:textSize="20sp"
                     android:textStyle="bold" />

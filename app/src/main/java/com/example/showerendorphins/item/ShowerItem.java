@@ -7,8 +7,6 @@ import android.os.Build;
 import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.example.showerendorphins.R;
 
 import java.time.LocalDateTime;
@@ -43,11 +41,11 @@ public class ShowerItem {
         this.date = date;
 
         if (feeling.equals("HAPPY")) {
-            setImg(context, R.drawable.button_custom);
+            setImg(context, R.drawable.lovely);
         }else if (feeling.equals("SAD")) {
-            setImg(context, R.drawable.button_custom);
+            setImg(context, R.drawable.crying);
         }else if (feeling.equals("ANGRY")) {
-            setImg(context, R.drawable.button_custom);
+            setImg(context, R.drawable.angry);
         }
     }
 

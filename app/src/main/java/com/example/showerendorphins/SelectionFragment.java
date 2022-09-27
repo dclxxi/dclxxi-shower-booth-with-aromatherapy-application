@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -182,7 +181,7 @@ public class SelectionFragment extends Fragment {
                     bluetoothAware.setAroma(aromaId);
 
                     btn_selection_save.setClickable(false);
-                    bluetoothAware.receive(FragmentIndex.USER_TEMP);
+                    ((MainActivity) getActivity()).replaceFragment(FragmentIndex.USER_TEMP);
                 }
             }
         });

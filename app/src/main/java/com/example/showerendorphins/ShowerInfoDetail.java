@@ -23,7 +23,6 @@ public class ShowerInfoDetail extends AppCompatActivity {
         shower_time = findViewById(R.id.shower_time);
         user_bodyTemperature = findViewById(R.id.user_bodyTemperature);
         user_height = findViewById(R.id.user_height);
-        shower_waterTemperature = findViewById(R.id.shower_waterTemperature);
         user_feeling = findViewById(R.id.user_feeling);
         shower_usedAroma = findViewById(R.id.shower_usedAroma);
         shower_evaluation = findViewById(R.id.shower_evaluation);
@@ -35,7 +34,7 @@ public class ShowerInfoDetail extends AppCompatActivity {
         shower_time.setText(intent.getStringExtra("time"));
         user_bodyTemperature.setText(intent.getStringExtra("bodyTemperature"));
         user_height.setText(intent.getStringExtra("height"));
-        shower_waterTemperature.setText(intent.getStringExtra("waterTemperature"));
+//        shower_waterTemperature.setText(intent.getStringExtra("waterTemperature"));
         user_feeling.setText(intent.getStringExtra("feeling"));
         shower_usedAroma.setText(intent.getStringExtra("aromaKoname"));
 

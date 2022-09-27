@@ -6,7 +6,6 @@ import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.widget.Toast;
 
@@ -42,8 +41,8 @@ public class MainActivity extends AppCompatActivity implements BluetoothAware {
     String mood = "";
     int height = 0;
     int aromaId = 0;
-    int userTemp = 0;
-    int waterTemp = 0;
+    Double userTemp = 0.0;
+    Double waterTemp = 0.0;
 
     BluetoothAdapter btAdapter;
     private final static int REQUEST_ENABLE_BT = 1;
@@ -129,10 +128,6 @@ public class MainActivity extends AppCompatActivity implements BluetoothAware {
                 fragmentTransaction.replace(R.id.frame_layout, new MoodFragment()).commitAllowingStateLoss();
                 break;
             case RECOMMENDATION: // RECOMMENDATION
-
-                email = "aa@test.com";
-                mood = "ANGRY";
-
                 bundle.putString("userId", email);
                 bundle.putString("feeling", mood); // mood값 전달
                 RecommendationFragment recommendationFragment = new RecommendationFragment();
@@ -140,8 +135,6 @@ public class MainActivity extends AppCompatActivity implements BluetoothAware {
                 fragmentTransaction.replace(R.id.frame_layout, recommendationFragment).commitAllowingStateLoss();
                 break;
             case SELECTION: // SELECTION
-                email = "aa@test.com";
-
                 bundle.putString("userId", email);
                 SelectionFragment selectionFragment = new SelectionFragment();
                 selectionFragment.setArguments(bundle);
@@ -180,8 +173,7 @@ public class MainActivity extends AppCompatActivity implements BluetoothAware {
     public void connect() {
         bt.setBluetoothConnectionListener(new BluetoothSPP.BluetoothConnectionListener() { //연결됐을 때
             public void onDeviceConnected(String name, String address) {
-                Toast.makeText(getApplicationContext(), "Connected to " + name + "\n" + address
-                        , Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), "Connected to " + name + "\n" + address, Toast.LENGTH_SHORT).show();
                 flag = true;
 
                 if (flag == true) {
@@ -258,27 +250,29 @@ public class MainActivity extends AppCompatActivity implements BluetoothAware {
     public void receive(FragmentIndex index) {
         bt.setOnDataReceivedListener(new BluetoothSPP.OnDataReceivedListener() { // 데이터 수신
             public void onDataReceived(byte[] data, String message) {
-                int msg = Integer.parseInt(message);
+//                int msg = Integer.parseInt(message);
 
                 if (!index.equals(FragmentIndex.RECOMMENDATION)) { // 기분 저장 후 RECOMMENDATION
-                    if (msg != 1) {
+                    if (!message.equals("1")) {
                         if (index.equals(FragmentIndex.SHOWER_HEAD)) { // 키 저장 후 SHOWER_HEAD
-                            height = msg;
+                            height = Integer.parseInt(message);
+                            Toast.makeText(MainActivity.this, "height : " + height, Toast.LENGTH_SHORT).show();
                         } else if (index.equals(FragmentIndex.WATER_TEMP)) { // 체온 저장 후 WATER_TEMP
-                            userTemp = msg;
-                        } else if (index.equals(FragmentIndex.WATER)) { // 수온 저장 후 WATER
-                            waterTemp = msg;
-                        }
+                            userTemp = Double.parseDouble(message);
+                            Toast.makeText(MainActivity.this, "userTemp : " + userTemp, Toast.LENGTH_SHORT).show();
+                        } /*else if (index.equals(FragmentIndex.WATER)) { // 수온 저장 후 WATER
+                            waterTemp = Double.parseDouble(message);
+                        }*/
                     }
                 } else {
-                    switch (msg) {  // 사용자 기분 저장
-                        case 1:
+                    switch (message) {  // 사용자 기분 저장
+                        case "1":
                             mood = "HAPPY";
                             break;
-                        case 2:
+                        case "2":
                             mood = "ANGRY";
                             break;
-                        case 3:
+                        case "3":
                             mood = "SAD";
                             break;
                     }

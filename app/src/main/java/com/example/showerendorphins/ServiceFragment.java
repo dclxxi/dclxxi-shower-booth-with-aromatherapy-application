@@ -4,8 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -29,7 +27,7 @@ public class ServiceFragment extends Fragment {
         binding = FragmentServiceBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        ((MainActivity)getActivity()).replaceFragment(FragmentIndex.RECOMMENDATION);
+        ((MainActivity)getActivity()).replaceFragment(FragmentIndex.HEIGHT);
 
         return root;
     }

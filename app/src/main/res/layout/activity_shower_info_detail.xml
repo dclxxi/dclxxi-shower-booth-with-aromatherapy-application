@@ -138,29 +138,29 @@
                     android:textSize="18dp" />
             </TableRow>
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp">
+<!--            <TableRow-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:paddingTop="10dp"-->
+<!--                android:paddingBottom="10dp">-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="수온"
-                    android:textStyle="bold"
-                    android:layout_gravity="center"
-                    android:textColor="@color/black"
-                    android:textSize="18dp" />
-                <TextView
-                    android:id="@+id/shower_waterTemperature"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="37.0"
-                    android:layout_gravity="center"
-                    android:textColor="@color/black"
-                    android:textSize="18dp" />
-            </TableRow>
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="수온"-->
+<!--                    android:textStyle="bold"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:textSize="18dp" />-->
+<!--                <TextView-->
+<!--                    android:id="@+id/shower_waterTemperature"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="37.0"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:textSize="18dp" />-->
+<!--            </TableRow>-->
 
             <TableRow
                 android:layout_width="match_parent"

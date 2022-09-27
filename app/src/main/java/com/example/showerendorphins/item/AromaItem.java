@@ -23,7 +23,7 @@ public class AromaItem implements Parcelable {
         this.enName = enName;
         this.note = note;
         this.scent = scent;
-        if (imgUrl.equals("null")) {
+        if (imgUrl == null) {
             this.imgUrl = "https://cdn-icons-png.flaticon.com/512/4200/4200467.png";
         } else {
             this.imgUrl = imgUrl;
