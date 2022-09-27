@@ -21,7 +21,6 @@ import java.util.Objects;
 public class WaterTempFragment extends Fragment {
     private BluetoothAware bluetoothAware;
     private FragmentWaterTempBinding binding;
-    private TextView tv_water;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -43,12 +42,6 @@ public class WaterTempFragment extends Fragment {
         View root = binding.getRoot();
 
         Bundle bundle = getArguments();
-        if (bundle != null) {
-            /*setting parameter*/
-            String waterTemp = bundle.getString("waterTemperature");
-            tv_water = root.findViewById(R.id.tv_water);
-            tv_water.setText(waterTemp);
-        }
         bluetoothAware.receive(FragmentIndex.WATER);
 
         return root;
