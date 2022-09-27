@@ -49,27 +49,27 @@ public class ShowerInfoItemAdapter extends ArrayAdapter implements AdapterView.O
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        final ViewHolder viewHolder;
+        final ShowerInfoItemAdapter.ViewHolder viewHolder;
 
-        if (convertView == null){
+        if (convertView == null) {
             LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
             convertView = layoutInflater.inflate(R.layout.listview_shower_info_item, parent, false);
         }
 
-        viewHolder = new ViewHolder();
+        viewHolder = new ShowerInfoItemAdapter.ViewHolder();
         viewHolder.log_date = (TextView) convertView.findViewById(R.id.item_date);
         viewHolder.feeling = (TextView) convertView.findViewById(R.id.textView_day_feeling);
         viewHolder.aroma = (TextView) convertView.findViewById(R.id.textView_day_aroma);
         viewHolder.feeling_img = (ImageView) convertView.findViewById(R.id.img_feeling);
         viewHolder.ratingBar = (RatingBar) convertView.findViewById(R.id.shower_ratingBar);
 
-        final ShowerItem showerLog =  list.get(position);
+        final ShowerItem showerLog = list.get(position);
         viewHolder.log_date.setText(showerLog.printDateStr());
         if (showerLog.getFeeling().equals("HAPPY")) {
             viewHolder.feeling.setText("행복한");
-        }else if (showerLog.getFeeling().equals("SAD")) {
-             viewHolder.feeling.setText("우울한");
-        }else if (showerLog.getFeeling().equals("ANGRY")) {
+        } else if (showerLog.getFeeling().equals("SAD")) {
+            viewHolder.feeling.setText("우울한");
+        } else if (showerLog.getFeeling().equals("ANGRY")) {
             viewHolder.feeling.setText("화나는");
         }
         viewHolder.aroma.setText(showerLog.getAromaKoname());

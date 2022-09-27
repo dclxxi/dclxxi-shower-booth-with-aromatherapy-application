@@ -1,8 +1,12 @@
 package com.example.showerendorphins;
 
 import android.Manifest;
+import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Toast;
 
@@ -10,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -18,17 +21,29 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.showerendorphins.databinding.ActivityMainBinding;
-import com.example.showerendorphins.enums.FeelingStatus;
-import com.example.showerendorphins.enums.Fragment;
+import com.example.showerendorphins.enums.FragmentIndex;
 import com.example.showerendorphins.ui.home.HomeFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
-public class MainActivity extends AppCompatActivity {
+import app.akexorcist.bluetotohspp.library.BluetoothSPP;
+import app.akexorcist.bluetotohspp.library.BluetoothState;
+import app.akexorcist.bluetotohspp.library.DeviceList;
 
+public class MainActivity extends AppCompatActivity implements BluetoothAware {
+    boolean flag = false;
+    FragmentIndex fragIndex;
+    private BluetoothSPP bt;
     private ActivityMainBinding binding;
-    FragmentManager manager;
-    FragmentTransaction transaction;
+    private FirebaseAuth mAuth;
+    String email = "";
+    String mood = "";
+    int height = 0;
+    int aromaId = 0;
+    int userTemp = 0;
+    int waterTemp = 0;
 
     BluetoothAdapter btAdapter;
     private final static int REQUEST_ENABLE_BT = 1;
@@ -36,7 +51,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_main);
+
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+        email = user.getEmail();
 
         // Get permission
         String[] permission_list = {
@@ -79,74 +97,227 @@ public class MainActivity extends AppCompatActivity {
 //        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
-//        // Enable bluetooth
-//        btAdapter = BluetoothAdapter.getDefaultAdapter();
-//        if (!btAdapter.isEnabled()) {
-//            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-//            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
-//                // TODO: Consider calling
-//                //    ActivityCompat#requestPermissions
-//                // here to request the missing permissions, and then overriding
-//                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-//                //                                          int[] grantResults)
-//                // to handle the case where the user grants the permission. See the documentation
-//                // for ActivityCompat#requestPermissions for more details.
-//                return;
-//            }
-//            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
-//        }
+        /*Blooth*/
+        bt = new BluetoothSPP(this); //Initializing
+        if (!bt.isBluetoothAvailable()) { //블루투스 사용 불가
+            Toast.makeText(getApplicationContext(), "Bluetooth is not available",
+                    Toast.LENGTH_SHORT).show();
+            finish();
+        }
+        connect();
+
     }
 
     private void displayMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
-    public void replaceFragment(int index) {
+    public void replaceFragment(FragmentIndex index) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        Bundle bundle = new Bundle();
         switch (index) {
-            case 1: // SERVICE
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frame_layout, new ServiceFragment()).commit();
+            case SERVICE: // SERVICE
+                fragmentTransaction.replace(R.id.frame_layout, new ServiceFragment()).commitAllowingStateLoss();
                 break;
-            case 2: // HEIGHT
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frame_container, new HeightFragment()).commit();
+            case HEIGHT: // HEIGHT
+                fragmentTransaction.replace(R.id.frame_layout, new HeightFragment()).commitAllowingStateLoss();
                 break;
-            case 3: // SHOWER_HEAD
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frame_container, new ShowerHeadFragment()).commit();
+            case SHOWER_HEAD: // SHOWER_HEAD
+                fragmentTransaction.replace(R.id.frame_layout, new ShowerHeadFragment()).commitAllowingStateLoss();
                 break;
-            case 4: // MOOD
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frame_container, new MoodFragment()).commit();
+            case MOOD: // MOOD
+                fragmentTransaction.replace(R.id.frame_layout, new MoodFragment()).commitAllowingStateLoss();
                 break;
-            case 5: // RECOMMENDATION
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frame_container, new RecommendationFragment()).commit();
+            case RECOMMENDATION: // RECOMMENDATION
+
+                email = "aa@test.com";
+                mood = "ANGRY";
+
+                bundle.putString("userId", email);
+                bundle.putString("feeling", mood); // mood값 전달
+                RecommendationFragment recommendationFragment = new RecommendationFragment();
+                recommendationFragment.setArguments(bundle);
+                fragmentTransaction.replace(R.id.frame_layout, recommendationFragment).commitAllowingStateLoss();
                 break;
-            case 6: // SELECTION
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frame_container, new SelectionFragment()).commit();
+            case SELECTION: // SELECTION
+                email = "aa@test.com";
+
+                bundle.putString("userId", email);
+                SelectionFragment selectionFragment = new SelectionFragment();
+                selectionFragment.setArguments(bundle);
+                fragmentTransaction.replace(R.id.frame_layout, selectionFragment).commitAllowingStateLoss();
                 break;
-            case 7: // USER_TEMP
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frame_container, new UserTempFragment()).commit();
+            case USER_TEMP: // USER_TEMP
+                fragmentTransaction.replace(R.id.frame_layout, new UserTempFragment()).commitAllowingStateLoss();
                 break;
-            case 8: // WATER_TEMP
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frame_container, new WaterTempFragment()).commit();
+            case WATER_TEMP: // WATER_TEMP
+                bundle.putString("waterTemperature", String.valueOf(waterTemp));
+                WaterTempFragment waterTempFragment = new WaterTempFragment();
+                waterTempFragment.setArguments(bundle);
+                fragmentTransaction.replace(R.id.frame_layout, waterTempFragment).commitAllowingStateLoss();
                 break;
-            case 9: // WATER
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frame_container, new WaterFragment()).commit();
+            case WATER: // WATER
+                fragmentTransaction.replace(R.id.frame_layout, new WaterFragment()).commitAllowingStateLoss();
                 break;
-            case 10: // EVALUATION
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frame_layout2, new EvaluationFragment()).commit();
+            case EVALUATION: // EVALUATION
+                bundle.putString("email", email);
+                bundle.putString("height", String.valueOf(height));
+                bundle.putString("feeling", mood);
+                bundle.putString("bodyTemperature", String.valueOf(userTemp));
+                bundle.putString("waterTemperature", String.valueOf(waterTemp));
+                bundle.putString("aroma", String.valueOf(aromaId));
+                EvaluationFragment evaluationFragment = new EvaluationFragment();
+                evaluationFragment.setArguments(bundle);
+                fragmentTransaction.replace(R.id.frame_layout, evaluationFragment).commitAllowingStateLoss();
                 break;
-            case 11: // HOME
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frame_layout, new HomeFragment()).commit();
+            case HOME: // HOME
+                fragmentTransaction.replace(R.id.frame_layout, new HomeFragment()).commitAllowingStateLoss();
                 break;
+        }
+    }
+
+    @Override
+    public void connect() {
+        bt.setBluetoothConnectionListener(new BluetoothSPP.BluetoothConnectionListener() { //연결됐을 때
+            public void onDeviceConnected(String name, String address) {
+                Toast.makeText(getApplicationContext(), "Connected to " + name + "\n" + address
+                        , Toast.LENGTH_SHORT).show();
+                flag = true;
+
+                if (flag == true) {
+                    replaceFragment(fragIndex);
+                }
+            }
+
+            public void onDeviceDisconnected() { //연결해제
+                Toast.makeText(getApplicationContext(), "Connection lost", Toast.LENGTH_SHORT).show();
+            }
+
+            public void onDeviceConnectionFailed() { //연결실패
+                Toast.makeText(getApplicationContext(), "Unable to connect", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+    public void onDestroy() {
+        super.onDestroy();
+//        bt.stopService(); //블루투스 중지
+    }
+
+    public void onStart() {
+        super.onStart();
+        if (!bt.isBluetoothEnabled()) {
+            Intent intent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return;
+            }
+            startActivityForResult(intent, BluetoothState.REQUEST_ENABLE_BT);
+        } else {
+            if (!bt.isServiceAvailable()) {
+                bt.setupService();
+                bt.startService(BluetoothState.DEVICE_OTHER); //DEVICE_ANDROID는 안드로이드 기기 끼리
+            }
+        }
+    }
+
+    @Override
+    public void startScan(FragmentIndex index) {
+        fragIndex = index;
+        if (bt.getServiceState() == BluetoothState.STATE_CONNECTED) {
+            bt.disconnect();
+        } else {
+            Intent intent = new Intent(getApplicationContext(), DeviceList.class);
+            startActivityForResult(intent, BluetoothState.REQUEST_CONNECT_DEVICE);
+        }
+    }
+
+    @Override
+    public void stopService() {
+        bt.stopService(); //블루투스 중지
+    }
+
+    @Override
+    public void send(String text) { //데이터 전송
+        bt.send(text, true);
+    }
+
+    @Override
+    public void setAroma(int aromaId) {
+        this.aromaId = aromaId;
+    }
+
+    @Override
+    public void receive(FragmentIndex index) {
+        bt.setOnDataReceivedListener(new BluetoothSPP.OnDataReceivedListener() { // 데이터 수신
+            public void onDataReceived(byte[] data, String message) {
+                int msg = Integer.parseInt(message);
+
+                if (!index.equals(FragmentIndex.RECOMMENDATION)) { // 기분 저장 후 RECOMMENDATION
+                    if (msg != 1) {
+                        if (index.equals(FragmentIndex.SHOWER_HEAD)) { // 키 저장 후 SHOWER_HEAD
+                            height = msg;
+                        } else if (index.equals(FragmentIndex.WATER_TEMP)) { // 체온 저장 후 WATER_TEMP
+                            userTemp = msg;
+                        } else if (index.equals(FragmentIndex.WATER)) { // 수온 저장 후 WATER
+                            waterTemp = msg;
+                        }
+                    }
+                } else {
+                    switch (msg) {  // 사용자 기분 저장
+                        case 1:
+                            mood = "HAPPY";
+                            break;
+                        case 2:
+                            mood = "ANGRY";
+                            break;
+                        case 3:
+                            mood = "SAD";
+                            break;
+                    }
+                }
+                replaceFragment(index);
+            }
+//                if (!message.equals("1")) {
+//                    if (index.equals(FragmentIndex.HEIGHT)) {
+//                        height = Integer.parseInt(message); // 키 저장
+//                    } else if (index.equals(FragmentIndex.MOOD)) {
+//                        int i = Integer.parseInt(message); // 사용자 기분 저장
+//                        if (i == 1) {           // happy
+//                            mood = "HAPPY";
+//                        } else if (i == 2) {    // angry
+//                            mood = "ANGRY";
+//                        } else if (i == 3) {    // sad
+//                            mood = "SAD";
+//                        }
+//                    } else if (index.equals(FragmentIndex.USER_TEMP)) {
+//                        temp = Integer.parseInt(message);
+//                    }
+//                }
+        });
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == BluetoothState.REQUEST_CONNECT_DEVICE) {
+            if (resultCode == Activity.RESULT_OK) {
+                bt.connect(data);
+            }
+        } else if (requestCode == BluetoothState.REQUEST_ENABLE_BT) {
+            if (resultCode == Activity.RESULT_OK) {
+                bt.setupService();
+                bt.startService(BluetoothState.DEVICE_OTHER);
+            } else {
+                Toast.makeText(getApplicationContext(), "Bluetooth was not enabled.", Toast.LENGTH_SHORT).show();
+                finish();
+            }
         }
     }
 }

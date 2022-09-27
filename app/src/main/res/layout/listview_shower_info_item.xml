@@ -27,7 +27,6 @@
                 android:layout_width="80px"
                 android:layout_height="80px"
                 android:layout_marginRight="15dp"
-
                 app:srcCompat="@drawable/lovely" />
 
             <LinearLayout

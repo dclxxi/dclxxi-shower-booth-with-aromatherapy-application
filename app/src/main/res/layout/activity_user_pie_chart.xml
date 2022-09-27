@@ -16,7 +16,16 @@
         android:textColor="@color/black"
         android:text="나의 만족도 그래프" />
 
-
+    <TextView
+        android:id="@+id/visibleTextWhenShowerHistoryIsNull"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:visibility="gone"
+        android:text="샤워기록이 없습니다.\n아로마샤워를 시작해보세요!"
+        android:textColor="@color/colorPrimaryText"
+        tools:layout_editor_absoluteX="252dp"
+        tools:layout_editor_absoluteY="118dp" />
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/piechart"
         android:textSize="20dp"

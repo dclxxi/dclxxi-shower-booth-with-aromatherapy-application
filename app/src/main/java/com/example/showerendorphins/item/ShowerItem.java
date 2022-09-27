@@ -7,6 +7,8 @@ import android.os.Build;
 import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.showerendorphins.R;
 
 import java.time.LocalDateTime;
@@ -27,11 +29,11 @@ public class ShowerItem {
     public ShowerItem() {
     }
 
-    public ShowerItem(Integer showerId, Integer usercode, double height, String feeling,
+    public ShowerItem(Integer showerId, double height, String feeling,
                       double bodyTemperature,double waterTemperature,
                       String aromaKoname, float rating,LocalDateTime date,Context context) {
         this.showerId = showerId;
-        this.usercode = usercode;
+//        this.usercode = usercode;
         this.height = height;
         this.feeling = feeling;
         this.bodyTemperature = bodyTemperature;
@@ -39,12 +41,13 @@ public class ShowerItem {
         this.aromaKoname = aromaKoname;
         this.rating = rating;
         this.date = date;
+
         if (feeling.equals("HAPPY")) {
-            setImg(context, R.drawable.lovely);
+            setImg(context, R.drawable.button_custom);
         }else if (feeling.equals("SAD")) {
-            setImg(context, R.drawable.crying);
+            setImg(context, R.drawable.button_custom);
         }else if (feeling.equals("ANGRY")) {
-            setImg(context, R.drawable.angry);
+            setImg(context, R.drawable.button_custom);
         }
     }
 

@@ -133,7 +133,6 @@ public class UpdateUserInfo extends AppCompatActivity {
 
     private void saveUserToMySQL(Integer code, String id, String name, String gender, String age) {
 
-        String returnData = "";
         if (gender.equals("여자")) gender = "FEMALE";
         else gender = "MALE";
 
