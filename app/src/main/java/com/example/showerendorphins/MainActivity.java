@@ -144,9 +144,7 @@ public class MainActivity extends AppCompatActivity implements BluetoothAware {
                 fragmentTransaction.replace(R.id.frame_layout, new UserTempFragment()).commitAllowingStateLoss();
                 break;
             case WATER_TEMP: // WATER_TEMP
-//                bundle.putString("waterTemperature", String.valueOf(waterTemp));
                 WaterTempFragment waterTempFragment = new WaterTempFragment();
-//                waterTempFragment.setArguments(bundle);
                 fragmentTransaction.replace(R.id.frame_layout, waterTempFragment).commitAllowingStateLoss();
                 break;
             case WATER: // WATER
