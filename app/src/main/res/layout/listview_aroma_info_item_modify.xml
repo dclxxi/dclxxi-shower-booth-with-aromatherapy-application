@@ -68,7 +68,12 @@
                     android:textSize="20dp" />
 
             </LinearLayout>
+
+            <Spinner
+                android:id="@+id/spinner_mood"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="viewEnd" />
         </LinearLayout>
     </LinearLayout>
-
 </com.example.showerendorphins.layout.CheckableLinearLayout>

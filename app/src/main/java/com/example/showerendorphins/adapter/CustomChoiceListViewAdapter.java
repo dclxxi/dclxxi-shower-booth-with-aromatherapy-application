@@ -5,9 +5,11 @@ import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,6 +18,7 @@ import androidx.annotation.RequiresApi;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.showerendorphins.AromaInfoModifyList;
 import com.example.showerendorphins.R;
 import com.example.showerendorphins.item.ListViewItem;
 
@@ -31,6 +34,7 @@ public class CustomChoiceListViewAdapter extends BaseAdapter {
         public ImageView aroma_img;
         public TextView aroma_ko_name;
         public TextView aroma_en_name;
+        public Spinner aroma_mood;
     }
 
     // ListViewAdapter 생성자
@@ -66,6 +70,7 @@ public class CustomChoiceListViewAdapter extends BaseAdapter {
         viewHolder.aroma_img = convertView.findViewById(R.id.aroma_img_modify);
         viewHolder.aroma_ko_name = convertView.findViewById(R.id.aroma_ko_name_modify);
         viewHolder.aroma_en_name = convertView.findViewById(R.id.aroma_en_name_modify);
+        viewHolder.aroma_mood = convertView.findViewById(R.id.spinner_mood);
 
         // Data Set(listview_aroma_info_item_modify)에서 position에 위치한 데이터 참조 획득
         ListViewItem listViewItem = list.get(position);
@@ -80,7 +85,16 @@ public class CustomChoiceListViewAdapter extends BaseAdapter {
         viewHolder.aroma_ko_name.setText(listViewItem.getKoName());
         viewHolder.aroma_en_name.setText(listViewItem.getEnName());
 
-        if(listViewItem.isChecked()) {
+        ArrayList mood_array = new ArrayList();
+        mood_array.add("--");
+        mood_array.add("HAPPY");
+        mood_array.add("SAD");
+        mood_array.add("ANGRY");
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(context.getApplicationContext(), android.R.layout.simple_spinner_item, mood_array);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        viewHolder.aroma_mood.setAdapter(arrayAdapter);
+
+        if (listViewItem.isChecked()) {
             ((ListView) parent).setItemChecked(position, true);
         }
 
@@ -100,7 +114,7 @@ public class CustomChoiceListViewAdapter extends BaseAdapter {
     }
 
     // 아이템 데이터 추가
-    public void addItem(ListViewItem listViewItem){
+    public void addItem(ListViewItem listViewItem) {
         list.add(0, listViewItem);
         listCnt = list.size();
         this.notifyDataSetChanged();
