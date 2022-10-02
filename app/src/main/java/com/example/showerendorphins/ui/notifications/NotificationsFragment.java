@@ -19,6 +19,7 @@ import com.example.showerendorphins.LoginActivity;
 import com.example.showerendorphins.R;
 import com.example.showerendorphins.UpdateUserInfo;
 import com.example.showerendorphins.UserPieChart;
+import com.example.showerendorphins.UserSatisfaction;
 import com.example.showerendorphins.databinding.FragmentNotificationsBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -38,7 +39,7 @@ public class NotificationsFragment extends Fragment {
 
     private FragmentNotificationsBinding binding;
     private FirebaseAuth mAuth;
-    Button btn_logout, btn_update_userinfo, selectUserScore, selectUserAroma, btn_add_aroma_item;
+    Button btn_logout, btn_update_userinfo,btn_add_aroma_item, selectUserAroma, purchaseAroma, selectUserScore,  aromaRanking;
     TextView textView_username;
 
     String code, userId, username, gender, age;
@@ -52,6 +53,8 @@ public class NotificationsFragment extends Fragment {
         btn_add_aroma_item = root.findViewById(R.id.btn_add_aroma_item);
         selectUserScore = root.findViewById(R.id.selectUserScore);
         selectUserAroma = root.findViewById(R.id.selectUserAroma);
+        purchaseAroma = root.findViewById(R.id.purchaseAroma);
+        aromaRanking = root.findViewById(R.id.aromaRanking);
         textView_username = root.findViewById(R.id.textView_username);
 
         btn_logout.setOnClickListener(new View.OnClickListener() {
@@ -96,6 +99,15 @@ public class NotificationsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), AromaInfoList.class);
+                intent.putExtra("userId", userId);
+                startActivity(intent);
+            }
+        });
+
+        aromaRanking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), UserSatisfaction.class);
                 intent.putExtra("userId", userId);
                 startActivity(intent);
             }

@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:layout_marginLeft="40dp"
-    android:layout_marginRight="40dp"
     android:layout_marginTop="80dp"
+    android:layout_marginRight="40dp"
     android:layout_marginBottom="80dp"
+    android:orientation="vertical"
     tools:context=".ui.notifications.NotificationsFragment">
 
 
@@ -67,79 +67,113 @@
 
     <Button
         android:id="@+id/btn_logout"
-        android:padding="10dp"
-        android:layout_marginBottom="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:backgroundTint="#FFFFFF"
-        android:drawableLeft="@drawable/ic_baseline_person_pin_24"
-        android:textSize="18dp"
+        android:drawableLeft="@drawable/ic_baseline_sensor_door_48"
+        android:padding="10dp"
+        android:text="로그아웃"
         android:textColor="#262626"
-        android:text="로그아웃" />
+        android:textSize="18dp" />
 
     <Button
         android:id="@+id/btn_update_userinfo"
-        android:padding="10dp"
-        android:layout_marginBottom="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:backgroundTint="#FFFFFF"
         android:drawableLeft="@drawable/ic_baseline_person_pin_24"
-        android:textSize="18dp"
+        android:padding="10dp"
+        android:text="사용자 정보 수정"
         android:textColor="#262626"
 
-        android:text="사용자 정보 수정" />
-
+        android:textSize="18dp" />
 
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:src="@drawable/simple_line"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btn_add_aroma_item"
-        android:padding="10dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:backgroundTint="#FFFFFF"
-        android:drawableLeft="@drawable/ic_baseline_grass_24"
-        android:textSize="18dp"
-        android:textColor="#262626"
-        android:text="아로마오일 추가" />
-
-    <Button
-        android:id="@+id/selectUserAroma"
+        android:drawableLeft="@drawable/ic_baseline_add_circle_48"
         android:padding="10dp"
-        android:layout_marginBottom="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#FFFFFF"
-        android:drawableLeft="@drawable/ic_baseline_grass_24"
-        android:text="보유한 아로마오일 관리"
-        android:textColor="#262626"
-        android:textSize="18dp"/>
-
-
-    <Button
-        android:id="@+id/selectUserScore"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:backgroundTint="#FFFFFF"
-        android:drawableLeft="@drawable/ic_baseline_insert_chart_24"
-        android:padding="10dp"
-        android:text="나의 만족도 통계"
+        android:text="아로마오일 추가"
         android:textColor="#262626"
         android:textSize="18dp" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
+    <Button
+        android:id="@+id/selectUserAroma"
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:layout_weight="1"
+        android:layout_marginBottom="10dp"
+        android:backgroundTint="#FFFFFF"
+        android:drawableLeft="@drawable/ic_baseline_grass_24"
+        android:padding="10dp"
+        android:text="보유한 아로마오일 관리"
+        android:textColor="#262626"
+        android:textSize="18dp" />
+    <Button
+        android:id="@+id/purchaseAroma"
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:layout_weight="1"
+        android:backgroundTint="#FFFFFF"
+        android:drawableLeft="@drawable/ic_baseline_lightbulb_48"
+        android:padding="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="구매할\n아로마오일\n추천"
+        android:textColor="#262626"
+        android:textSize="18dp" />
+</LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/selectUserScore"
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:layout_weight="1"
+            android:backgroundTint="#FFFFFF"
+            android:drawableLeft="@drawable/ic_baseline_insert_chart_24"
+            android:padding="10dp"
+            android:text="서비스\n만족도 통계"
+            android:textColor="#262626"
+            android:textSize="18dp" />
+
+        <Button
+            android:id="@+id/aromaRanking"
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:layout_weight="1"
+            android:backgroundTint="#FFFFFF"
+            android:drawableLeft="@drawable/ic_baseline_thumb_up_alt_48"
+            android:padding="10dp"
+            android:text="아로마 만족도\n랭킹"
+            android:textColor="#262626"
+            android:textSize="18dp" />
+    </LinearLayout>
 
 
 </LinearLayout>

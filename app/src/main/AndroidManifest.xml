@@ -23,17 +23,21 @@
         android:theme="@style/Theme.AppCompat.NoActionBar"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".UserSatisfaction"
+            android:exported="false" />
+
         <service
             android:name=".BluetoothService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
 
         <activity
             android:name=".UpdateUserInfo"
             android:exported="false" />
         <activity
             android:name=".MainActivity_temp2"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".LoginActivity"
             android:exported="true">
