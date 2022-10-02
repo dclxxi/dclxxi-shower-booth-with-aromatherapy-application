@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import com.example.showerendorphins.AromaInfoList;
 import com.example.showerendorphins.AromaInfoModifyList;
 import com.example.showerendorphins.LoginActivity;
+import com.example.showerendorphins.PurchaseRecommendation;
 import com.example.showerendorphins.R;
 import com.example.showerendorphins.UpdateUserInfo;
 import com.example.showerendorphins.UserPieChart;
@@ -108,6 +109,15 @@ public class NotificationsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), UserSatisfaction.class);
+                intent.putExtra("userId", userId);
+                startActivity(intent);
+            }
+        });
+
+        purchaseAroma.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), PurchaseRecommendation.class);
                 intent.putExtra("userId", userId);
                 startActivity(intent);
             }
